@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { registerLicense } from '@syncfusion/ej2-base';
 
 
-registerLicense(process.env.SYNCFUSION_LICENSE || '');
-
+registerLicense(process.env.REACT_APP_SYNCFUSION_LICENSE || '');
+console.log(process.env);
 ReactDOM.render(
   <React.StrictMode>
     <App />
