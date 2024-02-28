@@ -5,6 +5,7 @@ import { MenuComponent, MenuItemModel } from '@syncfusion/ej2-react-navigations'
 import './sidebar-menu.css';
 import SEODashboard from '../dashboard/DashBoardP';
 //import SEODashboard from './DashBoardP';
+import { Routes, Route, NavLink, Navigate, BrowserRouter } from 'react-router-dom';
 
 interface Prps{
     trogle:boolean;
@@ -131,10 +132,16 @@ const SidebarWithMenu = ({trogle, setCambios}:Prps) => {
                 </SidebarComponent>
                 
                 <div style={{overflow:'hidden'}}>
-                <SEODashboard/> 
+                    
+                <SEODashboard/>
+                    
+        
+
+
                 </div>
             </div>
         </div>
+        
     );
 }
 export default SidebarWithMenu;

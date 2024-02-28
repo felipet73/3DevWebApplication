@@ -1739,6 +1739,19 @@
     "@syncfusion/ej2-notifications" "~24.2.4"
     "@syncfusion/ej2-popups" "~24.2.5"
 
+"@syncfusion/ej2-dropdowns@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-dropdowns/-/ej2-dropdowns-24.2.8.tgz#9164a13e16b335abae07d05ea69cb5c7f5695ca0"
+  integrity sha512-Fakaa54TlMvcZ8GpqN+E27XiKrALanxBPxE/0NPA5/qqNQvQsZwBB8I5YrkWPp2C8AhVf9xqfGK9ZkFK3mxI8w==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-data" "~24.2.3"
+    "@syncfusion/ej2-inputs" "~24.2.7"
+    "@syncfusion/ej2-lists" "~24.2.8"
+    "@syncfusion/ej2-navigations" "~24.2.8"
+    "@syncfusion/ej2-notifications" "~24.2.4"
+    "@syncfusion/ej2-popups" "~24.2.8"
+
 "@syncfusion/ej2-excel-export@~24.2.4":
   version "24.2.4"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-excel-export/-/ej2-excel-export-24.2.4.tgz#fbabfc9bb33a4e95126bc907d984b53ed4617a16"
@@ -1898,6 +1911,16 @@
     "@syncfusion/ej2-pdf-export" "~24.2.3"
     "@syncfusion/ej2-svg-base" "~24.2.3"
 
+"@syncfusion/ej2-lists@24.2.8", "@syncfusion/ej2-lists@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-lists/-/ej2-lists-24.2.8.tgz#0f14a8d6ece87e0634f09fcb178e9a1ee8abc3bd"
+  integrity sha512-K1HXJL2Dz02XmTTWxZAxJ6SLJwp6pwcVLXi7L5T5NHcfOvSrPmL+vb1ZLoABHe+7Cm2snTaINdQky9cmvgBK6w==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
+    "@syncfusion/ej2-data" "~24.2.3"
+    "@syncfusion/ej2-popups" "~24.2.8"
+
 "@syncfusion/ej2-lists@~24.2.3", "@syncfusion/ej2-lists@~24.2.4":
   version "24.2.4"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-lists/-/ej2-lists-24.2.4.tgz#b14d271496b4c15affcdbc2fa5e0d56b51bc4a69"
@@ -1933,7 +1956,19 @@
     "@syncfusion/ej2-lists" "~24.2.4"
     "@syncfusion/ej2-popups" "~24.2.3"
 
-"@syncfusion/ej2-notifications@~24.2.3", "@syncfusion/ej2-notifications@~24.2.4":
+"@syncfusion/ej2-navigations@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-navigations/-/ej2-navigations-24.2.8.tgz#f8044e64fc6a856d940ae3d79c1e36bd3432aa76"
+  integrity sha512-dQ3Xnjvg1sf595M7EvDQmM10iNFU1mlqUZ/J9cdTMGoyiMeat5DtTTWVOc1NShFyJjCqHlfg5c8LNfqKRerIcA==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
+    "@syncfusion/ej2-data" "~24.2.3"
+    "@syncfusion/ej2-inputs" "~24.2.7"
+    "@syncfusion/ej2-lists" "~24.2.8"
+    "@syncfusion/ej2-popups" "~24.2.8"
+
+"@syncfusion/ej2-notifications@24.2.4", "@syncfusion/ej2-notifications@~24.2.3", "@syncfusion/ej2-notifications@~24.2.4":
   version "24.2.4"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-notifications/-/ej2-notifications-24.2.4.tgz#2d4ba937b5f5d2ed8e56f7b92dba9685e592a826"
   integrity sha512-14oBybExHpxSF88p5tbMvURoUnVNOj4nBDZJo1fnU8fb8KxHvmxtSm5ObLwe4nGiPZ/1QspGyLwL2GLKM0Ncig==
@@ -2012,6 +2047,14 @@
   dependencies:
     "@syncfusion/ej2-base" "~24.2.5"
     "@syncfusion/ej2-buttons" "~24.2.5"
+
+"@syncfusion/ej2-popups@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-popups/-/ej2-popups-24.2.8.tgz#45516b80bc63a4788c74b4278980f0743671d1ca"
+  integrity sha512-vy0GmrP49Kawt4cj9Mza3u6fGOu3id5qCAz9RHOSHbQ9awVvjrpNszZCE0vdkaD67ErvU3UnvTSOG/+jrBIwzA==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
 
 "@syncfusion/ej2-progressbar@~24.2.5":
   version "24.2.5"
@@ -2097,6 +2140,15 @@
     awesome-typescript-loader "^3.1.3"
     source-map-loader "^0.2.1"
 
+"@syncfusion/ej2-react-lists@^24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-lists/-/ej2-react-lists-24.2.8.tgz#dc1cf518eb91b9f0285309f42fd4e50c3ec2b07d"
+  integrity sha512-/Y+N4aBZya1aOe/7pEo8zCqZidsWaDx/xV2zDNP3VHPa7EvlE3frU+bUoQ4ddwLUulocp3NMHplBd1MdmLid0g==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-lists" "24.2.8"
+    "@syncfusion/ej2-react-base" "~24.2.7"
+
 "@syncfusion/ej2-react-maps@^24.1.41":
   version "24.2.4"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-maps/-/ej2-react-maps-24.2.4.tgz#6e57283df34f202637b86d40bbec79093e18622d"
@@ -2119,6 +2171,17 @@
     awesome-typescript-loader "^3.1.3"
     source-map-loader "^0.2.1"
 
+"@syncfusion/ej2-react-notifications@^24.2.4":
+  version "24.2.4"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-notifications/-/ej2-react-notifications-24.2.4.tgz#22d09e8c1a92c6bbd06c467d27038b905868125d"
+  integrity sha512-3fJwD+A/aJHdP9erBUUjJzb90xL+n9dA2r+QDC0ZNgShN6/427qtqpZsbHj/lQEsuC94jcvbmMSvPyR7IWwpCA==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.3"
+    "@syncfusion/ej2-notifications" "24.2.4"
+    "@syncfusion/ej2-react-base" "~24.2.3"
+    awesome-typescript-loader "^3.1.3"
+    source-map-loader "^0.2.1"
+
 "@syncfusion/ej2-react-popups@^24.1.46":
   version "24.2.5"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-popups/-/ej2-react-popups-24.2.5.tgz#48d1485f0d3cffa1ef50ecabfc206a6ed9ddd3db"
@@ -2130,6 +2193,15 @@
     awesome-typescript-loader "^3.1.3"
     source-map-loader "^0.2.1"
 
+"@syncfusion/ej2-react-ribbon@^24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-ribbon/-/ej2-react-ribbon-24.2.8.tgz#c944ad6872db0946598929234d9c4c31f694b20b"
+  integrity sha512-PucyzXs5+V12o61i8IgiXBwWL8a+zQ8MFJ4I6e/LTOgijsQE8qudCEqSTXwMAbiL0KPnvp0r1FbGjycVVwJvZQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-react-base" "~24.2.7"
+    "@syncfusion/ej2-ribbon" "24.2.8"
+
 "@syncfusion/ej2-react-splitbuttons@^24.1.46":
   version "24.2.7"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-splitbuttons/-/ej2-react-splitbuttons-24.2.7.tgz#5ccb15814ceb0f321717e18cabdd92d11db6b4b5"
@@ -2138,6 +2210,19 @@
     "@syncfusion/ej2-base" "~24.2.7"
     "@syncfusion/ej2-react-base" "~24.2.7"
     "@syncfusion/ej2-splitbuttons" "24.2.7"
+
+"@syncfusion/ej2-ribbon@24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-ribbon/-/ej2-ribbon-24.2.8.tgz#c7ad884dda073a6f82db71cf2bd613c8c1d8a68b"
+  integrity sha512-JaIVUqgk0Mzxh4W35W45wHi93c3upeVfkPPc3wmkfwXk0EKsNh7PrvDYjlE2KRPX5OF5QOLKUKYG5jj/Cb5pKQ==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
+    "@syncfusion/ej2-dropdowns" "~24.2.8"
+    "@syncfusion/ej2-lists" "~24.2.8"
+    "@syncfusion/ej2-navigations" "~24.2.8"
+    "@syncfusion/ej2-popups" "~24.2.8"
+    "@syncfusion/ej2-splitbuttons" "~24.2.7"
 
 "@syncfusion/ej2-ribbon@~24.2.3":
   version "24.2.3"

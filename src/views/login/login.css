@@ -164,3 +164,11 @@
     color: rgba(var(--color-sf-on-background), 0.95);
     font-size:3rem;
 }
+
+.borde{
+    -webkit-box-shadow: 10px 8px 36px 0px rgba(var(--color-sf-on-background), 0.25);
+    -moz-box-shadow: 10px 8px 36px 0px rgba(var(--color-sf-on-background), 0.25);
+    box-shadow: 10px 8px 36px 0px rgba(var(--color-sf-on-background), 0.25);    
+    border-radius:40px;
+    
+}

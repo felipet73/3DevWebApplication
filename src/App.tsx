@@ -74,7 +74,7 @@ function App() {
             //setSelectedTheme('material3'); 
         }} target='#targetElement'></FabComponent>
 
-        <Navigation />
+        <Navigation setCambios={setCambios}/>
       </BrowserRouter>
     </>
   );
