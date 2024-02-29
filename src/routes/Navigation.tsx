@@ -1,3 +1,4 @@
+
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import * as React from 'react';
@@ -5,17 +6,16 @@ import { useEffect } from 'react';
 import { AppBarComponent, MenuComponent, MenuItemModel, MenuEventArgs, SidebarComponent } from '@syncfusion/ej2-react-navigations';
 import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 import { ButtonComponent, ChangeEventArgs } from '@syncfusion/ej2-react-buttons';
-import '../views/layouts/color.css';
 import Presentation from '../views/home/Presentation';
 import Login from '../views/login/Login';
 import SEODashboard from '../views/dashboard/DashBoardP';
-import '../views/layouts/sidebar-menu.css';
-//import CodeGenerator from '../views/layouts/LayoutAppplications';
 import BreadCrum from '../views/layouts/BreadCrum';
 import LayoutAppplications from '../views/layouts/LayoutAppplications';
-import MainLearn from '../views/Learn/Authors';
 import LearnMenu from '../views/Learn/LearnMenu';
 import Notifications from '../views/layouts/Notifications';
+
+
+import '../views/layouts/sidebar-menu.css';
 
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
