@@ -1,43 +1,36 @@
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
-
-import logo from '../logo.svg'
-import SidebarWithMenu from '../views/layouts/SideBarC';
-import AppBar from '../views/layouts/AppBar';
-import Presetation from '../views/home/Presentation';
-
 import * as React from 'react';
 import { useEffect } from 'react';
 import { AppBarComponent, MenuComponent, MenuItemModel, MenuEventArgs, SidebarComponent } from '@syncfusion/ej2-react-navigations';
 import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 import { ButtonComponent, ChangeEventArgs } from '@syncfusion/ej2-react-buttons';
 import '../views/layouts/color.css';
-//import SEODashboard from './DashBoardP';
-//import SidebarWithMenu from './SideBarC';
-import AddressBar from '../views/layouts/BarAdress';
 import Presentation from '../views/home/Presentation';
 import Login from '../views/login/Login';
 import SEODashboard from '../views/dashboard/DashBoardP';
 import '../views/layouts/sidebar-menu.css';
-import CodeGenerator from '../views/CodeGenerator/CodeGenerator';
+//import CodeGenerator from '../views/layouts/LayoutAppplications';
+import BreadCrum from '../views/layouts/BreadCrum';
+import LayoutAppplications from '../views/layouts/LayoutAppplications';
+import MainLearn from '../views/Learn/Authors';
+import LearnMenu from '../views/Learn/LearnMenu';
+import Notifications from '../views/layouts/Notifications';
+
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
 export const Navigation = ({ setCambios }: Prps) => {
-
+  const navigate = useNavigate();
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);
-
-
+  const [actualRoute, setActualRoute] = React.useState<string[]>(['3Dev Dashboard']);
   let sidebarobj = React.useRef<SidebarComponent>(null);
-
-  const [content, SetContent] = React.useState('');
 
   let menuItems: MenuItemModel[] = [
     {
-      text: 'Home',
+      text: 'Home Dashboard',
       iconCss: 'icon-up-hand icon',
       items: [
         { text: 'Home Dashboard' }
@@ -73,7 +66,7 @@ export const Navigation = ({ setCambios }: Prps) => {
       ]
     },
     {
-      text: 'Catalags',
+      text: 'Catalogs',
       iconCss: 'icon-bookmark icon',
       items: [
         { text: 'Catalogs' },
@@ -86,15 +79,6 @@ export const Navigation = ({ setCambios }: Prps) => {
         { text: 'Pubs' },
       ]
     },
-    /*{
-        text: 'Users ',
-        iconCss: 'icon-user icon',
-        items: [
-            { text: 'Mobile User' },
-            { text: 'Laptop User' },
-            { text: 'Desktop User' }
-        ]
-    },*/
     {
       text: 'Settings',
       iconCss: 'icon-eye icon',
@@ -108,26 +92,15 @@ export const Navigation = ({ setCambios }: Prps) => {
   const dockSize: string = '50px';
   const width: string = '220px';
   const target: string = '.main-menu-content';
-  let folderEle: string = '<div class= "e-folder"><div class= "e-folder-name">Navigation Pane</div></div>';
-
 
   useEffect(() => {
-    //sidebarobj.current?.toggle();
     sidebarobj.current?.toggle();
     setCambios(state => !state);
-    setTimeout(() => {
-      setCambios(state => !state);
-      //alert()  
-    }, 800);
+    setTimeout(() => setCambios(state => !state), 800);
   }, [trogle])
 
-
-
-
   useEffect(() => {
-    setTimeout(() => {
-      setTrogle(!trogle);
-    }, 1500);
+    setTimeout(() => setTrogle(!trogle) , 1500);
   }, [])
 
   const btnCreated = (): void => {
@@ -186,10 +159,7 @@ export const Navigation = ({ setCambios }: Prps) => {
       ]
     }
   ];
-  const appBarColors: any = [
-    { colorMode: 'Light', colorClass: 'e-light', isPrimary: 'true', loginClass: 'login' }, { colorMode: 'Dark', colorClass: 'e-dark', isPrimary: 'false', loginClass: 'e-inherit login' },
-    { colorMode: 'Primary', colorClass: 'e-primary', isPrimary: 'false', loginClass: 'e-inherit login' }, { colorMode: 'Inherit', colorClass: 'e-inherit', isPrimary: 'true', loginClass: 'login' }
-  ];
+  
   const onInputFocus = (args: React.FocusEvent) => {
     ((args.target as HTMLElement).parentElement as HTMLElement).classList.add('e-input-focus');
   }
@@ -202,121 +172,84 @@ export const Navigation = ({ setCambios }: Prps) => {
       args.element.setAttribute('aria-label', 'more vertical');
     }
   }
-  const navigate = useNavigate();
-  return (
+  const SelectApp = (e:any) => {
+    console.log(e.item.text)
+    if (e.item.text === 'Code Generator') {navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']); }
+    if (e.item.text === 'Home Dashboard') {navigate("/dashboard"); setActualRoute(['3Dev Dashboard']);}
+    if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') {navigate("/erp"); setActualRoute(['3Dev ERP']);}
+    if (e.item.text === 'Learn') {navigate("/learn");setActualRoute(['3Dev Learn']);}
+    if (e.item.text === 'Utils') {navigate("/utils");setActualRoute(['3Dev Utils']);}
+    if (e.item.text === 'Catalogs') {navigate("/catalogs");setActualRoute(['3Dev Catalogs']);}
+    if (e.item.text === 'Pubs') {navigate("/pubs");setActualRoute(['3Dev Pubs']);}
+  }
 
+  const SelectMenuUsr = (e:any) => {
+    if (e.item.text === 'Logout') {
+      setLogged(false);
+      navigate("/home");
+    }
+  }
+  
+  return (
     <>
       <div className='control-container'>
         <AppBarComponent colorMode={'Light'} isSticky>
-
           {!logeed && <>
             <ButtonComponent cssClass='e-inherit home e-appbar-menu' iconCss='e-icons e-home' onClick={() => navigate("/home")} ></ButtonComponent>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={productDropDownButtonItems}>Product Information</DropDownButtonComponent>
             <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={() => navigate("/about")}>About</ButtonComponent>
             <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={() => navigate("/sponsors")}>Sponsors</ButtonComponent>
             {/* <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={()=> {} }></ButtonComponent>
-        <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={()=> {} }>Condiciones Generales</ButtonComponent> */}
-
+            <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={()=> {} }>Condiciones Generales</ButtonComponent> */}
             <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={() => navigate("/contact")}>Contact us</ButtonComponent>
             <div className='e-appbar-spacer' style={{ width: '10%' }}></div>
-
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={lenguajesDropDownButtonItems} style={{ marginLeft: '10px', marginRight: '15px' }}>English</DropDownButtonComponent>
             <ButtonComponent cssClass='e-inherit e-appbar-menu' onClick={() => { navigate("/login"); }}>Login </ButtonComponent>
             {/* <NavLink to="/login" className={ ({ isActive }) => isActive ? 'nav-active' : '' }>Login</NavLink> */}
-
           </>}
           {logeed && <>
             <ButtonComponent created={btnCreated} onClick={() => setTrogle(!trogle)} cssClass='e-inherit menu' iconCss='e-icons e-menu'></ButtonComponent>
-            <AddressBar />
-            <ButtonComponent cssClass='e-inherit e-appbar-menu'></ButtonComponent>
-            <ButtonComponent cssClass='e-inherit e-appbar-menu'></ButtonComponent>
-            <ButtonComponent cssClass='e-inherit e-appbar-menu'></ButtonComponent>
-            <ButtonComponent cssClass='e-inherit e-appbar-menu'></ButtonComponent>
-
-
+            {actualRoute.length>0 && <BreadCrum actualRoute={actualRoute} setActualRoute={setActualRoute}/>}
+            <div className='e-appbar-spacer'></div>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={productDropDownButtonItems}>Products</DropDownButtonComponent>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={companyDropDownButtonItems}>Company</DropDownButtonComponent>
-            <div className='e-appbar-spacer'></div>
+            <div className='e-appbar-spacer' style={{ width: '10px' }}></div>
             <div style={{ width: '200px', marginRight: '10px' }}>
               <span className='e-input-group e-control-wrapper e-inherit'>
                 <input type='text' className='e-searchinput e-input' placeholder='Search' onFocus={onInputFocus} onBlur={onInputBlur} />
                 <span className='e-icons e-search e-input-group-icon'></span>
               </span>
             </div>
-            <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={lenguajesDropDownButtonItems} style={{ marginLeft: '10px', marginRight: '15px' }}>Español</DropDownButtonComponent>
+            <Notifications/>
+            <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={lenguajesDropDownButtonItems} style={{ marginLeft: '10px', marginRight: '15px' }}>English</DropDownButtonComponent>
             <div className="e-avatar e-avatar-xlarge e-avatar-circle" style={{ marginRight: '10px' }}>
               <img className="image" src="https://ej2.syncfusion.com/react/demos/src/avatar/images/pic01.png" alt="avatar" />
             </div>
-            {/* <ButtonComponent isPrimary={true} cssClass={'login'}>Login</ButtonComponent> */}
-            <MenuComponent cssClass={'e-inherit e-appbar-icon-menu ' + 'e-light'} items={verticalMenuItems} beforeItemRender={beforeItemRender} select={
-              (e) => {
-                if (e.item.text === 'Logout') {
-                  setLogged(false);
-                  navigate("/home");
-                }
-
-
-              }}></MenuComponent>
+            <MenuComponent cssClass={'e-inherit e-appbar-icon-menu ' + 'e-light'} items={verticalMenuItems} beforeItemRender={beforeItemRender} select={SelectMenuUsr}></MenuComponent>
           </>
           }
-
         </AppBarComponent>
-
         <div className="appbar-content" >
-
-          {/*logeed && <SidebarWithMenu trogle={trogle} setCambios={setCambios} />*/}
-          {/*!logeed && <Presentation />*/}
-
-
-
-
           <div id="menu-wrapper">
             <div id="sidebarmenu">
-              <div >
-
-                {/* <ToolbarComponent id="menuToolbar" clicked={toolbarCliked.bind(this)}>
-                        <ItemsDirective>
-                            <ItemDirective prefixIcon="icon-menu" tooltipText="Menu"></ItemDirective>
-                            <ItemDirective template={folderEle}></ItemDirective>
-                        </ItemsDirective>
-                    </ToolbarComponent> */}
-              </div>
-              {/* main content declaration */}
-
-              {/* end of main content declaration
-                sidebar element declaration */}
               {logeed &&
                 <SidebarComponent id="menuSidebar" className="sidebar-menu" ref={sidebarobj} enableDock={enableDock} dockSize={dockSize} width={width} target={target} isOpen={false} type="Auto">
-
                   <div className="main-menu" >
                     <div className="" style={{ marginTop: '20px' }}>
-                      <MenuComponent id="dockMenu" items={menuItems} orientation='Vertical' cssClass='dock-menu' 
-                      select={
-                        (e) => {
-                          console.log(e.item.text)
-                          if (e.item.text === 'Code Generator') {
-                            navigate("/codegenerator");
-                          }
-                          if (e.item.text === 'Home Dashboard') {
-                            navigate("/dashboard");
-                          }
-                          
-                          }}></MenuComponent>
+                      <MenuComponent id="dockMenu" items={menuItems} orientation='Vertical' cssClass='dock-menu' select={SelectApp}></MenuComponent>
                     </div>
                   </div>
                 </SidebarComponent>
-
-
               }
-
               <div style={{ overflow: 'hidden' }}>
-
-
-
                 <Routes>
                   <Route path="dashboard" element={<SEODashboard />} />
-                  <Route path="codegenerator" element={<CodeGenerator />} />
-
+                  <Route path="codegenerator" element={<LayoutAppplications option={1}/>} />
+                  <Route path="erp" element={<LayoutAppplications option={2}/>} />
+                  <Route path="learn" element={<LearnMenu/>} />
+                  <Route path="utils" element={<LayoutAppplications option={3}/>} />
+                  <Route path="catalogs" element={<h1>Catalogs</h1>} />
+                  <Route path="pubs" element={<h1>Pubs</h1>} />
 
                   <Route path="home" element={<Presentation />} />
                   <Route path="about" element={<h1>About</h1>} />
@@ -328,23 +261,17 @@ export const Navigation = ({ setCambios }: Prps) => {
                   <Route path="login" element={<Login setTrogle={setTrogle} setLogged={setLogged} />} />
                   <Route path="/*" element={<Navigate to="/home" replace />} />
                 </Routes>
-
-
-
               </div>
             </div>
           </div>
-
-
-
-
         </div>
       </div>
+    </>
+  )
+}
 
 
       {/* <SidebarWithMenu trogle={false} setCambios={()=>{}}/> */}
-
-
       {/* <nav>
                     <img src={ logo } alt="React Logo" />
                     <ul>
@@ -359,11 +286,3 @@ export const Navigation = ({ setCambios }: Prps) => {
                         </li>
                     </ul>
                 </nav> */}
-
-
-
-
-
-    </>
-  )
-}

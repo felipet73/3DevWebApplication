@@ -27,7 +27,7 @@
     background-color: #dbdadacc;
     display: flex;
     flex-direction: column;
-    height: 550px;
+    height: 93vh;
   }
   
   #default-ribbon {
@@ -46,15 +46,15 @@
   
   /* content customization */
   #default-ribbonPlaceHolder .content1 {
-    background-color: #3a9ae5;
-    width: 150px;
-    height: 60%;
+    background-color: rgba(var(--color-sf-surface), 0.95);
+    width: 200px;
+    height: 100%;
   }
   
   #default-ribbonPlaceHolder .content2 {
-    background-color: #9d9c9a;
-    width: calc(100% - 160px);
-    height: 60%;
+    background-color: rgba(var(--color-sf-surface), 0.95);
+    width: calc(100% - 210px);
+    height: 100%;
   }
   
   #default-ribbonPlaceHolder .content3 {

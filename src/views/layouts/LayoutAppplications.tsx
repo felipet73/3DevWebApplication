@@ -7,8 +7,15 @@ import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 import { ListViewComponent } from '@syncfusion/ej2-react-lists';
 import { MenuItemModel } from '@syncfusion/ej2-react-navigations';
 import './default.css';
+import GeneratorHome from '../CodeGenerator/GeneratorHome';
+import LearnMenu from '../Learn/LearnMenu';
 
-const CodeGenerator = () => {
+interface Prps {
+    option:number;
+}
+
+const LayoutAppplications = ({ option=0 }:Prps) => {
+
     let ribbonObj = useRef<RibbonComponent>(null);
     const pasteOptions: ItemModel[] = [{ text: "Keep Source Format" }, { text: "Merge Format" }, { text: "Keep Text Only" }];
     const findOptions: ItemModel[] = [{ text: "Find", iconCss: "e-icons e-search" }, { text: "Advanced find", iconCss: "e-icons e-search" }, { text: "Go to", iconCss: "e-icons e-arrow-right" }];
@@ -73,7 +80,7 @@ const CodeGenerator = () => {
         <div className='control-pane'>
             <div className='col-lg-12 control-section default-ribbon-section'>
                 <div className='control ribbon-sample'>
-                    <div id="default-ribbonContainer" className='default-ribbon-container'>
+                    <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height:'93vh' }}>
                         <RibbonComponent id='default-ribbon' ref={ ribbonObj } enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick}>
                             <RibbonTabsDirective>
                                 <RibbonTabDirective header='Home'>
@@ -310,11 +317,14 @@ const CodeGenerator = () => {
                             </RibbonTabsDirective>
                             <Inject services={[RibbonFileMenu, RibbonColorPicker]} />
                         </RibbonComponent>
-                        <div id="default-ribbonPlaceHolder">
+                        <div id="default-ribbonPlaceHolder" style={{ height:'80%' }}>
                             <div className="content1"></div>
-                            <div className="content2"></div>
-                            <div className="content3"></div>
-                            <div className="content4"></div>
+                            
+                            <div className="content2" style={{ overflowY:'scroll', overflowX:'hidden', height:'100%' }}>
+                                {option===1 && <><LearnMenu/></>}
+                            </div>
+                            {/* <div className="content3"></div>
+                            <div className="content4"></div> */}
                             <ToastComponent id='toast' ref={ toastInstance } position={{ X: 'Right' }} width='auto' height={25} timeOut={2000} cssClass='e-toast-info' showCloseButton={true} target="#default-ribbonPlaceHolder" newestOnTop={true} animation={{ show: { effect: 'FadeIn' }, hide: { effect: 'FadeOut' } }} />
                         </div>
                         <ListViewComponent id='default-pictureList' dataSource={['This Device', 'Stock Images', 'Online Images']} showHeader={true} headerTitle="Insert Picture From" select={ (args:any) => { updateContent("Picture -> " + args.text); }}></ListViewComponent>
@@ -324,4 +334,4 @@ const CodeGenerator = () => {
         </div>
     );
 }
-export default CodeGenerator;
+export default LayoutAppplications;
