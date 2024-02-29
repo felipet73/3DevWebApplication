@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { useEffect } from 'react';
-import './card.component.css';
+//import './card.component.css';
 
 const Today = () => {    
 

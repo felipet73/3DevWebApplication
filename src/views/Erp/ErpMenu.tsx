@@ -1,52 +1,18 @@
-import * as ReactDOM from 'react-dom';
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
-
+import { useState } from 'react';
 import { HeaderPosition, OverflowMode, TabComponent, TabItemDirective, TabItemsDirective } from '@syncfusion/ej2-react-navigations';
-import { ChangeEventArgs } from '@syncfusion/ej2-react-dropdowns';
-//import './generatormenu.css';
-import GeneratorHome from './GeneratorHome';
+import ErpHome from './ErpHome';
 
 
-const GeneratorMenu = () => {
+const ErpMenu = () => {
 
     const [overflow, setOverflow] = useState<OverflowMode>("Scrollable");
     const [headerPlacement, setHeaderPlacement] = useState<HeaderPosition>("Top");
 
-    // Change event funtion for DropDownList component   
-    /*const changeOrientationMode = (e: ChangeEventArgs): void => {
-        setHeaderPlacement(e.itemData.text as HeaderPosition);
-    }
-
-    // Change event funtion for DropDownList component   
-    const changeOverflowMode = (e: ChangeEventArgs): void => {
-        setOverflow(e.itemData.text as OverflowMode);
-    }*/
-
-    // Mapping DropDownList dataSource property
-    const oData: { [key: string]: Object }[] = [
-        { 'value': 'top', 'text': 'Top' }, { 'value': 'bottom', 'text': 'Bottom' },
-        { 'value': 'left', 'text': 'Left' }, { 'value': 'right', 'text': 'Right' }
-    ];
-
-    // Mapping DropDownList dataSource property
-    const mData: { [key: string]: Object }[] = [
-        { 'value': 'scrollable', 'text': 'Scrollable' }, { 'value': 'popup', 'text': 'Popup' }
-    ];
-
-    // Mapping DropDownList fields property
-    const fields: object = { text: 'text', value: 'value' };
-
-    // Mapping DropDownList value property
-    const mVal: string = 'scrollable';
-
-    // Mapping DropDownList value property
-    const orientVal: string = 'top';
-
+    
     let headertext: any;
     // Mapping Tab items Header property
-    headertext = [{ text: "My Learn" }, { text: "Themes" }, { text: "Authors" }, { text: "VB.NET" }, { text: "Xamarin" },
-    { text: "ASP.NET" }, { text: "ASP.NET MVC" }, { text: "JavaScript" }];
+    headertext = [{ text: "Recent" }, { text: "All application" }, { text: "Tecnical Applications" }, { text: "Administrative applications" }, { text: "Sales applications" },
+    { text: "" }, { text: "" }, { text: "" }];
     return (
         <div className='control-pane'>
             <div className='control-section tab-control-section row'>
@@ -56,12 +22,10 @@ const GeneratorMenu = () => {
                         <TabComponent cssClass='responsive-mode' heightAdjustMode='None' height='250px' width='auto' overflowMode={overflow} headerPlacement={headerPlacement} > 
                             <TabItemsDirective >
                                 <TabItemDirective header={headertext[0]}
-                                    content={GeneratorHome} />
+                                    content={ErpHome} />
 
                                 <TabItemDirective header={headertext[1]}
-                                    content={'C# is intended to be a simple, modern, general-purpose, object-oriented ' +
-                                        'programming language. Its development team is led by Anders Hejlsberg. The most recent ' +
-                                        'version is C# 5.0, which was released on August 15, 2012.'} />
+                                    content={ErpHome} />
 
                                 <TabItemDirective header={headertext[2]}
                                     content={'Java is a set of computer software and specifications developed by Sun Microsystems, ' +
@@ -116,4 +80,4 @@ const GeneratorMenu = () => {
         </div>
     );
 }
-export default GeneratorMenu;
+export default ErpMenu;

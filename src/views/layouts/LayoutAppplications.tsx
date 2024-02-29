@@ -9,6 +9,8 @@ import { MenuItemModel } from '@syncfusion/ej2-react-navigations';
 import './default.css';
 import GeneratorHome from '../CodeGenerator/GeneratorHome';
 import LearnMenu from '../Learn/LearnMenu';
+import GeneratorMenu from '../CodeGenerator/GeneratorMenu';
+import ErpMenu from '../Erp/ErpMenu';
 
 interface Prps {
     option:number;
@@ -321,7 +323,8 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                             <div className="content1"></div>
                             
                             <div className="content2" style={{ overflowY:'scroll', overflowX:'hidden', height:'100%' }}>
-                                {option===1 && <><LearnMenu/></>}
+                                {option===1 && <><GeneratorMenu/></>}
+                                {option===2 && <><ErpMenu/></>}
                             </div>
                             {/* <div className="content3"></div>
                             <div className="content4"></div> */}

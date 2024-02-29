@@ -1,9 +1,5 @@
-import * as ReactDOM from 'react-dom';
-import * as React from 'react';
-import { useEffect } from 'react';
-//import './card.component.css';
 
-const Authors = () => {
+const ErpHome = () => {
 
     return (
         <div className='control-pane'>
@@ -273,4 +269,4 @@ const Authors = () => {
         </div>
     );
 }
-export default Authors;
+export default ErpHome;

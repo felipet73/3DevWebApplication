@@ -1,5 +1,5 @@
 import { DashboardLayoutComponent, PanelModel, PanelDirective, PanelsDirective } from '@syncfusion/ej2-react-layouts';
-import './analytics.css';
+//import './analytics.css';
 //import * as data from './default-datasource.json';
 import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, AccumulationSeriesDirective, AccumulationLegend, Legend, PieSeries, ChartTheme, AccumulationTooltip,SeriesCollectionDirective, AccumulationTheme, AccumulationDataLabel, ChartComponent, ILoadedEventArgs,  IAccLoadedEventArgs, ColumnSeries,Category, SeriesDirective,Tooltip,DataLabel, DateTime, SplineAreaSeries, Inject } from '@syncfusion/ej2-react-charts';
 //import { DataGrd } from './DataGrd';

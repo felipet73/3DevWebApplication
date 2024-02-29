@@ -2,7 +2,7 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { ToolbarComponent } from '@syncfusion/ej2-react-navigations';
-import './notifications.css';
+//import './notifications.css';
 
 const Notifications = () => {
 

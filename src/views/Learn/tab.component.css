@@ -1,3 +1,4 @@
+/*
 .tab-control-section .orientation-tab .e-content .e-item,
 .tab-control-section .responsive-mode .e-content .e-item {
     font-size: 12px;
@@ -61,7 +62,7 @@
     text-align: center;
 }
 
-/* custom code start*/
+
 .tab-control-section .property-panel-content {
     padding: 10px;
 }
@@ -74,7 +75,7 @@
     }
 }
 
-/* custom code end*/
+
 
 #amount {
     text-align: right;
@@ -250,7 +251,7 @@
         overflow: scroll;
     }
 }
-
+*/
 
 .e-tab-header.e-control.e-toolbar.e-lib.responsive-mode.e-keyboard {
     display: flex;

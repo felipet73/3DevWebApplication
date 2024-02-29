@@ -33,7 +33,7 @@ function App() {
 
   const [selectedTheme, setSelectedTheme] = useState('material3');
   const [cambios, setCambios] = useState(true);
-  const selectCSS = () => {
+  /*const selectCSS = () => {
       if (selectedTheme){
         const el = document.getElementById('theme') as HTMLAnchorElement;
         el.href = 'tailwind-dark.css';
@@ -43,7 +43,7 @@ function App() {
           el.href = 'tailwind.css';
           setCambios(!cambios);
       }
-    }
+    }*/
 
    
     const setTheme = (selectedTheme:string) => {

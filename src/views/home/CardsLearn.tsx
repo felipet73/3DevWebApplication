@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { useState, useEffect } from "react";
-import './cardslearn.css'
+//import './cardslearn.css'
 
 
 const CardsLearn = () => {
