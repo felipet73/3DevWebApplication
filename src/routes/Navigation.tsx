@@ -10,7 +10,7 @@ import Presentation from '../views/home/Presentation';
 import Login from '../views/login/Login';
 import SEODashboard from '../views/dashboard/DashBoardP';
 import BreadCrum from '../views/layouts/BreadCrum';
-import LayoutAppplications from '../views/layouts/LayoutAppplications';
+import LayoutAppplications from '../views/layouts/Applications/LayoutAppplications';
 import LearnMenu from '../views/Learn/LearnMenu';
 import Notifications from '../views/layouts/Notifications';
 

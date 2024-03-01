@@ -7,16 +7,18 @@ import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 import { ListViewComponent } from '@syncfusion/ej2-react-lists';
 import { MenuItemModel } from '@syncfusion/ej2-react-navigations';
 import './default.css';
-import GeneratorHome from '../CodeGenerator/GeneratorHome';
-import LearnMenu from '../Learn/LearnMenu';
-import GeneratorMenu from '../CodeGenerator/GeneratorMenu';
-import ErpMenu from '../Erp/ErpMenu';
+import GeneratorHome from '../../CodeGenerator/GeneratorHome';
+import LearnMenu from '../../Learn/LearnMenu';
+import GeneratorMenu from '../../CodeGenerator/GeneratorMenu';
+import ErpMenu from '../../Erp/ErpMenu';
+import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
+import SideOptions from './SideOptions';
 
 interface Prps {
-    option:number;
+    option: number;
 }
 
-const LayoutAppplications = ({ option=0 }:Prps) => {
+const LayoutAppplications = ({ option = 0 }: Prps) => {
 
     let ribbonObj = useRef<RibbonComponent>(null);
     const pasteOptions: ItemModel[] = [{ text: "Keep Source Format" }, { text: "Merge Format" }, { text: "Keep Text Only" }];
@@ -47,26 +49,26 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
     let toastInstance = useRef<ToastComponent>(null);
 
     let isPasteDisabled: boolean = true;
-    const enablePaste = () => { 
+    const enablePaste = () => {
         if (!isPasteDisabled) { return; }
         ribbonObj.current!.enableItem('pastebtn');
         isPasteDisabled = false;
     }
 
-    const updateContent = (args:any) => {
+    const updateContent = (args: any) => {
         toastInstance.current!.show({ content: "Last clicked item is " + args });
     }
 
     const fileSelect = (args: FileMenuEventArgs) => {
-        if(args.item.id === "newword" || args.item.id === "oldword" || args.item.id === "pdf"){
+        if (args.item.id === "newword" || args.item.id === "oldword" || args.item.id === "pdf") {
             updateContent("File -> Save as -> " + args.item.text);
         }
         else {
             updateContent("File -> " + args.item.text);
         }
-      }
-    
-      const launchClick = (args: LauncherClickEventArgs) => {
+    }
+
+    const launchClick = (args: LauncherClickEventArgs) => {
         if (args.groupId == "clipboard") {
             updateContent("Clipboard Launcher Icon");
         }
@@ -78,12 +80,31 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
         }
     }
 
+
+    const hPaneContent1 = () => {
+        return (
+            <div className="splitter-content">
+                <SideOptions/>
+            </div>
+        );
+    };
+
+    const hPaneContent2 = () => {
+        return (
+            <div className="splitter-content" style={{ overflowY:'auto', overflowX:'hidden' }}>
+                {option === 1 && <><GeneratorMenu /></>}
+                {option === 2 && <><ErpMenu /></>}
+            </div>
+        );
+    };
+
+
     return (
         <div className='control-pane'>
             <div className='col-lg-12 control-section default-ribbon-section'>
                 <div className='control ribbon-sample'>
-                    <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height:'93vh' }}>
-                        <RibbonComponent id='default-ribbon' ref={ ribbonObj } enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick}>
+                    <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '93vh' }}>
+                        <RibbonComponent id='default-ribbon' ref={ribbonObj} enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick}>
                             <RibbonTabsDirective>
                                 <RibbonTabDirective header='Home'>
                                     <RibbonGroupsDirective>
@@ -98,9 +119,9 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                                                 </RibbonCollectionDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
-                                                        <RibbonItemDirective type="Button" buttonSettings={{ iconCss: "e-icons e-cut", content: "Cut", clicked: () => { updateContent("Cut"); enablePaste();} }}>
+                                                        <RibbonItemDirective type="Button" buttonSettings={{ iconCss: "e-icons e-cut", content: "Cut", clicked: () => { updateContent("Cut"); enablePaste(); } }}>
                                                         </RibbonItemDirective>
-                                                        <RibbonItemDirective type="Button" buttonSettings={{ iconCss: "e-icons e-copy", content: "Copy", clicked: () => { updateContent("Copy"); enablePaste();} }}>
+                                                        <RibbonItemDirective type="Button" buttonSettings={{ iconCss: "e-icons e-copy", content: "Copy", clicked: () => { updateContent("Copy"); enablePaste(); } }}>
                                                         </RibbonItemDirective>
                                                         <RibbonItemDirective type="Button" buttonSettings={{ iconCss: "e-icons e-format-painter", content: "Format Painter", clicked: () => { updateContent("Format Painter") } }}>
                                                         </RibbonItemDirective>
@@ -120,9 +141,9 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                                                 </RibbonCollectionDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
-                                                        <RibbonItemDirective type="GroupButton" allowedSizes={RibbonItemSize.Small} groupButtonSettings={{selection: RibbonGroupButtonSelection.Multiple, header: 'Format Styles', items: [{iconCss: 'e-icons e-bold', content: 'Bold', selected: true, click: () => { updateContent("Bold") }}, {iconCss: 'e-icons e-italic', content: 'Italic', click: () => { updateContent("Italic") }}, {iconCss: 'e-icons e-underline', content: 'Underline', click: () => { updateContent("Underline") }}, {iconCss: 'e-icons e-strikethrough', content: 'Strikethrough', click: () => { updateContent("Strikethrough") }},{iconCss: 'e-icons e-change-case', content: 'Change Case', click: () => { updateContent("Change Case") }}]}}>
+                                                        <RibbonItemDirective type="GroupButton" allowedSizes={RibbonItemSize.Small} groupButtonSettings={{ selection: RibbonGroupButtonSelection.Multiple, header: 'Format Styles', items: [{ iconCss: 'e-icons e-bold', content: 'Bold', selected: true, click: () => { updateContent("Bold") } }, { iconCss: 'e-icons e-italic', content: 'Italic', click: () => { updateContent("Italic") } }, { iconCss: 'e-icons e-underline', content: 'Underline', click: () => { updateContent("Underline") } }, { iconCss: 'e-icons e-strikethrough', content: 'Strikethrough', click: () => { updateContent("Strikethrough") } }, { iconCss: 'e-icons e-change-case', content: 'Change Case', click: () => { updateContent("Change Case") } }] }}>
                                                         </RibbonItemDirective>
-                                                        <RibbonItemDirective type="ColorPicker" allowedSizes={RibbonItemSize.Small} displayOptions={DisplayMode.Simplified | DisplayMode.Classic} colorPickerSettings={{value: '#123456', change: (args) => { updateContent(args.currentValue.hex + " color"); }}}>
+                                                        <RibbonItemDirective type="ColorPicker" allowedSizes={RibbonItemSize.Small} displayOptions={DisplayMode.Simplified | DisplayMode.Classic} colorPickerSettings={{ value: '#123456', change: (args) => { updateContent(args.currentValue.hex + " color"); } }}>
                                                         </RibbonItemDirective>
                                                     </RibbonItemsDirective>
                                                 </RibbonCollectionDirective>
@@ -142,7 +163,7 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                                                 </RibbonCollectionDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
-                                                        <RibbonItemDirective type="GroupButton" allowedSizes={RibbonItemSize.Small} groupButtonSettings={{selection: RibbonGroupButtonSelection.Single, header: 'Alignment', items: [{iconCss: 'e-icons e-align-left', selected: true, click: () => { updateContent("Align Left") }}, {iconCss: 'e-icons e-align-center', click: () => { updateContent("Align Center") }}, {iconCss: 'e-icons e-align-right', click: () => { updateContent("Align Right") }}, {iconCss: 'e-icons e-justify', click: () => { updateContent("Justify") }}]}}>
+                                                        <RibbonItemDirective type="GroupButton" allowedSizes={RibbonItemSize.Small} groupButtonSettings={{ selection: RibbonGroupButtonSelection.Single, header: 'Alignment', items: [{ iconCss: 'e-icons e-align-left', selected: true, click: () => { updateContent("Align Left") } }, { iconCss: 'e-icons e-align-center', click: () => { updateContent("Align Center") } }, { iconCss: 'e-icons e-align-right', click: () => { updateContent("Align Right") } }, { iconCss: 'e-icons e-justify', click: () => { updateContent("Justify") } }] }}>
                                                         </RibbonItemDirective>
                                                     </RibbonItemsDirective>
                                                 </RibbonCollectionDirective>
@@ -210,7 +231,7 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                                             <RibbonCollectionsDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
-                                                    <RibbonItemDirective id='pictureddl' type="DropDown" dropDownSettings={{ iconCss: "e-icons e-image", content: "Pictures", target: '#default-pictureList' }}>
+                                                        <RibbonItemDirective id='pictureddl' type="DropDown" dropDownSettings={{ iconCss: "e-icons e-image", content: "Pictures", target: '#default-pictureList' }}>
                                                         </RibbonItemDirective>
                                                         <RibbonItemDirective type="DropDown" dropDownSettings={{ iconCss: "sf-icon-shapes", items: shapeOptions, content: "Shapes", select: (args) => { updateContent("Shapes -> " + args.item.text); } }}>
                                                         </RibbonItemDirective>
@@ -319,18 +340,31 @@ const LayoutAppplications = ({ option=0 }:Prps) => {
                             </RibbonTabsDirective>
                             <Inject services={[RibbonFileMenu, RibbonColorPicker]} />
                         </RibbonComponent>
-                        <div id="default-ribbonPlaceHolder" style={{ height:'80%' }}>
-                            <div className="content1"></div>
+                        <div id="default-ribbonPlaceHolder" style={{ height: '80%' }}>
+
+
+                            <SplitterComponent height="100%" width="100%" separatorSize={4}>
+                                <PanesDirective>
+                                    <PaneDirective size="15%" min="60px" content={hPaneContent1} />
+                                    <PaneDirective size="85%" min="60px" content={hPaneContent2} />
+                                </PanesDirective>
+                            </SplitterComponent>
+
+
+                            {/* <div className="content1"></div>
                             
                             <div className="content2" style={{ overflowY:'scroll', overflowX:'hidden', height:'100%' }}>
                                 {option===1 && <><GeneratorMenu/></>}
                                 {option===2 && <><ErpMenu/></>}
-                            </div>
+                            </div> */}
+
+
+
                             {/* <div className="content3"></div>
                             <div className="content4"></div> */}
-                            <ToastComponent id='toast' ref={ toastInstance } position={{ X: 'Right' }} width='auto' height={25} timeOut={2000} cssClass='e-toast-info' showCloseButton={true} target="#default-ribbonPlaceHolder" newestOnTop={true} animation={{ show: { effect: 'FadeIn' }, hide: { effect: 'FadeOut' } }} />
+                            <ToastComponent id='toast' ref={toastInstance} position={{ X: 'Right' }} width='auto' height={25} timeOut={2000} cssClass='e-toast-info' showCloseButton={true} target="#default-ribbonPlaceHolder" newestOnTop={true} animation={{ show: { effect: 'FadeIn' }, hide: { effect: 'FadeOut' } }} />
                         </div>
-                        <ListViewComponent id='default-pictureList' dataSource={['This Device', 'Stock Images', 'Online Images']} showHeader={true} headerTitle="Insert Picture From" select={ (args:any) => { updateContent("Picture -> " + args.text); }}></ListViewComponent>
+                        <ListViewComponent id='default-pictureList' dataSource={['This Device', 'Stock Images', 'Online Images']} showHeader={true} headerTitle="Insert Picture From" select={(args: any) => { updateContent("Picture -> " + args.text); }}></ListViewComponent>
                     </div>
                 </div>
             </div>

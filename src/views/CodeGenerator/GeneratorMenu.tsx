@@ -13,40 +13,12 @@ const GeneratorMenu = () => {
     const [overflow, setOverflow] = useState<OverflowMode>("Scrollable");
     const [headerPlacement, setHeaderPlacement] = useState<HeaderPosition>("Top");
 
-    // Change event funtion for DropDownList component   
-    /*const changeOrientationMode = (e: ChangeEventArgs): void => {
-        setHeaderPlacement(e.itemData.text as HeaderPosition);
-    }
-
-    // Change event funtion for DropDownList component   
-    const changeOverflowMode = (e: ChangeEventArgs): void => {
-        setOverflow(e.itemData.text as OverflowMode);
-    }*/
-
-    // Mapping DropDownList dataSource property
-    const oData: { [key: string]: Object }[] = [
-        { 'value': 'top', 'text': 'Top' }, { 'value': 'bottom', 'text': 'Bottom' },
-        { 'value': 'left', 'text': 'Left' }, { 'value': 'right', 'text': 'Right' }
-    ];
-
-    // Mapping DropDownList dataSource property
-    const mData: { [key: string]: Object }[] = [
-        { 'value': 'scrollable', 'text': 'Scrollable' }, { 'value': 'popup', 'text': 'Popup' }
-    ];
-
-    // Mapping DropDownList fields property
-    const fields: object = { text: 'text', value: 'value' };
-
-    // Mapping DropDownList value property
-    const mVal: string = 'scrollable';
-
-    // Mapping DropDownList value property
-    const orientVal: string = 'top';
+    
 
     let headertext: any;
     // Mapping Tab items Header property
-    headertext = [{ text: "My Learn" }, { text: "Themes" }, { text: "Authors" }, { text: "VB.NET" }, { text: "Xamarin" },
-    { text: "ASP.NET" }, { text: "ASP.NET MVC" }, { text: "JavaScript" }];
+    headertext = [{ text: "Recent Projects" }, { text: "My projects" }, { text: "" }, { text: "" }, { text: "" },
+    { text: "" }, { text: "" }, { text: "" }];
     return (
         <div className='control-pane'>
             <div className='control-section tab-control-section row'>
@@ -59,10 +31,7 @@ const GeneratorMenu = () => {
                                     content={GeneratorHome} />
 
                                 <TabItemDirective header={headertext[1]}
-                                    content={'C# is intended to be a simple, modern, general-purpose, object-oriented ' +
-                                        'programming language. Its development team is led by Anders Hejlsberg. The most recent ' +
-                                        'version is C# 5.0, which was released on August 15, 2012.'} />
-
+                                        content={GeneratorHome} />
                                 <TabItemDirective header={headertext[2]}
                                     content={'Java is a set of computer software and specifications developed by Sun Microsystems, ' +
                                         'later acquired by Oracle Corporation, that provides a system for developing application ' +

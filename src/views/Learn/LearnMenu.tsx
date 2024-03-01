@@ -44,8 +44,8 @@ const LearnMenu = () => {
 
     let headertext: any;
     // Mapping Tab items Header property
-    headertext = [{ text: "My Learn" }, { text: "Themes" }, { text: "Authors" }, { text: "VB.NET" }, { text: "Xamarin" },
-    { text: "ASP.NET" }, { text: "ASP.NET MVC" }, { text: "JavaScript" }];
+    headertext = [{ text: "My Learn" }, { text: "Courses" }, { text: "Authors" }, { text: "My Courses" }, { text: "" },
+    { text: "" }, { text: "" }, { text: "" }];
     return (
         <div className='control-pane'>
             <div className='control-section tab-control-section row'>
@@ -58,23 +58,14 @@ const LearnMenu = () => {
                                     content={Authors} />
 
                                 <TabItemDirective header={headertext[1]}
-                                    content={'C# is intended to be a simple, modern, general-purpose, object-oriented ' +
-                                        'programming language. Its development team is led by Anders Hejlsberg. The most recent ' +
-                                        'version is C# 5.0, which was released on August 15, 2012.'} />
+                                    content={Authors} />
 
                                 <TabItemDirective header={headertext[2]}
-                                    content={'Java is a set of computer software and specifications developed by Sun Microsystems, ' +
-                                        'later acquired by Oracle Corporation, that provides a system for developing application ' +
-                                        'software and deploying it in a cross-mobile phones to platform computing environment. Java ' +
-                                        'is used in a wide variety of computing platforms from embedded devices and enterprise servers ' +
-                                        'and supercomputers. While less common, Java applets run in secure, sandboxed environments to ' +
-                                        'provide many features of native applications and can be embedded in HTML pages.'} />
+                                    content={Authors} />
 
                                 <TabItemDirective header={headertext[3]}
-                                    content={'The command-line compiler, VBC.EXE, is installed as part of the freeware .NET ' +
-                                        'Framework SDK. Mono also includes a command-line VB.NET compiler. The most recent version ' +
-                                        'is VB 2012, which was released on August 15, 2012.'} />
-
+                                    content={Authors} />
+                                    
                                 <TabItemDirective header={headertext[4]}
                                     content={'Xamarin is a San Francisco, California based software company created in May ' +
                                         '2011 by the engineers that created Mono, Mono for Android and MonoTouch that are ' +

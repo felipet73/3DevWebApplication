@@ -250,9 +250,7 @@ const SEODashboard = () => {
         <div>
             <div className="" id="target_dash">
                 <div className="col-lg-12 col-sm-12 col-md-12" id="dashboard_sidebar_section">
-                    
                     {/* <Draggable/> */}
-                    
                     <div id="analytic_target">
                         <div className="">
                             <div className="dashboardParent">

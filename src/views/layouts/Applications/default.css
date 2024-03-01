@@ -130,3 +130,7 @@
   [class*="e-ribbon-"] .sf-icon-editor:before { content: "\e70a"; }
   [class*="e-ribbon-"] .sf-icon-word:before { content: "\e70d"; }
   
+
+.e-splitter.e-splitter-horizontal .e-pane.e-pane-horizontal, .e-splitter.e-splitter-vertical .e-pane.e-pane-horizontal {
+  background-color:rgba(var(--color-sf-on-secondary));
+}

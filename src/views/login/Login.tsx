@@ -11,7 +11,7 @@ interface Props {
     setLogged: (value: React.SetStateAction<boolean>) => void;
 }
 
-const Login = ({ setTrogle, setLogged }:Props) => {
+const Login = ({ setTrogle, setLogged }: Props) => {
 
     const navigate = useNavigate();
 
@@ -32,68 +32,60 @@ const Login = ({ setTrogle, setLogged }:Props) => {
     }
 
     return (
-        <div className='control-pane' style={{ marginTop:'80px', display:'flex', justifyContent:'space-around',  }}>
-            <div className='control-section input-content-wrapper borde' style={{ width:'35vw' }}>
+        <div className='control-pane' style={{ marginTop: '80px' }}>
+            <div className='control-section card-control-section vertical_card_layout'>
+                <div className="e-card-resize-container">
+                    <div className='row'>
+                        <div className="row card-layout">
+                            <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12" >
+                                <div className="e-card profile" style={{ justifyContent: 'flex-start', marginBottom: '20px' }}>
+                                <div className="e-input-group" style={{ padding: '10px' }}>
+                                    <div className="e-card-header">
+                                        <img src={`/assets/icons/${'perfil'}.png`} alt="" style={{ width: '10%' }} />
+                                        <b className='title-login' style={{ fontSize: '3rem', marginLeft: '30px', marginTop: '15px' }}>Login</b>
+                                        <ButtonComponent onClick={() => navigate("/home")} style={{ position: 'absolute', right: '35px' }} >X</ButtonComponent>
+                                    </div>
+                                    </div>
+                                    <div className="e-input-group" style={{ padding: '30px' }}>
+                                        <TextBoxComponent placeholder="Email" floatLabelType="Auto" />
+                                        <TextBoxComponent placeholder="Password" floatLabelType="Auto" type='password' />
+                                    </div>
+                                    <div className="e-input-group" style={{ padding: '30px' }}>
+                                        <div className="e-card-separator"></div>
 
-                <div className="row " style={{ marginTop:'35px' }}>
-                    <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12"><b className='title-login'>LogIn</b></div>
-                    <ButtonComponent onClick={()=>navigate("/home") } style={{ position:'absolute', marginLeft:'-55px' }} >X</ButtonComponent>
-                </div>
-                <div className="row " style={{ marginTop:'15px' }}>
-                    <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                        <div className="e-input-group">
-                            <TextBoxComponent placeholder="Email" floatLabelType="Auto" />
+                                        <ButtonComponent onClick={() => navigate("/home")} style={{ marginLeft: '10px', marginRight: '25px', height:'55px', marginTop:'20px' }}>
+                                                <img src={`/assets/icons/${'facebook'}.png`} alt="facebook" height="40px" style={{ width: '40px' }} />
+                                            </ButtonComponent>
+                                            <ButtonComponent onClick={() => navigate("/home")} style={{ marginRight: '25px', height:'55px', marginTop:'20px' }}>
+                                                <img src={`/assets/icons/${'gmail'}.png`} alt="facebook" height="40px" style={{ width: '40px' }} />
+                                            </ButtonComponent>
+                                            <ButtonComponent onClick={() => navigate("/home")} style={{ marginRight: '25px', height:'55px', marginTop:'20px' }}>
+                                                <img src={`/assets/icons/${'github'}.png`} alt="facebook" height="40px" style={{ width: '40px' }} />
+                                            </ButtonComponent>
+                                            <ButtonComponent onClick={() => navigate("/home")} style={{ marginRight: '65px', height:'55px', marginTop:'20px' }}>
+                                                <img src={`/assets/icons/${'linkedin'}.png`} alt="facebook" height="40px" style={{ width: '40px' }} />
+                                            </ButtonComponent>
+
+
+                                            <ButtonComponent cssClass='e-secondary' onClick={() => { navigate("/register"); }} style={{ marginRight: '55px', height:'65px', marginTop:'2%' }}><img src={`/assets/icons/${'registro'}.png`} alt="facebook" height="40px" style={{ width: '40px', marginRight: '15px' }} />
+                                                Register</ButtonComponent>
+                                                <ButtonComponent cssClass='e-danger' onClick={() => {
+                                                setLogged(true);
+                                                navigate("/dashboard");
+                                                setTrogle(st => !st);
+                                            }} style={{ height:'65px', marginTop:'2%' }}><img src={`/assets/icons/${'ingresar'}.png`} alt="facebook" height="40px" style={{ width: '40px', marginRight: '15px' }} />
+                                                Login</ButtonComponent>
+
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="row " style={{ marginTop:'15px' }}>
-                <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                        <div className="e-input-group">
-                            <TextBoxComponent placeholder="Password" floatLabelType="Auto" type='password' />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className='row ' style={{ marginTop:'20px' }}>
-                    <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                        <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12" style={{ marginTop:'30px', marginBottom:'45px', display:'flex', alignItems:'baseline', justifyContent:'space-around' }} >
-                            <ButtonComponent cssClass='e-danger' onClick={()=>{
-                                setLogged(true);
-                                navigate("/dashboard");
-                                setTrogle(st=>!st);
-                                }}><img src={`/assets/icons/${'ingresar'}.png`} alt="facebook" height="40px" style={{ width: '40px', marginRight:'15px' }}/>
-                                Login</ButtonComponent>
-                                <ButtonComponent cssClass='e-secondary' onClick={()=>{
-                                //setLogged(true);
-                                navigate("/register");
-                                }}><img src={`/assets/icons/${'registro'}.png`} alt="facebook" height="40px" style={{ width: '40px', marginRight:'15px' }}/>
-                                Register</ButtonComponent>
-
-                        </div>
-
-                        <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12" style={{ marginTop:'20px', marginBottom:'45px', display:'flex', alignItems:'baseline', justifyContent:'space-around' }}>
-                            <ButtonComponent onClick={()=>navigate("/home") } style={{ marginLeft:'20px', marginRight:'25px' }}>
-                                <img src={`/assets/icons/${'facebook'}.png`} alt="facebook" height="40px" style={{ width: '40px' }}/>
-                            </ButtonComponent>
-                            <ButtonComponent onClick={()=>navigate("/home") } style={{ marginRight:'25px' }}>
-                                <img src={`/assets/icons/${'gmail'}.png`} alt="facebook" height="40px" style={{ width: '40px' }}/>
-                            </ButtonComponent>
-                            <ButtonComponent onClick={()=>navigate("/home") } style={{ marginRight:'25px' }}>
-                                <img src={`/assets/icons/${'github'}.png`} alt="facebook" height="40px" style={{ width: '40px' }}/>
-                            </ButtonComponent>
-                            <ButtonComponent onClick={()=>navigate("/home") } style={{ marginRight:'25px' }}>
-                                <img src={`/assets/icons/${'linkedin'}.png`} alt="facebook" height="40px" style={{ width: '40px' }}/>
-                            </ButtonComponent>
-
-                        </div>
-
-                    </div>
-                </div>
-
             </div>
         </div>
-
     );
 }
 export default Login;

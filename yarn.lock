@@ -1652,6 +1652,17 @@
     "@syncfusion/ej2-lists" "~24.2.4"
     "@syncfusion/ej2-popups" "~24.2.5"
 
+"@syncfusion/ej2-calendars@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-calendars/-/ej2-calendars-24.2.8.tgz#776854c2269164f67845444323187ee94bd8c50e"
+  integrity sha512-yNIDopI/QlCEukzmza/YMvNTzeY5HTl7kf03/2JWvSudw6Wo+4RgH+rNiRZoe4QOREcFvvyq5Zt2J9xFsAkEqw==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
+    "@syncfusion/ej2-inputs" "~24.2.7"
+    "@syncfusion/ej2-lists" "~24.2.8"
+    "@syncfusion/ej2-popups" "~24.2.8"
+
 "@syncfusion/ej2-charts@24.2.7", "@syncfusion/ej2-charts@~24.2.3", "@syncfusion/ej2-charts@~24.2.5", "@syncfusion/ej2-charts@~24.2.7":
   version "24.2.7"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-charts/-/ej2-charts-24.2.7.tgz#d6437550132b3fa86a621bcd9e18bd10c6321718"
@@ -1821,6 +1832,27 @@
     "@syncfusion/ej2-notifications" "~24.2.4"
     "@syncfusion/ej2-pdf-export" "~24.2.3"
     "@syncfusion/ej2-popups" "~24.2.5"
+    "@syncfusion/ej2-splitbuttons" "~24.2.7"
+
+"@syncfusion/ej2-grids@~24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-grids/-/ej2-grids-24.2.8.tgz#a6c158e05bf137193e6aa6eca868b9c5b7955412"
+  integrity sha512-dTAv6zUuow6x4VOufNU2lkjQYxCk7qFPFeqBUGABD4VKUezuCQ3Qz1w+gWHRbO33kZ5bMXBWlAi3laYm6ZBB/w==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-buttons" "~24.2.7"
+    "@syncfusion/ej2-calendars" "~24.2.8"
+    "@syncfusion/ej2-compression" "~24.2.3"
+    "@syncfusion/ej2-data" "~24.2.3"
+    "@syncfusion/ej2-dropdowns" "~24.2.8"
+    "@syncfusion/ej2-excel-export" "~24.2.4"
+    "@syncfusion/ej2-file-utils" "~24.2.3"
+    "@syncfusion/ej2-inputs" "~24.2.7"
+    "@syncfusion/ej2-lists" "~24.2.8"
+    "@syncfusion/ej2-navigations" "~24.2.8"
+    "@syncfusion/ej2-notifications" "~24.2.4"
+    "@syncfusion/ej2-pdf-export" "~24.2.3"
+    "@syncfusion/ej2-popups" "~24.2.8"
     "@syncfusion/ej2-splitbuttons" "~24.2.7"
 
 "@syncfusion/ej2-heatmap@~24.2.7":
@@ -2211,6 +2243,15 @@
     "@syncfusion/ej2-react-base" "~24.2.7"
     "@syncfusion/ej2-splitbuttons" "24.2.7"
 
+"@syncfusion/ej2-react-treegrid@^24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-react-treegrid/-/ej2-react-treegrid-24.2.8.tgz#612ef246218627d77d4762738d170e140658ba42"
+  integrity sha512-idrY/sZACzJW8vHZHUSQBUnfK7b+ikYjXKGw3LdbCMvhuiT6ITq59k93ibh15jYRK0Ggvb+dAR5/sV0HRH8Tyw==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-react-base" "~24.2.7"
+    "@syncfusion/ej2-treegrid" "24.2.8"
+
 "@syncfusion/ej2-ribbon@24.2.8":
   version "24.2.8"
   resolved "https://registry.yarnpkg.com/@syncfusion/ej2-ribbon/-/ej2-ribbon-24.2.8.tgz#c7ad884dda073a6f82db71cf2bd613c8c1d8a68b"
@@ -2291,6 +2332,16 @@
   integrity sha512-1fQsvaq3tNtLqL3Rt5rsh6Dgp+DgMePhjVvj76ASaIZnrEKvZQOR4yOeTOKQmireIWNJra5S509uFDtWYQ67Aw==
   dependencies:
     "@syncfusion/ej2-base" "~24.2.3"
+
+"@syncfusion/ej2-treegrid@24.2.8":
+  version "24.2.8"
+  resolved "https://registry.yarnpkg.com/@syncfusion/ej2-treegrid/-/ej2-treegrid-24.2.8.tgz#fa0b215632d6cf5d4a5c12caee2943f753c62a0a"
+  integrity sha512-XGF6mep9gZ+37Tqy7mFKJ7+VKEmEcfV0n8GqvROHnTFO2CfNrT0ghXZX8JZeIGUyKrv8BEoGhKPvcvCykikW9A==
+  dependencies:
+    "@syncfusion/ej2-base" "~24.2.7"
+    "@syncfusion/ej2-data" "~24.2.3"
+    "@syncfusion/ej2-grids" "~24.2.8"
+    "@syncfusion/ej2-popups" "~24.2.8"
 
 "@syncfusion/ej2-treegrid@~24.2.7":
   version "24.2.7"

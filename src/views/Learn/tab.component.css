@@ -1,4 +1,14 @@
 
+
+.e-tab .e-tab-header .e-toolbar-item .e-tab-text {
+    color: rgba(var(--color-sf-inverse-surface), 0.95);
+}
+
+.e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text{
+    color: rgba(var(--color-sf-inverse-primary), 1);
+
+}
+
 .e-tab-header.e-control.e-toolbar.e-lib.responsive-mode.e-keyboard {
     display: flex;
     justify-content: space-around;
