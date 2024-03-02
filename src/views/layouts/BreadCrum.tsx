@@ -48,7 +48,7 @@ const BreadCrum = ({actualRoute,setActualRoute}:Prps) => {
                         <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12" style={{ overflow:'hidden' }}>
                             <BreadcrumbComponent cssClass="e-custom-breadcrumb" style={{ width:'18vw', overflow:'hidden', marginLeft:'-43px' }} itemTemplate={customTemplate} separatorTemplate={customSeparatorTemplate}>
                                 <BreadcrumbItemsDirective >
-                                    {actualRoute.map( r => <BreadcrumbItemDirective text={r} />)}
+                                    {actualRoute.map( r => <BreadcrumbItemDirective key={r} text={r} />)}
                                 </BreadcrumbItemsDirective>
                             </BreadcrumbComponent>
                         </div>

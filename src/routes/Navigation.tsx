@@ -7,15 +7,18 @@ import { AppBarComponent, MenuComponent, MenuItemModel, MenuEventArgs, SidebarCo
 import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 import { ButtonComponent, ChangeEventArgs } from '@syncfusion/ej2-react-buttons';
 import Presentation from '../views/home/Presentation';
-import Login from '../views/login/Login';
+import Login from '../views/auth/login/Login';
 import SEODashboard from '../views/dashboard/DashBoardP';
 import BreadCrum from '../views/layouts/BreadCrum';
 import LayoutAppplications from '../views/layouts/Applications/LayoutAppplications';
 import LearnMenu from '../views/Learn/LearnMenu';
 import Notifications from '../views/layouts/Notifications';
-
+import { ChipDirective, ChipListComponent, ChipsDirective } from '@syncfusion/ej2-react-buttons';
 
 import '../views/layouts/sidebar-menu.css';
+import Register from '../views/auth/register/Register';
+import { UserInterface } from '../interfaces/userInterface';
+import { useGlobalStore } from '../stores';
 
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +29,12 @@ export const Navigation = ({ setCambios }: Prps) => {
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);
   const [actualRoute, setActualRoute] = React.useState<string[]>(['3Dev Dashboard']);
+  //const [actualUser, setActualUser] = React.useState<UserInterface>({name:'', email:'', emailValidated:false, id:'',role:['']});
+  
+  const loggedUser = useGlobalStore( state => state.loggedUser);
+  //const setLoggedUser = useGlobalStore( state => state.setLoggedUser);
+
+
   let sidebarobj = React.useRef<SidebarComponent>(null);
 
   let menuItems: MenuItemModel[] = [
@@ -94,6 +103,8 @@ export const Navigation = ({ setCambios }: Prps) => {
   const target: string = '.main-menu-content';
 
   useEffect(() => {
+    //setActualUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}' ) || {});
+    //setLoggedUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}'));
     sidebarobj.current?.toggle();
     setCambios(state => !state);
     setTimeout(() => setCambios(state => !state), 800);
@@ -102,6 +113,7 @@ export const Navigation = ({ setCambios }: Prps) => {
   useEffect(() => {
     setTimeout(() => setTrogle(!trogle) , 1500);
   }, [])
+  
 
   const btnCreated = (): void => {
     const menuButtonElement = document.querySelectorAll('.color-appbar-section .e-inherit.menu');
@@ -223,9 +235,10 @@ export const Navigation = ({ setCambios }: Prps) => {
             <Notifications/>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={lenguajesDropDownButtonItems} style={{ marginLeft: '10px', marginRight: '15px' }}>English</DropDownButtonComponent>
             <div className="e-avatar e-avatar-xlarge e-avatar-circle" style={{ marginRight: '10px' }}>
-              <img className="image" src="https://ej2.syncfusion.com/react/demos/src/avatar/images/pic01.png" alt="avatar" />
+              <img className="image" src={(loggedUser && loggedUser?.img) ? "https://images.pexels.com/photos/11259425/pexels-photo-11259425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1":`https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`  } alt="avatar" />
             </div>
-            <MenuComponent cssClass={'e-inherit e-appbar-icon-menu ' + 'e-light'} items={verticalMenuItems} beforeItemRender={beforeItemRender} select={SelectMenuUsr}></MenuComponent>
+            <MenuComponent title={loggedUser && loggedUser?.name} cssClass={'e-inherit e-appbar-icon-menu ' + 'e-light'} items={verticalMenuItems} beforeItemRender={beforeItemRender} select={SelectMenuUsr}></MenuComponent>
+            <span style={{ position:'absolute', fontSize:'1.3rem', right: '5px', marginTop:'-28px' }}>{ loggedUser && loggedUser?.name }</span>
           </>
           }
         </AppBarComponent>
@@ -250,14 +263,13 @@ export const Navigation = ({ setCambios }: Prps) => {
                   <Route path="utils" element={<LayoutAppplications option={3}/>} />
                   <Route path="catalogs" element={<h1>Catalogs</h1>} />
                   <Route path="pubs" element={<h1>Pubs</h1>} />
-
                   <Route path="home" element={<Presentation />} />
                   <Route path="about" element={<h1>About</h1>} />
                   <Route path="sponsors" element={<h1>Sponsors</h1>} />
                   <Route path="contact" element={<h1>Contact</h1>} />
                   <Route path="codegeneratordocs" element={<h1>Code generator docs</h1>} />
                   <Route path="erpdocs" element={<h1>Erp docs</h1>} />
-                  <Route path="register" element={<h1>Register</h1>} />
+                  <Route path="register" element={<Register setTrogle={setTrogle} setLogged={setLogged} />} />
                   <Route path="login" element={<Login setTrogle={setTrogle} setLogged={setLogged} />} />
                   <Route path="/*" element={<Navigate to="/home" replace />} />
                 </Routes>

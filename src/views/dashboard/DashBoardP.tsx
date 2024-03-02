@@ -9,6 +9,9 @@ import Draggable from './DialogA';
 import DraggableB from './DialogB';
 import DefaultMaps from './Map';*/
 import Today from './today';
+import CardUser from './maindashboard/CardUser';
+import Cardinformation from './maindashboard/CardInformation';
+
 //import { ViewerSc } from './ViewerSc';
 
 
@@ -103,6 +106,22 @@ const SEODashboard = () => {
         return(
             <div className="card">
                 <Today/>
+            </div>
+        );
+    }
+
+    const cardProfile = () => {
+        return(
+            <div className="card">
+                <CardUser/>
+            </div>
+        );
+    }
+
+    const Information1 = () => {
+        return(
+            <div className="card">
+                <Cardinformation/>
             </div>
         );
     }
@@ -256,8 +275,8 @@ const SEODashboard = () => {
                             <div className="dashboardParent">
                                 <DashboardLayoutComponent ref={(scope) => { dashboardObj = scope; }} id="analytic_dashboard" cellAspectRatio={100/100} cellSpacing={cellSpacing} columns={6} allowResizing={true} resizableHandles={resize} resizeStart={onResizeStart.bind(this)} resize={onResize.bind(this)} resizeStop={onResizeStop.bind(this)} created={onCreated.bind(this)} >
                                     <PanelsDirective>
-                                        <PanelDirective sizeX={1} sizeY={0.5} row={0} col={0} content={card1.bind(this) as any} ></PanelDirective>
-                                        <PanelDirective sizeX={1} sizeY={0.5} row={0} col={1} content={card1.bind(this) as any} ></PanelDirective>
+                                        <PanelDirective sizeX={1} sizeY={0.5} row={0} col={0} content={cardProfile.bind(this) as any} ></PanelDirective>
+                                        <PanelDirective sizeX={1} sizeY={0.5} row={0} col={1} content={Information1.bind(this) as any} ></PanelDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={2} content={card1.bind(this) as any} ></PanelDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={3} content={card1.bind(this) as any} ></PanelDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={4} content={card1.bind(this) as any} ></PanelDirective>
