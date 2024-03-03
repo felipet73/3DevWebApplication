@@ -511,6 +511,35 @@ background: inherit;
 
 
 
+*::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+*::-webkit-scrollbar:vertical {
+  width:12px;
+}
+
+*::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+  display: none;
+} 
+
+*::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--color-sf-on-primary-container), 0.45);
+  border-radius: 20px;
+  border: 0.5px solid rgba(var(--color-sf-secondary-container), 0.45);;
+  
+  
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 10px;  
+}
+
+
 
 
 

@@ -13,6 +13,7 @@ import GeneratorMenu from '../../CodeGenerator/GeneratorMenu';
 import ErpMenu from '../../Erp/ErpMenu';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 import SideOptions from './SideOptions';
+import { useMenuStore } from '../../../stores';
 
 interface Prps {
     option: number;
@@ -21,6 +22,9 @@ interface Prps {
 const LayoutAppplications = ({ option = 0 }: Prps) => {
 
     let ribbonObj = useRef<RibbonComponent>(null);
+    const fileOptions = useMenuStore(state => state.fileOptions);
+    const setFileOptions = useMenuStore(state => state.setFileOptions);
+
     const pasteOptions: ItemModel[] = [{ text: "Keep Source Format" }, { text: "Merge Format" }, { text: "Keep Text Only" }];
     const findOptions: ItemModel[] = [{ text: "Find", iconCss: "e-icons e-search" }, { text: "Advanced find", iconCss: "e-icons e-search" }, { text: "Go to", iconCss: "e-icons e-arrow-right" }];
     const selectOptions: ItemModel[] = [{ text: "Select All" }, { text: "Select Objects" }];
@@ -35,7 +39,7 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
     const fontSize: string[] = ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72", "96"];
     const fontStyle: string[] = ["Algerian", "Arial", "Calibri", "Cambria", "Cambria Math", "Courier New", "Candara", "Georgia", "Impact", "Segoe Print", "Segoe Script", "Segoe UI", "Symbol", "Times New Roman", "Verdana", "Windings"];
 
-    const fileOptions: MenuItemModel[] = [{ text: "New", iconCss: "e-icons e-file-new", id: "new" },
+    /*const fileOptions: MenuItemModel[] = [{ text: "New", iconCss: "e-icons e-file-new", id: "new" },
     { text: "Open", iconCss: "e-icons e-folder-open", id: "Open" },
     { text: "Rename", iconCss: "e-icons e-rename", id: "rename" },
     {
@@ -44,7 +48,20 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
             { text: "Microsoft Word (.docx)", iconCss: "sf-icon-word", id: "newword" },
             { text: "Microsoft Word 97-2003(.doc)", iconCss: "sf-icon-word", id: "oldword" },
             { text: "Download as PDF", iconCss: "e-icons e-export-pdf", id: "pdf" }]
-    }]
+    }]*/
+
+    /*const [fileOptions, setFileOptions] = React.useState<MenuItemModel[]>([{ text: "New", iconCss: "e-icons e-file-new", id: "new" },
+    { text: "Open", iconCss: "e-icons e-folder-open", id: "Open" },
+    { text: "Rename", iconCss: "e-icons e-rename", id: "rename" },
+    {
+        text: "Save as", iconCss: "e-icons e-save", id: "save",
+        items: [
+            { text: "Microsoft Word (.docx)", iconCss: "sf-icon-word", id: "newword" },
+            { text: "Microsoft Word 97-2003(.doc)", iconCss: "sf-icon-word", id: "oldword" },
+            { text: "Download as PDF", iconCss: "e-icons e-export-pdf", id: "pdf" }]
+    }]);*/
+
+
 
     let toastInstance = useRef<ToastComponent>(null);
 
@@ -57,6 +74,9 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
 
     const updateContent = (args: any) => {
         toastInstance.current!.show({ content: "Last clicked item is " + args });
+        if (args==='Cut'){
+            //setFileOptions([]);
+        }
     }
 
     const fileSelect = (args: FileMenuEventArgs) => {
@@ -106,7 +126,10 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
                     <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '93vh' }}>
                         <RibbonComponent id='default-ribbon' ref={ribbonObj} enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick}>
                             <RibbonTabsDirective>
-                                <RibbonTabDirective header='Home'>
+                                
+                                
+                                
+                                <RibbonTabDirective header='Home' >
                                     <RibbonGroupsDirective>
                                         <RibbonGroupDirective header="Clipboard" id="clipboard" groupIconCss="e-icons e-paste" showLauncherIcon={true}>
                                             <RibbonCollectionsDirective>
@@ -215,7 +238,13 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
                                         </RibbonGroupDirective>
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>
-                                <RibbonTabDirective header='Insert'>
+                                
+                                
+                                
+                                
+                                
+                                
+                                <RibbonTabDirective header='Insert' >
                                     <RibbonGroupsDirective>
                                         <RibbonGroupDirective header="Tables" isCollapsible={false}>
                                             <RibbonCollectionsDirective>
@@ -283,6 +312,12 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
                                         </RibbonGroupDirective>
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>
+                                
+
+
+
+
+
                                 <RibbonTabDirective header='View'>
                                     <RibbonGroupsDirective>
                                         <RibbonGroupDirective header="Views" groupIconCss='e-icons e-print' orientation='Row'>
@@ -337,6 +372,10 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
                                         </RibbonGroupDirective>
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>
+
+
+
+
                             </RibbonTabsDirective>
                             <Inject services={[RibbonFileMenu, RibbonColorPicker]} />
                         </RibbonComponent>

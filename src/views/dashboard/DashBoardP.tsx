@@ -1,7 +1,7 @@
 import { DashboardLayoutComponent, PanelModel, PanelDirective, PanelsDirective } from '@syncfusion/ej2-react-layouts';
-//import './analytics.css';
+import './carddash.css';
 //import * as data from './default-datasource.json';
-import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, AccumulationSeriesDirective, AccumulationLegend, Legend, PieSeries, ChartTheme, AccumulationTooltip,SeriesCollectionDirective, AccumulationTheme, AccumulationDataLabel, ChartComponent, ILoadedEventArgs,  IAccLoadedEventArgs, ColumnSeries,Category, SeriesDirective,Tooltip,DataLabel, DateTime, SplineAreaSeries, Inject } from '@syncfusion/ej2-react-charts';
+import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, AccumulationSeriesDirective, AccumulationLegend, Legend, PieSeries, ChartTheme, AccumulationTooltip, SeriesCollectionDirective, AccumulationTheme, AccumulationDataLabel, ChartComponent, ILoadedEventArgs, IAccLoadedEventArgs, ColumnSeries, Category, SeriesDirective, Tooltip, DataLabel, DateTime, SplineAreaSeries, Inject } from '@syncfusion/ej2-react-charts';
 //import { DataGrd } from './DataGrd';
 /*import Color from './AppBar';
 import SidebarWithMenu from './SideBarC';
@@ -53,7 +53,7 @@ export let expensedata: any[] = [
         'FormattedDate': '05/01/2017 03:25 PM',
         'Device': 'Mobile'
     },
-  ];
+];
 export let data1: any[] = [
     { x: new Date(2002, 0, 1), y: 2.2 }, { x: new Date(2003, 0, 1), y: 3.4 },
     { x: new Date(2004, 0, 1), y: 2.8 }, { x: new Date(2005, 0, 1), y: 1.6 },
@@ -70,7 +70,7 @@ export let data2: any[] = [
 ];
 //let datasource: any = data as any;
 let markers: object[] = [
-    { name: 'Asia', latitude: 50.32087157990324, longitude: 90.015625  },
+    { name: 'Asia', latitude: 50.32087157990324, longitude: 90.015625 },
     { name: 'Australia', latitude: -25.88583769986199, longitude: 134.296875 },
     { name: 'Africa', latitude: 16.97274101999902, longitude: 16.390625 },
     { name: 'Europe', latitude: 49.95121990866204, longitude: 18.468749999999998 },
@@ -83,12 +83,12 @@ const SEODashboard = () => {
     const load = (args: IAccLoadedEventArgs): void => {
         let selectedTheme: string = window.location.hash.split('/')[1];
         selectedTheme = selectedTheme ? selectedTheme : 'Material';
-        args.accumulation.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/contrast/i, 'Contrast').replace(/-dark/i, "Dark")  as AccumulationTheme;
+        args.accumulation.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/contrast/i, 'Contrast').replace(/-dark/i, "Dark") as AccumulationTheme;
     }
     const Chartload = (args: ILoadedEventArgs): void => {
         let selectedTheme: string = window.location.hash.split('/')[1];
         selectedTheme = selectedTheme ? selectedTheme : 'Material';
-        args.chart.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/contrast/i, 'Contrast').replace(/-dark/i, "Dark")  as ChartTheme;
+        args.chart.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/contrast/i, 'Contrast').replace(/-dark/i, "Dark") as ChartTheme;
         if (selectedTheme === 'highcontrast') {
             args.chart.series[0].marker!.dataLabel!.fill = '#000000';
             args.chart.series[1].marker!.dataLabel!.fill = '#000000';
@@ -99,44 +99,67 @@ const SEODashboard = () => {
         selectedTheme = selectedTheme ? selectedTheme : 'Material';
         args.maps.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1)).replace(/contrast/i, 'Contrast').replace(/-dark/i, "Dark")  as MapsTheme;
     };*/
-    
-    const cellSpacing: number [] = [1,1];
+
+    const cellSpacing: number[] = [1, 1];
 
     const card1 = () => {
-        return(
-            <div className="card">
-                <Today/>
+        return (
+            <div className="maincard">
+                <div className="cardcontent" >
+                    <div className="contentcontainer" >
+                        <div className="headerc" >header text</div>
+                        <ul>
+                            <li>😁 Humous : 10%</li>
+                            <li>Pitta</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+                            <li>Green salad</li>
+                            <li>Halloumi</li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         );
     }
 
     const cardProfile = () => {
-        return(
-            <div className="card">
-                <CardUser/>
-            </div>
+        return (
+                <CardUser />
         );
     }
 
     const Information1 = () => {
-        return(
-            <div className="card">
-                <Cardinformation/>
-            </div>
+        return (
+                <Cardinformation />
         );
     }
 
     const card2 = () => {
-        return(
-            <div style={{height:"100%", width:"100%", overflow:'scroll'}}>
+        return (
+            <div style={{ height: "100%", width: "100%", overflow: 'scroll' }}>
                 {/* <DataGrd/> */}
             </div>
-            
+
         );
     }
 
     const card3 = () => {
-        return(
+        return (
             <div className="card">
                 <span className="e-icons views"></span>
                 <div className="card-content text">Views</div>
@@ -176,9 +199,9 @@ const SEODashboard = () => {
     }*/
 
     const pie = () => {
-        return(
-            <div style={{height:"100%", width:"100%"}}>
-                <AccumulationChartComponent  id='pie' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode ={"Point"} center={{x: '50%', y: '50%'}} tooltip={{ enable: false, header:"<b>${point.x}</b>" ,format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
+        return (
+            <div style={{ height: "100%", width: "100%" }}>
+                <AccumulationChartComponent id='pie' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode={"Point"} center={{ x: '50%', y: '50%' }} tooltip={{ enable: false, header: "<b>${point.x}</b>", format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
                     <Inject services={[AccumulationLegend, PieSeries, AccumulationTooltip, AccumulationDataLabel]} />
                     <AccumulationSeriesCollectionDirective>
                         <AccumulationSeriesDirective dataSource={expensedata} name='Revenue' xName='Device' yName='Amount' explode={false} dataLabel={{ visible: true, position: 'Inside', name: 'text', font: { fontWeight: '600' } }} radius='100%' innerRadius='35%' palettes={['#357cd2', '#00bdae', '#e36593']}></AccumulationSeriesDirective>
@@ -203,8 +226,8 @@ const SEODashboard = () => {
     }*/
 
     const visitorsChart = () => {
-        return(
-            <div style={{height:"100%", width:"100%"}}>
+        return (
+            <div style={{ height: "100%", width: "100%" }}>
                 {/* <ViewerSc/> */}
             </div>
         );
@@ -213,13 +236,13 @@ const SEODashboard = () => {
 
     const pieChart = () => {
         const pieChartData: any[] = [
-          { x: "Desktop", y: 37, text: "60%" },
-          { x: "Mobile", y: 17, text: "10%" },
-          { x: "Tablet", y: 19, text: "20%" },
+            { x: "Desktop", y: 37, text: "60%" },
+            { x: "Mobile", y: 17, text: "10%" },
+            { x: "Tablet", y: 19, text: "20%" },
         ];
-        return(
-            <div style={{height:"100%", width:"100%"}}>
-                <AccumulationChartComponent id='pieChart' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode ={"Point"} center={{x: '50%', y: '50%'}} tooltip={{ enable: false, header:"<b>${point.x}</b>" ,format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
+        return (
+            <div style={{ height: "100%", width: "100%" }}>
+                <AccumulationChartComponent id='pieChart' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode={"Point"} center={{ x: '50%', y: '50%' }} tooltip={{ enable: false, header: "<b>${point.x}</b>", format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
                     <Inject services={[AccumulationLegend, PieSeries, AccumulationTooltip, AccumulationDataLabel]} />
                     <AccumulationSeriesCollectionDirective>
                         <AccumulationSeriesDirective dataSource={pieChartData} xName='x' yName='y' explode={true} explodeIndex={2} explodeOffset={"10%"} dataLabel={{ visible: true, position: 'Inside', name: 'text', font: { fontWeight: '600' } }} radius='100%'></AccumulationSeriesDirective>
@@ -230,14 +253,14 @@ const SEODashboard = () => {
     }
 
     const colChart = () => {
-        return(
-            <div style={{height:"100%", width:"100%"}}>
+        return (
+            <div style={{ height: "100%", width: "100%" }}>
                 <ChartComponent id='colChart' style={{ textAlign: "center" }} load={Chartload.bind(this)} legendSettings={{ visible: false }} primaryXAxis={{ valueType: 'Category', interval: 1, majorGridLines: { width: 0 } }} primaryYAxis={{ majorGridLines: { width: 0 }, majorTickLines: { width: 0 }, lineStyle: { width: 0 }, labelStyle: { color: 'transparent' } }} chartArea={{ border: { width: 0 } }} tooltip={{ enable: true }}>
                     <Inject services={[ColumnSeries, Legend, Tooltip, Category, DataLabel]} />
                     <SeriesCollectionDirective>
-                        <SeriesDirective dataSource={ [{ x: 'Jan', y: 46 }, { x: 'Feb', y: 27 }, { x: 'Mar', y: 26 }] } xName='x' yName='y' name='Desktop' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }}></SeriesDirective>
-                        <SeriesDirective dataSource={ [{ x: 'Jan', y: 37 }, { x: 'Feb', y: 23 }, { x: 'Mar', y: 18 }] } xName='x' yName='y' name='Mobile' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }}  fill='#e56691'></SeriesDirective>
-                        <SeriesDirective dataSource={ [{ x: 'Jan', y: 38 }, { x: 'Feb', y: 17 }, { x: 'Mar', y: 26 }] } xName='x' yName='y' name='Tablet' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }}></SeriesDirective>
+                        <SeriesDirective dataSource={[{ x: 'Jan', y: 46 }, { x: 'Feb', y: 27 }, { x: 'Mar', y: 26 }]} xName='x' yName='y' name='Desktop' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }}></SeriesDirective>
+                        <SeriesDirective dataSource={[{ x: 'Jan', y: 37 }, { x: 'Feb', y: 23 }, { x: 'Mar', y: 18 }]} xName='x' yName='y' name='Mobile' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }} fill='#e56691'></SeriesDirective>
+                        <SeriesDirective dataSource={[{ x: 'Jan', y: 38 }, { x: 'Feb', y: 17 }, { x: 'Mar', y: 26 }]} xName='x' yName='y' name='Tablet' type='Column' marker={{ dataLabel: { visible: false, position: 'Top', font: { fontWeight: '600', color: '#ffffff' } } }}></SeriesDirective>
                     </SeriesCollectionDirective>
                 </ChartComponent>
             </div>
@@ -250,21 +273,21 @@ const SEODashboard = () => {
         console.log("Resize start");
     }
     //Dashboard Layout's drag event function
-    function onResize(args:any) {
+    function onResize(args: any) {
         console.log("Resizing");
     }
     //Dashboard Layout's dragstop event function
-    function onResizeStop(args:any) {
+    function onResizeStop(args: any) {
         console.log("Resize stop");
     }
-    let dashboardObj:any;
-    function onCreated(args:any) {
+    let dashboardObj: any;
+    function onCreated(args: any) {
         // resizePanel("id", sizeX, sizeY)
         //dashboardObj.resizePanel("layout_4", 1, 1);
         //dashboardObj.resizePanel("layout_5", 2, 1);
     }
 
-    
+
     return (
         <div>
             <div className="" id="target_dash">
@@ -273,7 +296,7 @@ const SEODashboard = () => {
                     <div id="analytic_target">
                         <div className="">
                             <div className="dashboardParent">
-                                <DashboardLayoutComponent ref={(scope) => { dashboardObj = scope; }} id="analytic_dashboard" cellAspectRatio={100/100} cellSpacing={cellSpacing} columns={6} allowResizing={true} resizableHandles={resize} resizeStart={onResizeStart.bind(this)} resize={onResize.bind(this)} resizeStop={onResizeStop.bind(this)} created={onCreated.bind(this)} >
+                                <DashboardLayoutComponent ref={(scope) => { dashboardObj = scope; }} id="analytic_dashboard" cellAspectRatio={100 / 100} cellSpacing={cellSpacing} columns={6} allowResizing={true} resizableHandles={resize} resizeStart={onResizeStart.bind(this)} resize={onResize.bind(this)} resizeStop={onResizeStop.bind(this)} created={onCreated.bind(this)} >
                                     <PanelsDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={0} content={cardProfile.bind(this) as any} ></PanelDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={1} content={Information1.bind(this) as any} ></PanelDirective>

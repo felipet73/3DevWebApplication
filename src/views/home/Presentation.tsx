@@ -4,15 +4,39 @@ import CardLearn from './CardLearn';
 import CarouselPubs from './CarouselPubs';
 import { AppBarComponent } from '@syncfusion/ej2-react-navigations';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+import { useLayoutEffect } from 'react';
+
 
 
 const Presetation = () => {
-    return (<div className='control-pane'>
+
+    
+    
+    
+
+    return (
+        <>
+        <div id="total" className='control-pane'>
         <Carousel />
+        <div className="hg-twirl">
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</div>
         <div className='control-section card-control-section horizontal_card_layout'>
+        
             <img src={`/assets/images/${'tt1'}.png`} alt="iPhone X" style={{ marginLeft: '30vw' }} />
             <div className="e-card-resize-container">
                 <div className='' >
+
 
                     <div className="row card-layout">
 
@@ -108,9 +132,12 @@ const Presetation = () => {
                 </div>
 
             </div>
+            
         </div>
         {/* <CardsLearn/> */}
+        <section className="cita">
         <CardLearn />
+        </section>            
         <CarouselPubs />
 
         <br /><br /><br /><br /><br /><br />
@@ -129,7 +156,9 @@ const Presetation = () => {
         </div>
         <br />
 
-    </div>);
+    </div>
+    </>
+    );
 };
 export default Presetation;
 

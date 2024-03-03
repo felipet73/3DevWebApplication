@@ -6,30 +6,26 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 const CardUser = () => {
   const loggedUser = useGlobalStore( state => state.loggedUser);
   return (
-    <div className="control-pane">
-      <div className="sample_container card_sample">
-        {/* <!-- Card Component --> */}
-        <div className="e-card e-custom-card">
-          
-            {/* <!-- xLarge Circle Avatar--> */}
-            <div className="e-avatar e-avatar-circle e-avatar-xlarge">            
-              <img src={(loggedUser && loggedUser?.img) ? "https://images.pexels.com/photos/11259425/pexels-photo-11259425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1":`https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`  } alt="profile_pic" />
-            </div>
-            &nbsp;
-          
-          <div className="e-card-header">
-            <div className="e-card-header-caption center">
-              <div className="e-card-header-title name" style={{ fontSize:'3.2rem' }}>Welcome</div>
-              <div className="e-card-sub-title" style={{ fontSize:'1.7rem' }}>{loggedUser && loggedUser?.name}</div>
-              <div className="e-card-sub-title" style={{ fontSize:'1.2rem', marginTop:'-8px' }}>{'Role in Company Noname'}</div>
-            </div>
-          </div>
-          <div className="e-card-content" style={{marginTop:'-35px'}}>
-            <p className="avatar-content">
-              {loggedUser && `email: ${loggedUser?.email}`}
-            </p>
-          </div>
-          <div className="e-card-content">
+    <div className="maincard" style={{ overflow:'hidden' }}>
+    <div className="cardcontent" >
+        <div className="contentcontainer" >
+            <div className="headerc" style={{ fontSize:'2.5rem', marginBottom:'5px', height:'35px' }}>Welcome</div>
+
+              <img style={{ borderRadius:'50%', position:'absolute', right:'-14px', top:'-12px', width:'6vw', height:'6vw' }} src={(loggedUser && loggedUser?.img) ? "https://images.pexels.com/photos/11259425/pexels-photo-11259425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1":`https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`  } alt="profile_pic" />
+
+
+            <ul>
+            <li>{loggedUser && loggedUser?.name}</li>
+            <li>{'Company: Noname'}</li>
+            <li>{'Role: Noname'}</li>
+            <li>{'User since: 01/01/2024'}</li>
+            <li>{loggedUser && `email: ${loggedUser?.email}`}</li>
+
+
+          </ul>
+
+
+
             <p className="avatar-content">
                 <ButtonComponent cssClass='e-secondary' onClick={() => {  }} style={{  height:'35px', marginBottom:'15px' }}>
                 User Information</ButtonComponent>
@@ -37,7 +33,6 @@ const CardUser = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 export default CardUser;

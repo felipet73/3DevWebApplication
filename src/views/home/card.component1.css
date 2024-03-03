@@ -871,11 +871,12 @@
     }
 
     .card-control-section.vertical_card_layout #vertical_business.e-card {
-        background-image: url('https://ej2.syncfusion.com/react/demos/src/card/images/vertical_img.png');
+        /*background-image: url('https://ej2.syncfusion.com/react/demos/src/card/images/vertical_img.png');*/
+        /*background-image: url('http://localhost:3000/assets/images/card8.jpeg');*/
     }
 
     .card-control-section.vertical_card_layout #vertical_business_profile.e-card {
-        background-image: url('https://ej2.syncfusion.com/react/demos/src/card/images/vertical_img01.png');
+        /*background-image: url('http://localhost:3000/assets/images/card10.jpeg');*/
     }
 
     .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-actions,
@@ -966,3 +967,84 @@
             max-width: 870px;
         }
     }
+
+
+    .cita {
+        /*background-image: url(../img/bg_citas.jpg);*/
+        background-image:url(http://localhost:3000/assets/images/fondo1.png);
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .cita .heading{
+        color: white;
+        font-size: 6rem;
+
+    }
+
+    .cita .texto{
+        max-width: 60rem;
+        margin: 0 auto;
+        color: white;
+        line-height: 2;
+    }
+
+    .cita .enlace{
+            padding: 2rem 10rem;
+    }
+
+
+
+
+
+
+
+
+    .hg-twirl{
+        list-style: none;
+        position: absolute;
+        top: 11%;
+        left: 5%;
+        transform-origin: 9em;
+        transform-style: preserve-3d;
+        animation: spin 6s linear infinite;
+        opacity:0.211;
+      }
+      @keyframes spin { 
+        100%{transform: rotateY(360deg);}     
+        }
+      
+      .hg-twirl li{ 
+        position: relative;
+        top:0;
+        left: -500;
+        border-radius: 50%;  
+        width:85vw;
+        height:290px;  
+        animation: nips 11s linear infinite;
+        
+        background-color:rgba(127,127,127,0.15);
+
+      }
+        @keyframes nips{
+        0%{opacity:0.9;}
+        33%{opacity:0.65}
+        55%{opacity:0.33;}
+        100%{opacity:0.9;}
+        }  
+      
+      @for $i from 0 to 11{ 
+        .hg-twirl li:nth-child(#{$i}){
+          animation-delay: $i * 1.07s;
+          margin-top: $i*3px;    
+          box-shadow: 
+            (0 0 0 0) #FAEED7 inset,
+            (6px 0 0) #ffffff inset,
+            (0 0 0 9px) #FAEED7 inset,
+            (0 0 0 0) #FAEED7 inset;    
+          transform: rotateY(#{360/$i*0.11}deg);
+        }
+      }

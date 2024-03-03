@@ -30,8 +30,8 @@ export const Navigation = ({ setCambios }: Prps) => {
   const [logeed, setLogged] = React.useState(false);
   const [actualRoute, setActualRoute] = React.useState<string[]>(['3Dev Dashboard']);
   //const [actualUser, setActualUser] = React.useState<UserInterface>({name:'', email:'', emailValidated:false, id:'',role:['']});
-  
-  const loggedUser = useGlobalStore( state => state.loggedUser);
+
+  const loggedUser = useGlobalStore(state => state.loggedUser);
   //const setLoggedUser = useGlobalStore( state => state.setLoggedUser);
 
 
@@ -111,9 +111,9 @@ export const Navigation = ({ setCambios }: Prps) => {
   }, [trogle])
 
   useEffect(() => {
-    setTimeout(() => setTrogle(!trogle) , 1500);
+    setTimeout(() => setTrogle(!trogle), 1500);
   }, [])
-  
+
 
   const btnCreated = (): void => {
     const menuButtonElement = document.querySelectorAll('.color-appbar-section .e-inherit.menu');
@@ -171,7 +171,7 @@ export const Navigation = ({ setCambios }: Prps) => {
       ]
     }
   ];
-  
+
   const onInputFocus = (args: React.FocusEvent) => {
     ((args.target as HTMLElement).parentElement as HTMLElement).classList.add('e-input-focus');
   }
@@ -184,24 +184,24 @@ export const Navigation = ({ setCambios }: Prps) => {
       args.element.setAttribute('aria-label', 'more vertical');
     }
   }
-  const SelectApp = (e:any) => {
+  const SelectApp = (e: any) => {
     console.log(e.item.text)
-    if (e.item.text === 'Code Generator') {navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']); }
-    if (e.item.text === 'Home Dashboard') {navigate("/dashboard"); setActualRoute(['3Dev Dashboard']);}
-    if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') {navigate("/erp"); setActualRoute(['3Dev ERP']);}
-    if (e.item.text === 'Learn') {navigate("/learn");setActualRoute(['3Dev Learn']);}
-    if (e.item.text === 'Utils') {navigate("/utils");setActualRoute(['3Dev Utils']);}
-    if (e.item.text === 'Catalogs') {navigate("/catalogs");setActualRoute(['3Dev Catalogs']);}
-    if (e.item.text === 'Pubs') {navigate("/pubs");setActualRoute(['3Dev Pubs']);}
+    if (e.item.text === 'Code Generator') { navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']); }
+    if (e.item.text === 'Home Dashboard') { navigate("/dashboard"); setActualRoute(['3Dev Dashboard']); }
+    if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') { navigate("/erp"); setActualRoute(['3Dev ERP']); }
+    if (e.item.text === 'Learn') { navigate("/learn"); setActualRoute(['3Dev Learn']); }
+    if (e.item.text === 'Utils') { navigate("/utils"); setActualRoute(['3Dev Utils']); }
+    if (e.item.text === 'Catalogs') { navigate("/catalogs"); setActualRoute(['3Dev Catalogs']); }
+    if (e.item.text === 'Pubs') { navigate("/pubs"); setActualRoute(['3Dev Pubs']); }
   }
 
-  const SelectMenuUsr = (e:any) => {
+  const SelectMenuUsr = (e: any) => {
     if (e.item.text === 'Logout') {
       setLogged(false);
       navigate("/home");
     }
   }
-  
+
   return (
     <>
       <div className='control-container'>
@@ -221,7 +221,7 @@ export const Navigation = ({ setCambios }: Prps) => {
           </>}
           {logeed && <>
             <ButtonComponent created={btnCreated} onClick={() => setTrogle(!trogle)} cssClass='e-inherit menu' iconCss='e-icons e-menu'></ButtonComponent>
-            {actualRoute.length>0 && <BreadCrum actualRoute={actualRoute} setActualRoute={setActualRoute}/>}
+            {actualRoute.length > 0 && <BreadCrum actualRoute={actualRoute} setActualRoute={setActualRoute} />}
             <div className='e-appbar-spacer'></div>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={productDropDownButtonItems}>Products</DropDownButtonComponent>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={companyDropDownButtonItems}>Company</DropDownButtonComponent>
@@ -232,13 +232,16 @@ export const Navigation = ({ setCambios }: Prps) => {
                 <span className='e-icons e-search e-input-group-icon'></span>
               </span>
             </div>
-            <Notifications/>
+            <Notifications />
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={lenguajesDropDownButtonItems} style={{ marginLeft: '10px', marginRight: '15px' }}>English</DropDownButtonComponent>
-            <div className="e-avatar e-avatar-xlarge e-avatar-circle" style={{ marginRight: '10px' }}>
-              <img className="image" src={(loggedUser && loggedUser?.img) ? "https://images.pexels.com/photos/11259425/pexels-photo-11259425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1":`https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`  } alt="avatar" />
-            </div>
+                <div className="e-avatar e-avatar-xlarge e-avatar-circle" style={{ marginRight: '10px' }}>
+                <img className="image" src={(loggedUser && loggedUser?.img) ? "https://images.pexels.com/photos/11259425/pexels-photo-11259425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" : `https://images.pexels.com/photos/356079/pexels-photo-356079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`} alt="avatar" style={{ height:'34px', marginTop:'-12px' }}/>
+                </div>    
+            <span className="e-badge e-badge-light e-badge-notification e-badge-overlap" style={{ marginTop:'45px', marginLeft:'-110px', width:'120px' }}>{loggedUser && loggedUser?.name}</span>
+            
+            
             <MenuComponent title={loggedUser && loggedUser?.name} cssClass={'e-inherit e-appbar-icon-menu ' + 'e-light'} items={verticalMenuItems} beforeItemRender={beforeItemRender} select={SelectMenuUsr}></MenuComponent>
-            <span style={{ position:'absolute', fontSize:'1.3rem', right: '5px', marginTop:'-28px' }}>{ loggedUser && loggedUser?.name }</span>
+            
           </>
           }
         </AppBarComponent>
@@ -257,10 +260,10 @@ export const Navigation = ({ setCambios }: Prps) => {
               <div style={{ overflow: 'hidden' }}>
                 <Routes>
                   <Route path="dashboard" element={<SEODashboard />} />
-                  <Route path="codegenerator" element={<LayoutAppplications option={1}/>} />
-                  <Route path="erp" element={<LayoutAppplications option={2}/>} />
-                  <Route path="learn" element={<LearnMenu/>} />
-                  <Route path="utils" element={<LayoutAppplications option={3}/>} />
+                  <Route path="codegenerator" element={<LayoutAppplications option={1} />} />
+                  <Route path="erp" element={<LayoutAppplications option={2} />} />
+                  <Route path="learn" element={<LearnMenu />} />
+                  <Route path="utils" element={<LayoutAppplications option={3} />} />
                   <Route path="catalogs" element={<h1>Catalogs</h1>} />
                   <Route path="pubs" element={<h1>Pubs</h1>} />
                   <Route path="home" element={<Presentation />} />
@@ -283,8 +286,8 @@ export const Navigation = ({ setCambios }: Prps) => {
 }
 
 
-      {/* <SidebarWithMenu trogle={false} setCambios={()=>{}}/> */}
-      {/* <nav>
+{/* <SidebarWithMenu trogle={false} setCambios={()=>{}}/> */ }
+{/* <nav>
                     <img src={ logo } alt="React Logo" />
                     <ul>
                         <li>
