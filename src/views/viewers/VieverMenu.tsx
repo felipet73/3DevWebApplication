@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { HeaderPosition, OverflowMode, TabComponent, TabItemDirective, TabItemsDirective } from '@syncfusion/ej2-react-navigations';
-import ErpHome from './ErpHome';
-import { ViewerSc } from '../viewers/ViewerSc';
+import ViewerHome from './ViewerHome';
 
 
-const ErpMenu = () => {
+const ViewerMenu = () => {
 
     const [overflow, setOverflow] = useState<OverflowMode>("Scrollable");
     const [headerPlacement, setHeaderPlacement] = useState<HeaderPosition>("Top");
@@ -20,13 +19,13 @@ const ErpMenu = () => {
                 <div className='col-lg-12 control-section'>
                     <div className='e-sample-resize-container'>
                         {/* Render the Tab Component */}
-                        <TabComponent cssClass='responsive-mode' heightAdjustMode='None' height='250px' width='auto' overflowMode={overflow} headerPlacement={headerPlacement} > 
+                        <TabComponent cssClass='responsive-mode' heightAdjustMode='None' height='78vh' width='auto' overflowMode={overflow} headerPlacement={headerPlacement} > 
                             <TabItemsDirective >
                                 <TabItemDirective header={headertext[0]}
-                                    content={ErpHome} />
+                                    content={ViewerHome} />
 
                                 <TabItemDirective header={headertext[1]}
-                                    content={ErpHome} />
+                                    content={''} />
 
                                 <TabItemDirective header={headertext[2]}
                                     content={''} />
@@ -76,4 +75,4 @@ const ErpMenu = () => {
         </div>
     );
 }
-export default ErpMenu;
+export default ViewerMenu;

@@ -13,18 +13,24 @@ import GeneratorMenu from '../../CodeGenerator/GeneratorMenu';
 import ErpMenu from '../../Erp/ErpMenu';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 import SideOptions from './SideOptions';
-import { useMenuStore } from '../../../stores';
+import { useGlobalStore, useMenuStore } from '../../../stores';
+import { RefrescarV, ViewerSc } from '../../viewers/ViewerSc';
+import ViewerMenu from '../../viewers/VieverMenu';
 
-interface Prps {
+/*interface Prps {
     option: number;
-}
+}*/
 
-const LayoutAppplications = ({ option = 0 }: Prps) => {
+const LayoutAppplications = () => {
 
+    const option = useGlobalStore(state => state.option);
+    const [widthVw, setWidthVw]  = React.useState('79%');
+    const renderizar  = React.useRef(true);
+    const setOption = useGlobalStore(state => state.setOption);
     let ribbonObj = useRef<RibbonComponent>(null);
     const fileOptions = useMenuStore(state => state.fileOptions);
     const setFileOptions = useMenuStore(state => state.setFileOptions);
-
+    const viewer = useGlobalStore( state => state.viewer);
     const pasteOptions: ItemModel[] = [{ text: "Keep Source Format" }, { text: "Merge Format" }, { text: "Keep Text Only" }];
     const findOptions: ItemModel[] = [{ text: "Find", iconCss: "e-icons e-search" }, { text: "Advanced find", iconCss: "e-icons e-search" }, { text: "Go to", iconCss: "e-icons e-arrow-right" }];
     const selectOptions: ItemModel[] = [{ text: "Select All" }, { text: "Select Objects" }];
@@ -64,6 +70,7 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
 
 
     let toastInstance = useRef<ToastComponent>(null);
+    let panelR = useRef<SplitterComponent>(null);
 
     let isPasteDisabled: boolean = true;
     const enablePaste = () => {
@@ -75,6 +82,8 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
     const updateContent = (args: any) => {
         toastInstance.current!.show({ content: "Last clicked item is " + args });
         if (args==='Cut'){
+            setOption('Viewer');
+            renderizar.current=true;
             //setFileOptions([]);
         }
     }
@@ -89,6 +98,7 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
     }
 
     const launchClick = (args: LauncherClickEventArgs) => {
+        
         if (args.groupId == "clipboard") {
             updateContent("Clipboard Launcher Icon");
         }
@@ -111,20 +121,29 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
 
     const hPaneContent2 = () => {
         return (
+            <>
             <div className="splitter-content" style={{ overflowY:'auto', overflowX:'hidden' }}>
-                {option === 1 && <><GeneratorMenu /></>}
-                {option === 2 && <><ErpMenu /></>}
+                {option === 'MenuGenerator' && <><GeneratorMenu /></>}
+                {option === 'MenuErp' && <><ErpMenu /></>}
+                {option === 'Viewer' && <><ViewerMenu /></>}
             </div>
+            {/* <div style={{ position:'absolute', width: widthVw panelR.current!.paneSettings[1].size, height:'100%'}}>
+                {option === 'Viewer' && <><ViewerSc /></>}
+            </div> */}
+            </>
         );
     };
-
+    useEffect(() => {
+        console.log('Panel',panelR.current)
+    }, [])
+    
 
     return (
         <div className='control-pane'>
             <div className='col-lg-12 control-section default-ribbon-section'>
                 <div className='control ribbon-sample'>
                     <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '93vh' }}>
-                        <RibbonComponent id='default-ribbon' ref={ribbonObj} enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick}>
+                        <RibbonComponent id='default-ribbon' ref={ribbonObj} enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick} >
                             <RibbonTabsDirective>
                                 
                                 
@@ -382,10 +401,25 @@ const LayoutAppplications = ({ option = 0 }: Prps) => {
                         <div id="default-ribbonPlaceHolder" style={{ height: '80%' }}>
 
 
-                            <SplitterComponent height="100%" width="100%" separatorSize={4}>
+                            <SplitterComponent ref={panelR} height="100%" width="100%" separatorSize={4} resizeStop={(e)=>{
+                                    renderizar.current = false;
+                                    //setWidthVw(e.paneSize[1]);
+                                    console.log(panelR);
+                                    setTimeout(() => {
+                                        RefrescarV();    
+                                    }, 300);
+                            }} beforeCollapse={()=>{
+                                setTimeout(() => {
+                                    RefrescarV();    
+                                }, 300);
+                            }} beforeExpand={()=>{
+                                setTimeout(() => {
+                                    RefrescarV();    
+                                }, 300);
+                            }}>
                                 <PanesDirective>
-                                    <PaneDirective size="15%" min="60px" content={hPaneContent1} />
-                                    <PaneDirective size="85%" min="60px" content={hPaneContent2} />
+                                    <PaneDirective size="15%" min="60px" content={hPaneContent1} collapsible={true}/>
+                                    <PaneDirective size="85%" min="60px" content={hPaneContent2} collapsible={true}/>
                                 </PanesDirective>
                             </SplitterComponent>
 

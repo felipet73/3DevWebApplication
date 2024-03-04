@@ -19,12 +19,15 @@ import '../views/layouts/sidebar-menu.css';
 import Register from '../views/auth/register/Register';
 import { UserInterface } from '../interfaces/userInterface';
 import { useGlobalStore } from '../stores';
+import { AxiosAutodesk } from '../config/axios';
 
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Navigation = ({ setCambios }: Prps) => {
+  const setToken = useGlobalStore(state => state.setToken);
+  const setOption = useGlobalStore(state => state.setOption);
   const navigate = useNavigate();
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);
@@ -114,6 +117,53 @@ export const Navigation = ({ setCambios }: Prps) => {
     setTimeout(() => setTrogle(!trogle), 1500);
   }, [])
 
+  useEffect(() => {
+      (async ()=>{
+      try {
+        await AxiosAutodesk.post(
+          "authentication/v1/authenticate",
+          {
+            client_id: 'Lrn6oqLnwpCBd8GS0LuimGx5SHONYw4b',
+            client_secret: 'JLA2LfrdwUg4hMkz',
+            grant_type: 'client_credentials',
+            scope: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
+          },
+          {
+            headers: {
+              'Content-Type':'application/x-www-form-urlencoded'
+            },
+          }
+        ).then(response => {
+          console.log('Response token ',response.data);
+          setToken(response.data)
+      }).catch(response => {
+          //toastObj.show({ title: 'Atention!', content: 'A problem has been occurred:\n '+response.response?.data?.error, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+          console.log('Error Acad Token',response);
+          
+      });         
+
+    } catch (error) {
+        //toastObj.show({ title: 'Atention!', content: 'A problem has been occurred:\n '+error, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        console.log('Response Acad token error catch ', error);
+    }})();
+
+  }, [])
+
+
+  /*function getForgeToken(callback:any) {
+    postData('https://developer.api.autodesk.com/authentication/v1/authenticate', {
+        'client_id': 'Lrn6oqLnwpCBd8GS0LuimGx5SHONYw4b',
+        'client_secret': 'JLA2LfrdwUg4hMkz',
+        'grant_type': 'client_credentials',
+        'scope': 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete'
+    })
+        .then(data => {
+            //console.log(data); // JSON data parsed by `data.json()` call
+            callback(data.access_token, data.expires_in);
+        });
+  }*/
+
+
 
   const btnCreated = (): void => {
     const menuButtonElement = document.querySelectorAll('.color-appbar-section .e-inherit.menu');
@@ -186,9 +236,17 @@ export const Navigation = ({ setCambios }: Prps) => {
   }
   const SelectApp = (e: any) => {
     console.log(e.item.text)
-    if (e.item.text === 'Code Generator') { navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']); }
+    if (e.item.text === 'Code Generator') { setOption('MenuGenerator'); setTimeout(() => {
+      navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']);
+    }, 500);   }
     if (e.item.text === 'Home Dashboard') { navigate("/dashboard"); setActualRoute(['3Dev Dashboard']); }
-    if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') { navigate("/erp"); setActualRoute(['3Dev ERP']); }
+    if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') { 
+      setOption('MenuErp');
+      setTimeout(() => {
+        navigate("/erp"); setActualRoute(['3Dev ERP']);
+      }, 500);   }      
+      
+    
     if (e.item.text === 'Learn') { navigate("/learn"); setActualRoute(['3Dev Learn']); }
     if (e.item.text === 'Utils') { navigate("/utils"); setActualRoute(['3Dev Utils']); }
     if (e.item.text === 'Catalogs') { navigate("/catalogs"); setActualRoute(['3Dev Catalogs']); }
@@ -260,10 +318,10 @@ export const Navigation = ({ setCambios }: Prps) => {
               <div style={{ overflow: 'hidden' }}>
                 <Routes>
                   <Route path="dashboard" element={<SEODashboard />} />
-                  <Route path="codegenerator" element={<LayoutAppplications option={1} />} />
-                  <Route path="erp" element={<LayoutAppplications option={2} />} />
+                  <Route path="codegenerator" element={<LayoutAppplications/>} />
+                  <Route path="erp" element={<LayoutAppplications />} />
                   <Route path="learn" element={<LearnMenu />} />
-                  <Route path="utils" element={<LayoutAppplications option={3} />} />
+                  <Route path="utils" element={<LayoutAppplications />} />
                   <Route path="catalogs" element={<h1>Catalogs</h1>} />
                   <Route path="pubs" element={<h1>Pubs</h1>} />
                   <Route path="home" element={<Presentation />} />

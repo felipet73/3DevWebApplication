@@ -11,6 +11,7 @@ import DefaultMaps from './Map';*/
 import Today from './today';
 import CardUser from './maindashboard/CardUser';
 import Cardinformation from './maindashboard/CardInformation';
+import { ViewerSc } from '../viewers/ViewerSc';
 
 //import { ViewerSc } from './ViewerSc';
 
@@ -152,6 +153,7 @@ const SEODashboard = () => {
     const card2 = () => {
         return (
             <div style={{ height: "100%", width: "100%", overflow: 'scroll' }}>
+                {/* <ViewerSc/> */}
                 {/* <DataGrd/> */}
             </div>
 

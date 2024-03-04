@@ -31,6 +31,52 @@ const Presetation = () => {
   <li></li>
   <li></li>
 </div>
+
+
+  
+  <div className="glowing">
+    
+    <span ></span>
+    
+    <span ></span>
+    
+    <span ></span>
+    
+  </div>
+  
+  <div className="glowing">
+    
+    <span ></span>
+    
+    <span ></span>
+    
+    <span ></span>
+    
+  </div>
+  
+  <div className="glowing">
+    
+    <span ></span>
+    
+    <span ></span>
+    
+    <span ></span>
+    
+  </div>
+  
+  <div className="glowing">
+    
+    <span ></span>
+    
+    <span ></span>
+    
+    <span ></span>
+    
+  </div>
+  
+
+
+
         <div className='control-section card-control-section horizontal_card_layout'>
         
             <img src={`/assets/images/${'tt1'}.png`} alt="iPhone X" style={{ marginLeft: '30vw' }} />
