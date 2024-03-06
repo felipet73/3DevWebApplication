@@ -31,7 +31,7 @@ L10n.load({
 
 function App() {
 
-  const [selectedTheme, setSelectedTheme] = useState('material3');
+  const [selectedTheme, setSelectedTheme] = useState('material3-dark');
   const [cambios, setCambios] = useState(true);
   /*const selectCSS = () => {
       if (selectedTheme){

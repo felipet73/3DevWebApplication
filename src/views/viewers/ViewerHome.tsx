@@ -1,58 +1,62 @@
-import { ViewerSc } from "./ViewerSc";
+import { useMenuStore, useOptionModelStore } from "../../stores";
+import GantControl from "../Erp/Gant/GantControl";
+import TableBudget1 from "../Erp/Tables/TableBudget1";
+import { RefrescarV, ViewerSc } from "./ViewerSc";
+import './viewer.css';
+import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 
 
-const ViewerCard = () => {
-
-    return (
-        <div className="col-xs-6 col-sm-6 col-lg-6 col-md-6">
-            <div className="e-card profile" style={{ justifyContent: 'flex-start', marginBottom: '20px' }}>
-                <div className="e-card-header">
-                    <img src={`/assets/images/${'6'}.png`} alt="" style={{ width:'70%', borderRadius:'40%' }}/>
-                </div>
-                <div className="e-card-header">
-                    <div className="e-card-header-caption center">
-                        <div className="e-card-header-title">Application name</div>
-                        <div className="e-card-sub-title">Tecnical</div>
-                    </div>
-                </div>
-                <div className="e-card-separator"></div>
-                <div className="e-card-content">Laura received a BA in psychology from the University of Washington. She has also completed a course in business French. She reads and writes French dfdsfdsfdsfdsfsd ds fds fds fds.</div>
-                <div className="e-card-actions center">
-                    {/* <button className="e-card-btn" title="E-mail">
-                        <span className="e-mail-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Google+">
-                        <span className="e-google-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Facebook">
-                        <span className="e-fb-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Tweets">
-                        <span className="e-tweet-icon cb-icons "></span>
-                    </button> */}
-                </div>
-            </div>
-        </div>
+const DetailModel = ()=>{
+    const optionModel = useOptionModelStore(state => state.optionModel);
+    if (optionModel === 'TableBudget'){
+        const elem = document.querySelector(".ajusta");
+        elem?.classList.remove("ajusta");
+        console.log('elem', elem);
+        if (elem){
+            const hijo = elem?.firstChild as HTMLDivElement;
+            hijo!.setAttribute('style', 'height: 100%');    
+        }
+    }
+    
+    //alert('recder ' + optionModel);
+    return(
+        <>
+        {optionModel === 'Gantt' && <GantControl/>}
+        {optionModel === 'TableBudget' && <TableBudget1/>}
+        {optionModel === 'TableBudget1' && <TableBudget1/>}
+        </>
     )
-
 }
 
 
 const ViewerHome = () => {
+    
 
     return (
+        <div className='control-pane'>
+            <div className='col-lg-12 control-section default-ribbon-section'>
+                <div className='control ribbon-sample'>
+                    <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '73vh', padding:'8px' }}>
 
-                    
-
-                        
-                        <ViewerSc/>
-
-
-
-                       
-                   
-
-
+                    <SplitterComponent separatorSize={4} orientation={'Vertical'} resizeStop={(e) => {
+                            setTimeout(() => {RefrescarV();}, 300);
+                            }} beforeCollapse={(e) => {
+                                setTimeout(() => {RefrescarV();}, 300);
+                
+                            }} beforeExpand={(e) => {
+                                setTimeout(() => {RefrescarV();}, 300);
+                            }}>
+                                <PanesDirective >
+                                    <PaneDirective size="60%" min="60px" content={ViewerSc} collapsible={true} />
+                                    <PaneDirective size="40%" min="60px" content={DetailModel} collapsible={true} cssClass={"ajusta"} />
+                                </PanesDirective>
+                            </SplitterComponent>   
+                            </div>
+                </div>
+                
+            </div>
+        </div>                              
+    // <ViewerSc/>
     );
 }
 export default ViewerHome;

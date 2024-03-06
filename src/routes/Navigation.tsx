@@ -28,6 +28,7 @@ interface Prps {
 export const Navigation = ({ setCambios }: Prps) => {
   const setToken = useGlobalStore(state => state.setToken);
   const setOption = useGlobalStore(state => state.setOption);
+  
   const navigate = useNavigate();
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { AccordionComponent, AccordionItemDirective, AccordionItemsDirective } from '@syncfusion/ej2-react-navigations';
 import './sideoptions.css'
 import TreeViewOptions from './tree/TreeViewOptions';
+import ListItems1 from './Lists/ListItems1';
 
 const SideOptions = () => {
 
@@ -42,11 +43,12 @@ const SideOptions = () => {
     const water_games = () => {
       return(
         <div id="water_games">
-          <li><span className='e-acrdn-icons e-content-icon dive'></span>Diving</li>
+          <ListItems1/>
+          {/* <li><span className='e-acrdn-icons e-content-icon dive'></span>Diving</li>
           <li><span className='e-acrdn-icons e-content-icon swimming'></span>Swimming</li>
           <li><span className='e-acrdn-icons e-content-icon marathan_swim'></span>Marathon Swimming</li>
           <li><span className='e-acrdn-icons e-content-icon sync_swim'></span>Synchronized Swimming</li>
-          <li><span className='e-acrdn-icons e-content-icon waterpolo'></span>Water Polo</li>
+          <li><span className='e-acrdn-icons e-content-icon waterpolo'></span>Water Polo</li> */}
         </div>             
       );
     }

@@ -2818,12 +2818,17 @@ export const ViewerSc = () => {
 
     return (
         <>
-            <div className="card" id="forgeViewer" style={{
+            <div style={{ display:'flex', background:'red' }}>
+            <div className="" id="forgeViewer" style={{
                 height: "100%", width: '100%',
                 background: 'white',
-                overflow:'hidden'
+                overflow:'hidden',
+                zIndex:0,
+                position:'absolute'
+                /*display:'inline-table'*/
 
             }}></div>
+            </div>
             {/* <div style={{ fontSize:'0.7rem', top:'10px', position:'absolute', zIndex:1 }}>Items seleccionados: <span id="MySelectionValue">0</span></div> */}
             {/* </div> */}
             {/* {loadViewerLibrary1 ? <Script url={viewerLibaryURL1} onLoad={handleScriptLoad1}></Script> : null} */}

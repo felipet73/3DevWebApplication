@@ -13,7 +13,7 @@ import GeneratorMenu from '../../CodeGenerator/GeneratorMenu';
 import ErpMenu from '../../Erp/ErpMenu';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 import SideOptions from './SideOptions';
-import { useGlobalStore, useMenuStore } from '../../../stores';
+import { useGlobalStore, useMenuStore, useOptionModelStore } from '../../../stores';
 import { RefrescarV, ViewerSc } from '../../viewers/ViewerSc';
 import ViewerMenu from '../../viewers/VieverMenu';
 
@@ -24,13 +24,14 @@ import ViewerMenu from '../../viewers/VieverMenu';
 const LayoutAppplications = () => {
 
     const option = useGlobalStore(state => state.option);
-    const [widthVw, setWidthVw]  = React.useState('79%');
-    const renderizar  = React.useRef(true);
+    const SetOptionModel = useOptionModelStore(state => state.setOptionModel);
+    const [widthVw, setWidthVw] = React.useState(700);
+    const renderizar = React.useRef(true);
     const setOption = useGlobalStore(state => state.setOption);
     let ribbonObj = useRef<RibbonComponent>(null);
     const fileOptions = useMenuStore(state => state.fileOptions);
     const setFileOptions = useMenuStore(state => state.setFileOptions);
-    const viewer = useGlobalStore( state => state.viewer);
+    const viewer = useGlobalStore(state => state.viewer);
     const pasteOptions: ItemModel[] = [{ text: "Keep Source Format" }, { text: "Merge Format" }, { text: "Keep Text Only" }];
     const findOptions: ItemModel[] = [{ text: "Find", iconCss: "e-icons e-search" }, { text: "Advanced find", iconCss: "e-icons e-search" }, { text: "Go to", iconCss: "e-icons e-arrow-right" }];
     const selectOptions: ItemModel[] = [{ text: "Select All" }, { text: "Select Objects" }];
@@ -81,11 +82,21 @@ const LayoutAppplications = () => {
 
     const updateContent = (args: any) => {
         toastInstance.current!.show({ content: "Last clicked item is " + args });
-        if (args==='Cut'){
+        if (args === 'Cut') {
             setOption('Viewer');
-            renderizar.current=true;
+            renderizar.current = true;
             //setFileOptions([]);
         }
+        if (args === 'Copy') {
+            SetOptionModel('TableBudget');
+        }
+        if (args === 'Format Painter') {
+            
+            SetOptionModel('Gantt');
+        }
+
+
+
     }
 
     const fileSelect = (args: FileMenuEventArgs) => {
@@ -98,7 +109,7 @@ const LayoutAppplications = () => {
     }
 
     const launchClick = (args: LauncherClickEventArgs) => {
-        
+
         if (args.groupId == "clipboard") {
             updateContent("Clipboard Launcher Icon");
         }
@@ -114,7 +125,7 @@ const LayoutAppplications = () => {
     const hPaneContent1 = () => {
         return (
             <div className="splitter-content">
-                <SideOptions/>
+                <SideOptions />
             </div>
         );
     };
@@ -122,21 +133,65 @@ const LayoutAppplications = () => {
     const hPaneContent2 = () => {
         return (
             <>
-            <div className="splitter-content" style={{ overflowY:'auto', overflowX:'hidden' }}>
-                {option === 'MenuGenerator' && <><GeneratorMenu /></>}
-                {option === 'MenuErp' && <><ErpMenu /></>}
-                {option === 'Viewer' && <><ViewerMenu /></>}
-            </div>
-            {/* <div style={{ position:'absolute', width: widthVw panelR.current!.paneSettings[1].size, height:'100%'}}>
+                <div className="splitter-content" style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+                    {option === 'MenuGenerator' && <><GeneratorMenu /></>}
+                    {option === 'MenuErp' && <><ErpMenu /></>}
+                    {option === 'Viewer' && <>
+                    
+                     {/* <SplitterComponent separatorSize={4} orientation={'Vertical'} resizeStop={(e) => {
+                            }} beforeCollapse={(e) => {
+                            }} beforeExpand={(e) => {
+                            }}>
+                                <PanesDirective>
+                                    <PaneDirective size="50%" min="60px" content={ViewerMenu} collapsible={true} />
+                                    <PaneDirective size="50%" min="60px" content={()=><h1>Hello</h1>} collapsible={true} />
+                                </PanesDirective>
+                            </SplitterComponent>  */}
+
+                    <ViewerMenu /> 
+                    
+                    </>}
+                </div>
+                {/* <div style={{ position:'absolute', width: widthVw panelR.current!.paneSettings[1].size, height:'100%'}}>
                 {option === 'Viewer' && <><ViewerSc /></>}
             </div> */}
             </>
         );
     };
     useEffect(() => {
-        console.log('Panel',panelR.current)
+        console.log('Panel', panelR.current)
     }, [])
-    
+
+
+    const ChildPanel = () => {
+        return (
+            
+            <SplitterComponent  ref={panelR} height='100%' width="100%" separatorSize={4} resizeStop={(e) => {
+                renderizar.current = false;
+                //setWidthVw(e.paneSize[1]);
+                console.log(panelR);
+                setTimeout(() => {
+                    RefrescarV();
+                }, 300);
+            }} beforeCollapse={() => {
+                setTimeout(() => {
+                    RefrescarV();
+                }, 300);
+            }} beforeExpand={() => {
+                setTimeout(() => {
+                    RefrescarV();
+                }, 300);
+            }}>
+                <PanesDirective>
+                    <PaneDirective size="15%" min="60px" content={hPaneContent1} collapsible={true} />
+                    <PaneDirective size="70%" min="60px" content={hPaneContent2} collapsible={true} />
+                    <PaneDirective size="15%" min="60px" content={hPaneContent1} collapsible={true} />
+                </PanesDirective>
+            </SplitterComponent>
+            
+        )
+    }
+
 
     return (
         <div className='control-pane'>
@@ -145,9 +200,9 @@ const LayoutAppplications = () => {
                     <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '93vh' }}>
                         <RibbonComponent id='default-ribbon' ref={ribbonObj} enablePersistence={true} fileMenu={{ visible: true, menuItems: fileOptions, select: fileSelect }} launcherIconClick={launchClick} >
                             <RibbonTabsDirective>
-                                
-                                
-                                
+
+
+
                                 <RibbonTabDirective header='Home' >
                                     <RibbonGroupsDirective>
                                         <RibbonGroupDirective header="Clipboard" id="clipboard" groupIconCss="e-icons e-paste" showLauncherIcon={true}>
@@ -257,12 +312,12 @@ const LayoutAppplications = () => {
                                         </RibbonGroupDirective>
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
                                 <RibbonTabDirective header='Insert' >
                                     <RibbonGroupsDirective>
                                         <RibbonGroupDirective header="Tables" isCollapsible={false}>
@@ -331,7 +386,7 @@ const LayoutAppplications = () => {
                                         </RibbonGroupDirective>
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>
-                                
+
 
 
 
@@ -400,28 +455,25 @@ const LayoutAppplications = () => {
                         </RibbonComponent>
                         <div id="default-ribbonPlaceHolder" style={{ height: '80%' }}>
 
+                            <ChildPanel/>
 
-                            <SplitterComponent ref={panelR} height="100%" width="100%" separatorSize={4} resizeStop={(e)=>{
-                                    renderizar.current = false;
-                                    //setWidthVw(e.paneSize[1]);
-                                    console.log(panelR);
-                                    setTimeout(() => {
-                                        RefrescarV();    
-                                    }, 300);
-                            }} beforeCollapse={()=>{
-                                setTimeout(() => {
-                                    RefrescarV();    
-                                }, 300);
-                            }} beforeExpand={()=>{
-                                setTimeout(() => {
-                                    RefrescarV();    
-                                }, 300);
+                            {/* <SplitterComponent height="100%" width="100%" separatorSize={4} orientation={'Vertical'} resizeStop={(e) => {
+                                renderizar.current = false;
+                                setWidthVw( e.paneSize[0] - 20 );
+                                console.log(panelR);
+                                setTimeout(() => {RefrescarV();}, 300);
+                            }} beforeCollapse={(e) => {
+                                setWidthVw( e.paneSize[0] - 20 );
+                                setTimeout(() => {RefrescarV();}, 300);
+                            }} beforeExpand={(e) => {
+                                setWidthVw( e.paneSize[0] - 20 );
+                                setTimeout(() => {RefrescarV();}, 300);
                             }}>
                                 <PanesDirective>
-                                    <PaneDirective size="15%" min="60px" content={hPaneContent1} collapsible={true}/>
-                                    <PaneDirective size="85%" min="60px" content={hPaneContent2} collapsible={true}/>
+                                    <PaneDirective size="80%" min="60px" content={ChildPanel.bind(this)} collapsible={true} />
+                                    <PaneDirective size="20%" min="60px" content={()=><h1>Hello</h1>} collapsible={true} />
                                 </PanesDirective>
-                            </SplitterComponent>
+                            </SplitterComponent> */}
 
 
                             {/* <div className="content1"></div>

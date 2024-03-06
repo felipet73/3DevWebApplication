@@ -1,0 +1,20 @@
+
+
+.e-pane.e-pane-vertical.e-scrollable.e-static-pane.e-collapsible.e-resizable:first-child{
+    height: 100%;
+    position: relative;
+}
+
+
+/*.e-splitter.e-splitter-horizontal .e-pane.e-scrollable, .e-splitter.e-splitter-vertical .e-pane.e-scrollable {
+    z-index: 999999;
+}
+.e-splitter .e-split-bar.e-split-bar-vertical.e-resizable-split-bar {
+    z-index: 99999;
+}
+.e-splitter .e-split-bar.e-split-bar-vertical .e-navigate-arrow:not(.e-arrow-down) {
+    z-index: 99999;
+}
+.e-splitter .e-split-bar.e-split-bar-vertical .e-navigate-arrow.e-arrow-down {
+    z-index: 999999;
+}*/
