@@ -42,7 +42,7 @@
         }
 
         .card-control-section.basic_card_layout .card-layout {
-            max-width: 870px;
+            max-width: 1200px;
         }
     }
     /* Flip card Customization */
@@ -964,7 +964,7 @@
         }
 
         .card-control-section.vertical_card_layout .card-layout {
-            max-width: 870px;
+            max-width: 1050px;
         }
     }
 

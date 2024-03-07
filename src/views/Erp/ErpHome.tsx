@@ -1,6 +1,16 @@
 
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
+import { useGlobalStore } from '../../stores';
 
-const CardErp = () => {
+interface PropsCardErp{
+    name:string;
+    type:string;
+    description:string;
+}
+
+const CardErp = ({name, type, description}:PropsCardErp) => {
+
+    const setOption = useGlobalStore(state => state.setOption);
 
     return (
         <div className="col-xs-6 col-sm-6 col-lg-6 col-md-6">
@@ -10,25 +20,15 @@ const CardErp = () => {
                 </div>
                 <div className="e-card-header">
                     <div className="e-card-header-caption center">
-                        <div className="e-card-header-title">Application name</div>
-                        <div className="e-card-sub-title">Tecnical</div>
+                        <div className="e-card-header-title">{name}</div>
+                        <div className="e-card-sub-title">{type}</div>
                     </div>
                 </div>
                 <div className="e-card-separator"></div>
-                <div className="e-card-content">Laura received a BA in psychology from the University of Washington. She has also completed a course in business French. She reads and writes French dfdsfdsfdsfdsfsd ds fds fds fds.</div>
+                <div className="e-card-content">{description}</div>
                 <div className="e-card-actions center">
-                    {/* <button className="e-card-btn" title="E-mail">
-                        <span className="e-mail-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Google+">
-                        <span className="e-google-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Facebook">
-                        <span className="e-fb-icon cb-icons "></span>
-                    </button>
-                    <button className="e-card-btn" title="Tweets">
-                        <span className="e-tweet-icon cb-icons "></span>
-                    </button> */}
+                    <ButtonComponent onClick={()=>setOption('Viewer')}>Ingresar</ButtonComponent>
+
                 </div>
             </div>
         </div>
@@ -47,8 +47,16 @@ const ErpHome = () => {
                     <div className='row'>
                         <div className="row card-layout">
 
-                        <CardErp/>
-                        <CardErp/>
+                        <CardErp
+                        name="BIM Project Control"
+                        type="Tecnical"
+                        description="Application to control projects usign BIM metodology"
+                        />
+                        <CardErp
+                        name=""
+                        type=""
+                        description=""
+                        />
 
 
 

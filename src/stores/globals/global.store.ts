@@ -32,7 +32,7 @@ export const useGlobalStore = create<GlobalState>()((set) => ({
         role: []
     },
     setLoggedUser:(user:UserInterface) => set({ loggedUser:user }),
-    option:'',
+    option:'Dashboard',
     setOption:(opt:string) => set({ option:opt }),
     viewer:{ current:null },
     setViewer: (viewer: RefObject<Autodesk.Viewing.GuiViewer3D>) => set({ viewer }),

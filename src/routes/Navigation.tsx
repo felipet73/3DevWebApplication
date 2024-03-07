@@ -20,6 +20,7 @@ import Register from '../views/auth/register/Register';
 import { UserInterface } from '../interfaces/userInterface';
 import { useGlobalStore } from '../stores';
 import { AxiosAutodesk } from '../config/axios';
+import { RefrescarV } from '../views/viewers/ViewerSc';
 
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +29,7 @@ interface Prps {
 export const Navigation = ({ setCambios }: Prps) => {
   const setToken = useGlobalStore(state => state.setToken);
   const setOption = useGlobalStore(state => state.setOption);
-  
+  const option = useGlobalStore(state => state.option);
   const navigate = useNavigate();
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);
@@ -109,6 +110,7 @@ export const Navigation = ({ setCambios }: Prps) => {
   useEffect(() => {
     //setActualUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}' ) || {});
     //setLoggedUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}'));
+    
     sidebarobj.current?.toggle();
     setCambios(state => !state);
     setTimeout(() => setCambios(state => !state), 800);
@@ -240,7 +242,14 @@ export const Navigation = ({ setCambios }: Prps) => {
     if (e.item.text === 'Code Generator') { setOption('MenuGenerator'); setTimeout(() => {
       navigate("/codegenerator"); setActualRoute(['3Dev Code Generator']);
     }, 500);   }
-    if (e.item.text === 'Home Dashboard') { navigate("/dashboard"); setActualRoute(['3Dev Dashboard']); }
+    if (e.item.text === 'Home Dashboard') { 
+      setOption('Dashboard');
+      setTimeout(() => {
+        navigate("/dashboard");         
+        setActualRoute(['3Dev Dashboard']);   
+      }, 500);      
+
+    }
     if (e.item.text === 'ERP' || e.item.text === 'ERP Applications') { 
       setOption('MenuErp');
       setTimeout(() => {
@@ -279,7 +288,14 @@ export const Navigation = ({ setCambios }: Prps) => {
             {/* <NavLink to="/login" className={ ({ isActive }) => isActive ? 'nav-active' : '' }>Login</NavLink> */}
           </>}
           {logeed && <>
-            <ButtonComponent created={btnCreated} onClick={() => setTrogle(!trogle)} cssClass='e-inherit menu' iconCss='e-icons e-menu'></ButtonComponent>
+            <ButtonComponent created={btnCreated} onClick={() => {
+              if (option==='Dashboard') setTrogle(!trogle)
+              else{
+                sidebarobj.current?.toggle();
+                setTimeout(() => {RefrescarV();}, 800);
+                }  
+            }
+              } cssClass='e-inherit menu' iconCss='e-icons e-menu'></ButtonComponent>
             {actualRoute.length > 0 && <BreadCrum actualRoute={actualRoute} setActualRoute={setActualRoute} />}
             <div className='e-appbar-spacer'></div>
             <DropDownButtonComponent cssClass={'e-inherit e-appbar-menu ' + 'e-light'} items={productDropDownButtonItems}>Products</DropDownButtonComponent>
