@@ -1,12 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useContext } from 'react'
 import Script from 'react-load-script';
 import $ from 'jquery';
 import queryString from 'query-string';
 //import Swal from 'sweetalert2'
 import * as THREE from 'three';
 import { useGlobalStore } from '../../stores';
+import { AxiosAutodesk } from '../../config/axios';
 //import { useDispatch, useSelector } from 'react-redux';
 //import { actualizaMetrado, agregaCategoria, agregaCategoriaB, agregaElementos, agregaFamilia, agregaFamiliaB, agregaMetrado, agregaTipo, agregaTipoB, guardarAsociado, guardarMedicion, limpiaAsociado, limpiaElementos, limpiaElementosItems, ponerPropiedades, selectAsociados, selectELEMENTOS_METRADOS, selectParidas } from '../actions/proyects.actions';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const devices = [
     {
@@ -482,8 +484,8 @@ export const ViewerSc = () => {
     //const dataMetrado = useRef([]);
     
    
-
-
+    const { viewerC } = useContext( GlobalContext );
+    const setToken = useGlobalStore(state => state.setToken);
     const [modelURL, setModelURL] = useState('dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x');
     //'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x'
     //const [Viewer1, setViewer1] = useState(null);
@@ -677,7 +679,7 @@ export const ViewerSc = () => {
     appStateRef.current = appState;
     hoveredDeviceInfoRef.current = hoveredDeviceInfo;*/
 
-    var urn;
+    //var urn;
     //const container: any = useRef();
     var posX = 0;
     var posY = 0;
@@ -685,8 +687,8 @@ export const ViewerSc = () => {
 
 
     const token = useGlobalStore(store => store.token);
-    //const viewer = useGlobalStore(store => store.viewer);
-    const setViewer = useGlobalStore(store => store.setViewer);
+    const urn = useGlobalStore(store => store.urn);
+    //const setViewer = useGlobalStore(store => store.setViewer);
 
     const [loadViewerLibrary, setLoadViewerLibrary] = useState(false);
     const [loadViewerLibrary1, setLoadViewerLibrary1] = useState(false);
@@ -1002,11 +1004,18 @@ export const ViewerSc = () => {
         if (viewer) viewer=null;
         viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer')!);
         ///setViewer( new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer')!) );
+        viewerC.current=viewer;
         
         viewer?.start();
         Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
         viewer!.autocam.shotParams.destinationPercent! = 3;
         viewer!.autocam.shotParams.duration = 3;
+        //viewer?.setTheme('light-theme');
+        viewer?.setLightPreset(1);
+        const options1:any = {tintColor: {r: 0, g: 1, b: 0},gizmoOffsetRight:10};
+        viewer?.loadExtension('Autodesk.Section',options1);
+        viewer?.loadExtension('Autodesk.VisualClusters');
+        
     });        
         
         /*Autodesk.Viewing.Initializer(options, () => {
@@ -1059,6 +1068,7 @@ export const ViewerSc = () => {
             employees2.push({'ID': '','Name': '','Categoria': '',});
             employees1.push({'ID': '','Name': '','Familia': '','Categoria': ''});*/
             //var E_Id = '', E_cat = '', E_tip = '', E_ext = '';
+            
             if (!viewer) return;
             viewer.loadDocumentNode(doc, viewables).then( (i:any) => {
                 console.log('estas son las vistas', i);
@@ -1077,8 +1087,9 @@ export const ViewerSc = () => {
             
             viewer?.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, onSelectionBinded);
             viewer?.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
-
-            
+            setTimeout(() => {
+                PonerProps(15);
+            }, 500);
             
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
@@ -1092,7 +1103,7 @@ export const ViewerSc = () => {
             alert('no se cargo')*/
             //alert();
             //viewer.setBackgroundColor(red, green, blue, red2, green2, blue2)
-            //viewer.setBackgroundColor(0, 0, 0, 0, 0, 0);
+            //viewer?.setBackgroundColor(0, 0, 0, 0, 0, 0);
             /*$(".property-name aggregate-name").on( "click", function() {
                 alert($( this ).text());
             })*/
@@ -1291,6 +1302,28 @@ export const ViewerSc = () => {
 
         function onDocumentLoadFailure(viewerErrorCode:any) {
             console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
+            (async ()=>{
+                try {
+                  await AxiosAutodesk.post("authentication/v1/authenticate",
+                    {
+                      client_id: 'Lrn6oqLnwpCBd8GS0LuimGx5SHONYw4b',
+                      client_secret: 'JLA2LfrdwUg4hMkz',
+                      grant_type: 'client_credentials',
+                      scope: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
+                    },
+                    {headers: {'Content-Type':'application/x-www-form-urlencoded'}}
+                  ).then(response => {
+                    console.log('Response token ',response.data);
+                    setToken(response.data)
+                }).catch(response => {              
+                    console.log('Error Acad Token',response);
+                });         
+              } catch (error) {
+                  console.log('Response Acad token error catch ', error);
+              }})();  
+              setTimeout(() => {
+                cargar();
+              }, 1000);
         }
 
         function addIds(DBids:any, uniqueIds:any, callback:any) {
@@ -2669,7 +2702,8 @@ export const ViewerSc = () => {
             //viewer.finish();
             //viewer=null;
         }
-        launchViewer('dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmlPbG9fOEJSU2JDODh6ZmxaaUpxVXc/dmVyc2lvbj0x');
+        //launchViewer('dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmlPbG9fOEJSU2JDODh6ZmxaaUpxVXc/dmVyc2lvbj0x');
+        launchViewer(urn);
         //alert(urn);
     }
 
@@ -2701,7 +2735,7 @@ export const ViewerSc = () => {
            //if (window.NOP_VIEWER) window.NOP_VIEWER.finish() //terminate Viewer when unmounting
         }*/
 
-    }, [])
+    }, [urn])
 
     
     /*async function postData(url = '', data = {}) {

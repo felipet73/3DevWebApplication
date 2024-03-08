@@ -1,5 +1,6 @@
 import { useMenuStore, useOptionModelStore } from "../../stores";
 import GantControl from "../Erp/Gant/GantControl";
+import TableBadget2  from "../Erp/Tables/TableBadget2";
 import TableBudget1 from "../Erp/Tables/TableBudget1";
 import { RefrescarV, ViewerSc } from "./ViewerSc";
 import './viewer.css';
@@ -23,7 +24,7 @@ const DetailModel = ()=>{
         <>
         {optionModel === 'Gantt' && <GantControl/>}
         {optionModel === 'TableBudget' && <TableBudget1/>}
-        {optionModel === 'TableBudget1' && <TableBudget1/>}
+        {optionModel === 'TableBudget1' && <TableBadget2/>}
         </>
     )
 }

@@ -10,7 +10,7 @@ const SideOptions = () => {
 
     const acrdnHeader1 = () => {
       return (
-        <div>Athletics</div>
+        <div>Autodesk CC Conection</div>
       )
     }
     const acrdnHeader2 = () => {

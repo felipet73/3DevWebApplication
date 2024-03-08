@@ -31,6 +31,7 @@
     "@types/react": "^17.0.76",
     "@types/react-dom": "^17.0.11",
     "axios": "^1.6.7",
+    "base-64": "^1.0.0",
     "forge-apis": "^0.9.9",
     "forge-dataviz-iot-data-modules": "^0.1.11",
     "forge-dataviz-iot-react-components": "^0.1.17",
@@ -73,6 +74,7 @@
   "devDependencies": {
     "@types/babel__core": "^7.20.5",
     "@types/babel-generator": "^6.25.8",
+    "@types/base-64": "^1.0.2",
     "@types/jquery": "^3.5.29",
     "@types/react-router-dom": "^5.3.2",
     "@types/three": "^0.161.2"

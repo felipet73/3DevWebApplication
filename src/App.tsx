@@ -3,6 +3,7 @@ import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { FabComponent } from '@syncfusion/ej2-react-buttons';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { GlobalProvider } from './context/GlobalProvider';
 
 
 L10n.load({
@@ -64,6 +65,7 @@ function App() {
 
   return (
     <>
+      <GlobalProvider>
       <BrowserRouter>
       <FabComponent id='fab' iconCss={selectedTheme==='material3' ? 'e-icons e-contrast':'e-icons e-brightness'} cssClass= 'custom-position' content='' onClick={()=> {
         if (selectedTheme==='material3')
@@ -76,6 +78,7 @@ function App() {
 
         <Navigation setCambios={setCambios}/>
       </BrowserRouter>
+      </GlobalProvider>
     </>
   );
 }

@@ -21,6 +21,7 @@ import { UserInterface } from '../interfaces/userInterface';
 import { useGlobalStore } from '../stores';
 import { AxiosAutodesk } from '../config/axios';
 import { RefrescarV } from '../views/viewers/ViewerSc';
+import { GlobalContext } from '../context/GlobalContext';
 
 interface Prps {
   setCambios: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,6 +35,7 @@ export const Navigation = ({ setCambios }: Prps) => {
   const [trogle, setTrogle] = React.useState(false);
   const [logeed, setLogged] = React.useState(false);
   const [actualRoute, setActualRoute] = React.useState<string[]>(['3Dev Dashboard']);
+  const { viewerC } = React.useContext( GlobalContext );
   //const [actualUser, setActualUser] = React.useState<UserInterface>({name:'', email:'', emailValidated:false, id:'',role:['']});
 
   const loggedUser = useGlobalStore(state => state.loggedUser);
@@ -123,8 +125,7 @@ export const Navigation = ({ setCambios }: Prps) => {
   useEffect(() => {
       (async ()=>{
       try {
-        await AxiosAutodesk.post(
-          "authentication/v1/authenticate",
+        await AxiosAutodesk.post("authentication/v1/authenticate",
           {
             client_id: 'Lrn6oqLnwpCBd8GS0LuimGx5SHONYw4b',
             client_secret: 'JLA2LfrdwUg4hMkz',
@@ -142,7 +143,6 @@ export const Navigation = ({ setCambios }: Prps) => {
       }).catch(response => {
           //toastObj.show({ title: 'Atention!', content: 'A problem has been occurred:\n '+response.response?.data?.error, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
           console.log('Error Acad Token',response);
-          
       });         
 
     } catch (error) {
@@ -265,8 +265,8 @@ export const Navigation = ({ setCambios }: Prps) => {
 
   const SelectMenuUsr = (e: any) => {
     if (e.item.text === 'Logout') {
-      setLogged(false);
       navigate("/home");
+      setTimeout(() => {setLogged(false);}, 500);
     }
   }
 
@@ -292,7 +292,11 @@ export const Navigation = ({ setCambios }: Prps) => {
               if (option==='Dashboard') setTrogle(!trogle)
               else{
                 sidebarobj.current?.toggle();
-                setTimeout(() => {RefrescarV();}, 800);
+                setTimeout(() => { 
+                  /*RefrescarV();*/ 
+                  viewerC.current?.resize(); 
+                  console.log('este es viewerC',viewerC.current) 
+                }, 800);
                 }  
             }
               } cssClass='e-inherit menu' iconCss='e-icons e-menu'></ButtonComponent>

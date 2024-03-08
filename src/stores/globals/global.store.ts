@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { UserInterface } from '../../interfaces/userInterface'
 import { RefObject } from 'react';
 
-interface tokenInterface {
+export interface tokenInterface {
     access_token: string;
     expires_in: number;
     token_type: string
@@ -36,7 +36,7 @@ export const useGlobalStore = create<GlobalState>()((set) => ({
     setOption:(opt:string) => set({ option:opt }),
     viewer:{ current:null },
     setViewer: (viewer: RefObject<Autodesk.Viewing.GuiViewer3D>) => set({ viewer }),
-    urn:'',
+    urn:'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmlPbG9fOEJSU2JDODh6ZmxaaUpxVXc/dmVyc2lvbj0x',
     setUrn: (urn:string) => set({ urn:urn }),
     token:{access_token: '', expires_in: 0, token_type: ''},
     setToken: (token:tokenInterface) => set({ token:token }),

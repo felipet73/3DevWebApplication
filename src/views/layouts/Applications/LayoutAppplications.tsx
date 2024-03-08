@@ -67,6 +67,17 @@ const LayoutAppplications = () => {
         );
     };
 
+    const hPaneContent3 = () => {
+        return (
+            <div className="splitter-content">
+                
+                
+                
+                
+            </div>
+        );
+    };
+
     const hPaneContent2 = () => {
         return (
             <>
@@ -168,7 +179,7 @@ const LayoutAppplications = () => {
                     }
                     <PaneDirective size="70%" min="60px" content={hPaneContent2} collapsible={true} />
                     {option==='Viewer' &&                    
-                    <PaneDirective size="15%" min="60px" content={hPaneContent1} collapsible={true} />
+                    <PaneDirective size="15%" min="60px" content={hPaneContent3} collapsible={true} />
                     }
                 </PanesDirective>
             </SplitterComponent>
