@@ -5,6 +5,12 @@ import TableBudget1 from "../Erp/Tables/TableBudget1";
 import { RefrescarV, ViewerSc } from "./ViewerSc";
 import './viewer.css';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
+import BarChart1 from "../Erp/Graphics/BarChart1";
+import BarChart2 from "../Erp/Graphics/BarChart2";
+import Kanban1 from "../Erp/Kanbans/Kanban1";
+import BarChart3 from '../Erp/Graphics/BarChart3';
+import BarChart4 from "../Erp/Graphics/BarChart4";
+import BarChart5 from "../Erp/Graphics/BarChar5";
 
 
 const DetailModel = ()=>{
@@ -25,6 +31,12 @@ const DetailModel = ()=>{
         {optionModel === 'Gantt' && <GantControl/>}
         {optionModel === 'TableBudget' && <TableBudget1/>}
         {optionModel === 'TableBudget1' && <TableBadget2/>}
+        {optionModel === 'Graphics1' && <><BarChart1 /></>}
+        {optionModel === 'Graphics2' && <><BarChart2 /></>}
+        {optionModel === 'Graphics3' && <><BarChart3 /></>}
+        {optionModel === 'Graphics4' && <><BarChart4 /></>}
+        {optionModel === 'Graphics5' && <><BarChart5 /></>}
+        {optionModel === 'Kanban1' && <><Kanban1 /></>}
         </>
     )
 }

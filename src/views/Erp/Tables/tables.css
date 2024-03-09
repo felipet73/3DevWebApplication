@@ -1,3 +1,8 @@
-.e-control.e-dialog.e-lib.e-dlg-modal.e-popup.e-popup-open{
+/*.e-control.e-dialog.e-lib.e-dlg-modal.e-popup.e-popup-open{
     max-height: 114px !important;
+}*/
+
+//.e-pane.e-pane-vertical.e-scrollable.e-collapsible.e-resizable::firs
+.ajusta div:first-child{
+    height: 100%; 
 }

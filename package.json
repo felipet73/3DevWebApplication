@@ -12,6 +12,7 @@
     "@syncfusion/ej2-react-grids": "^24.1.45",
     "@syncfusion/ej2-react-image-editor": "^24.2.8",
     "@syncfusion/ej2-react-inputs": "^24.2.7",
+    "@syncfusion/ej2-react-kanban": "^24.2.9",
     "@syncfusion/ej2-react-layouts": "^24.1.41",
     "@syncfusion/ej2-react-lists": "^24.2.8",
     "@syncfusion/ej2-react-maps": "^24.1.41",

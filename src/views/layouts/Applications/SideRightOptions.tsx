@@ -5,33 +5,35 @@ import { AccordionComponent, AccordionItemDirective, AccordionItemsDirective } f
 import './sideoptions.css'
 import TreeViewOptions from './tree/TreeViewOptions';
 import ListItems1 from './Lists/ListItems1';
+import DropDown from './Lists/DropDown';
+import Bstadistics1 from '../../Erp/Graphics/stadistics/Bstadistics1';
 
-const SideOptions = () => {
+const SideRightOptions = () => {
 
     const acrdnHeader1 = () => {
       return (
-        <div>Autodesk CC Conection</div>
+        <div>Resources</div>
       )
     }
     const acrdnHeader2 = () => {
       return (
-        <div>Project Options</div>
+        <div>Stadistics</div>
       )
     }
     const acrdnHeader3 = () => {
       return (
-        <div>Issues</div>
+        <div>Elements</div>
       )
     }
     const acrdnHeader4 = () => {
       return (
-        <div>Comments</div>
+        <div>Other</div>
       )
     }
     const athletics = () => {
       return(              
-        <div id="athletics" >
-        <TreeViewOptions/>
+        <div id="resources" >
+        
           {/* <li><span className='e-acrdn-icons e-content-icon marathon'></span>Marathon</li>
           <li><span className='e-acrdn-icons e-content-icon javelin'></span>Javelin Throw</li>
           <li><span className='e-acrdn-icons e-content-icon discus'></span>Discus Throw</li>
@@ -42,8 +44,9 @@ const SideOptions = () => {
     }
     const water_games = () => {
       return(
-        <div id="water_games">
-          <ListItems1/>
+        <div id="stadistics">
+          <DropDown/>
+          <Bstadistics1/>
           {/* <li><span className='e-acrdn-icons e-content-icon dive'></span>Diving</li>
           <li><span className='e-acrdn-icons e-content-icon swimming'></span>Swimming</li>
           <li><span className='e-acrdn-icons e-content-icon marathan_swim'></span>Marathon Swimming</li>
@@ -54,7 +57,7 @@ const SideOptions = () => {
     }
     const racing_games = () => {
       return(       
-        <div id="racing_games">
+        <div id="elements">
           <li><span className='e-acrdn-icons e-content-icon cycle_BMX'></span>Cycling BMX</li>
           <li><span className='e-acrdn-icons e-content-icon cycle_Mountain'></span>Cycling Mountain Bike</li>
           <li><span className='e-acrdn-icons e-content-icon cycle'></span>Cycle Racing</li>
@@ -66,7 +69,7 @@ const SideOptions = () => {
 
     const indoor_games = () => {
       return(
-        <div id="indoor_games">
+        <div id="other">
           <li><span className='e-acrdn-icons e-content-icon tennis'></span>Table Tennis</li>
           <li><span className='e-acrdn-icons e-content-icon badminton'></span>Badminton</li>
           <li><span className='e-acrdn-icons e-content-icon volleyball'></span>Volleyball</li>
@@ -93,4 +96,4 @@ const SideOptions = () => {
       </div>
     );
 }
-export default SideOptions;
+export default SideRightOptions;

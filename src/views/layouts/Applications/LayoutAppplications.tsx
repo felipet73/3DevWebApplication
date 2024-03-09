@@ -16,6 +16,10 @@ import ViewerMenu from '../../viewers/VieverMenu';
 import { dataSource } from './Lists/listData';
 import { FileMenuEventArgs, LauncherClickEventArgs } from '@syncfusion/ej2-react-ribbon';
 import { MenuBimProjects } from './Menus/MenuBimProjects';
+import SideRightOptions from './SideRightOptions';
+import BarChart1 from '../../Erp/Graphics/BarChart1';
+
+
 
 /*interface Prps {
     option: number;
@@ -70,7 +74,7 @@ const LayoutAppplications = () => {
     const hPaneContent3 = () => {
         return (
             <div className="splitter-content">
-                
+                <SideRightOptions />
                 
                 
                 
@@ -85,7 +89,6 @@ const LayoutAppplications = () => {
                     {option === 'MenuGenerator' && <><GeneratorMenu /></>}
                     {option === 'MenuErp' && <><ErpMenu /></>}
                     {option === 'Viewer' && <>
-
                         {/* <SplitterComponent separatorSize={4} orientation={'Vertical'} resizeStop={(e) => {
                             }} beforeCollapse={(e) => {
                             }} beforeExpand={(e) => {
@@ -95,10 +98,9 @@ const LayoutAppplications = () => {
                                     <PaneDirective size="50%" min="60px" content={()=><h1>Hello</h1>} collapsible={true} />
                                 </PanesDirective>
                             </SplitterComponent>  */}
-
                         <ViewerMenu />
-
                     </>}
+                    
                 </div>
                 {/* <div style={{ position:'absolute', width: widthVw panelR.current!.paneSettings[1].size, height:'100%'}}>
                 {option === 'Viewer' && <><ViewerSc /></>}
@@ -117,13 +119,36 @@ const LayoutAppplications = () => {
         if (args === 'View -> Budget excel') {
             SetOptionModel('TableBudget');
         }
-        if (args === 'View -> Gantt') {
-            SetOptionModel('Gantt');
-        }
         if (args === 'View -> Budget') {
             SetOptionModel('TableBudget1');
         }
+        if (args.trim() === 'Graphics -> 3DBar Advance Comparative'.trim()) {
+            SetOptionModel('Graphics1');
+        }
+        if (args === 'Graphics -> TimeLine') {
+            SetOptionModel('Graphics2');
+        }
+        if (args === 'Graphics -> Gr1') {
+            SetOptionModel('Graphics3');
+        }
 
+        if (args === 'Graphics -> Gr2') {
+            SetOptionModel('Graphics4');
+        }
+
+        if (args === 'Graphics -> Gr3') {
+            SetOptionModel('Graphics5');
+        }
+
+
+        if (args === 'Planning -> Gantt') {
+            SetOptionModel('Gantt');
+        }
+
+        if (args === 'Planning -> Kanban') {
+            SetOptionModel('Kanban1');
+        }
+        
     }
 
     const fileSelect = (args: FileMenuEventArgs) => {
@@ -137,6 +162,7 @@ const LayoutAppplications = () => {
 
     const launchClick = (args: LauncherClickEventArgs) => {
 
+        updateContent(args.groupId);
         if (args.groupId == "clipboard") {
             updateContent("Clipboard Launcher Icon");
         }

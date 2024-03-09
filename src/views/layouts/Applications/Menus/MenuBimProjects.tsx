@@ -27,10 +27,15 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
     const footerOptions: ItemModel[] = [{ text: "Insert Footer" }, { text: "Edit Footer" }, { text: "Remove Footer" }];
     const pageOptions: ItemModel[] = [{ text: "Insert Top of page" }, { text: "Format Page Number" }, { text: "Format Page Number" }];
     const linkOptions: ItemModel[] = [{ text: "Insert Link", iconCss: "e-icons e-link" }, { text: "Recent Links", iconCss: "e-icons e-clock" }, { text: "Bookmarks", iconCss: "e-icons e-bookmark" }];
-    const ViewOptions: ItemModel[] = [{ text: "Gantt" }, { text: "Budget" }, { text: "Budget excel" }];
+    
     const fontSize: string[] = ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72", "96"];
     const fontStyle: string[] = ["Algerian", "Arial", "Calibri", "Cambria", "Cambria Math", "Courier New", "Candara", "Georgia", "Impact", "Segoe Print", "Segoe Script", "Segoe UI", "Symbol", "Times New Roman", "Verdana", "Windings"];
 
+
+
+    const viewOptions: ItemModel[] = [{ text: "Budget" }, { text: "Budget excel" }];
+    const graphOptions: ItemModel[] = [{ text: "3DBar Advance Comparative" }, { text: "TimeLine" }, { text: "Gr1" }, { text: "Gr2" }, { text: "Gr3" }];
+    const planningOptions: ItemModel[] = [{ text: "Gantt" }, { text: "Kanban" }];
 
     let isPasteDisabled: boolean = true;
     const enablePaste = () => {
@@ -48,12 +53,39 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
                                    
                                    <RibbonTabDirective header='Home'>
                                     <RibbonGroupsDirective>
+                                        
                                         <RibbonGroupDirective header="View" id="view" groupIconCss="e-icons e-table" showLauncherIcon={true}>
                                             <RibbonCollectionsDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
                                                         <RibbonItemDirective type="SplitButton" disabled={false} id="viewbtb" allowedSizes={RibbonItemSize.Large}
-                                                            splitButtonSettings={{ iconCss: "e-icons e-table", items: ViewOptions, content: "View", select: (args) => { updateContent("View -> " + args.item.text); }, click: () => { updateContent("View"); } }}>
+                                                            splitButtonSettings={{ iconCss: "e-icons e-table", items: viewOptions, content: "Budgets", select: (args) => { updateContent("View -> " + args.item.text); }, click: () => { updateContent("View"); } }}>
+                                                        </RibbonItemDirective>
+                                                    </RibbonItemsDirective>
+                                                </RibbonCollectionDirective>
+                                            </RibbonCollectionsDirective>
+                                        </RibbonGroupDirective>
+
+                                        <RibbonGroupDirective header="Graphics" id="graphics" groupIconCss="e-icons sf-icon-chart" showLauncherIcon={true}>
+                                            <RibbonCollectionsDirective>
+                                                <RibbonCollectionDirective>
+                                                    <RibbonItemsDirective>
+                                                        <RibbonItemDirective type="SplitButton" disabled={false} id="graphicstb" allowedSizes={RibbonItemSize.Large}
+                                                            splitButtonSettings={{ iconCss: "e-icons sf-icon-chart", items: graphOptions, content: "Graphics", select: (args) => { updateContent("Graphics -> " + args.item.text); }, click: () => { updateContent("Graphics"); } }}>
+                                                        </RibbonItemDirective>
+                                                    </RibbonItemsDirective>
+                                                </RibbonCollectionDirective>
+                                            </RibbonCollectionsDirective>
+                                        </RibbonGroupDirective>
+
+
+
+                                        <RibbonGroupDirective header="Project planning" id="planning" groupIconCss="e-icons e-clock" showLauncherIcon={true}>
+                                            <RibbonCollectionsDirective>
+                                                <RibbonCollectionDirective>
+                                                    <RibbonItemsDirective>
+                                                        <RibbonItemDirective type="SplitButton" disabled={false} id="planningtb" allowedSizes={RibbonItemSize.Large}
+                                                            splitButtonSettings={{ iconCss: "e-icons e-clock", items: planningOptions, content: "Planning", select: (args) => { updateContent("Planning -> " + args.item.text); }, click: () => { updateContent("Planning"); } }}>
                                                         </RibbonItemDirective>
                                                     </RibbonItemsDirective>
                                                 </RibbonCollectionDirective>

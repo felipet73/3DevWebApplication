@@ -21,8 +21,8 @@ const TableBadget2 = () => {
   const validationRule2: Object = { required: true, number: true };
   const editparams2: any = { params: { format: "n" } };
   return (
-    <div className="control-pane">
-      <div className="control-section">
+    <div className="control-pane" style={{ height:'100%' }}>
+      <div className="control-section" style={{ height:'100%' }}>
         <TreeGridComponent
           dataSource={sampleData}
           treeColumnIndex={1}
