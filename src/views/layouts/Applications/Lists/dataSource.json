@@ -103,14 +103,14 @@
         { "Name": "Steven", "Eimg": "10" }
     ],
     "empList":[
-        { "Name": "Andrew Fuller", "Eimg": "7", "Designation": "Team Lead", "Country": "England" },
-        { "Name": "Anne Dodsworth", "Eimg": "1", "Designation": "Developer", "Country": "USA" },
-        { "Name": "Janet Leverling", "Eimg": "3", "Designation": "HR", "Country": "USA" },
-        { "Name": "Laura Callahan", "Eimg": "2", "Designation": "Product Manager", "Country": "USA" },
-        { "Name": "Margaret Peacock", "Eimg": "6", "Designation": "Developer", "Country": "USA" },
-        { "Name": "Michael Suyama", "Eimg": "9", "Designation": "Team Lead", "Country": "USA" },
-        { "Name": "Nancy Davolio", "Eimg": "4", "Designation": "Product Manager", "Country": "USA" },
-        { "Name": "Robert King", "Eimg": "8", "Designation": "Developer ", "Country": "England" },
-        { "Name": "Steven Buchanan", "Eimg": "10", "Designation": "CEO", "Country": "England" }
+        { "Name": "Graphic 1", "Eimg": "7", "Designation": "type 1", "Country": "England" },
+        { "Name": "Graphic 2", "Eimg": "1", "Designation": "type 2", "Country": "USA" },
+        { "Name": "Graphic 3", "Eimg": "3", "Designation": "type 3", "Country": "USA" },
+        { "Name": "Graphic 4", "Eimg": "2", "Designation": "type 4", "Country": "USA" },
+        { "Name": "Graphic 5", "Eimg": "6", "Designation": "type 5", "Country": "USA" },
+        { "Name": "Graphic 6", "Eimg": "9", "Designation": "type 6", "Country": "USA" },
+        { "Name": "Graphic 7", "Eimg": "4", "Designation": "type 7", "Country": "USA" },
+        { "Name": "Graphic 8", "Eimg": "8", "Designation": "type 8 ", "Country": "England" },
+        { "Name": "Graphic 9", "Eimg": "10", "Designation": "type 9", "Country": "England" }
     ]
 }

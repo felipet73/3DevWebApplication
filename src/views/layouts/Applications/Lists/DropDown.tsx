@@ -17,20 +17,23 @@ const DropDown = () => {
     //set the value to header template
     const headerTemplate = () => {
         return (
-            <div className="header"> <span>Photo</span> <span className="columnHeader">Employee Info</span></div>
+            <div className="header"> <span>Graphic</span> <span className="columnHeader">Graphic type</span></div>
         );
     }
     //set the value to item template
     const itemTemplate = (data: any) => {
         return (
-            <div><img className="empImage" src={"src/drop-down-list/Employees/" + data['Eimg'] + ".png"} alt="employee" />
+            <div>
+                {/* <img className="empImage" src={"src/drop-down-list/Employees/" + data['Eimg'] + ".png"} alt="employee" /> */}
+                
                 <div className="ename"> {data.Name} </div><div className="job"> {data.Designation} </div></div>
         );
     }
     //set the value to value template
     const valueTemplate = (data: any) => {
         return (
-            <div className="valueTemplate" ><img className="value" src={"src/drop-down-list/Employees/" + data.Eimg + ".png"} height="28px" width="28px" alt="employee" />
+            <div className="valueTemplate" >
+                {/* <img className="value" src={"src/drop-down-list/Employees/" + data.Eimg + ".png"} height="28px" width="28px" alt="employee" /> */}
                 <div className="name"> {data.Name} </div></div>
         );
     }

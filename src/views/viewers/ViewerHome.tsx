@@ -11,6 +11,7 @@ import Kanban1 from "../Erp/Kanbans/Kanban1";
 import BarChart3 from '../Erp/Graphics/BarChart3';
 import BarChart4 from "../Erp/Graphics/BarChart4";
 import BarChart5 from "../Erp/Graphics/BarChar5";
+import Schedulle from "../Erp/Schedulle/Schedulle";
 
 
 const DetailModel = ()=>{
@@ -23,6 +24,21 @@ const DetailModel = ()=>{
             const hijo = elem?.firstChild as HTMLDivElement;
             hijo!.setAttribute('style', 'height: 100%');    
         }
+    }else if (optionModel === 'Schedulle'){
+        const elem = document.querySelector(".ajusta");
+        elem?.classList.remove("ajusta");
+        elem?.classList.add("ajusta2");
+        console.log('elem', elem);
+        if (elem){
+            //const hijo = elem?.firstChild as HTMLDivElement;
+            //hijo!.setAttribute('style', 'height: 100%');    
+        }
+    }else{
+        const elem = document.querySelector(".ajusta2");
+        if (elem){
+            const hijo = elem?.firstChild as HTMLDivElement;
+            hijo!.setAttribute('style', 'height: 100%');
+        }        
     }
     
     //alert('recder ' + optionModel);
@@ -37,6 +53,8 @@ const DetailModel = ()=>{
         {optionModel === 'Graphics4' && <><BarChart4 /></>}
         {optionModel === 'Graphics5' && <><BarChart5 /></>}
         {optionModel === 'Kanban1' && <><Kanban1 /></>}
+        {optionModel === 'Schedulle' && <><Schedulle /></>}
+        
         </>
     )
 }

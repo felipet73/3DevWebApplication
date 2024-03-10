@@ -35,7 +35,7 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
 
     const viewOptions: ItemModel[] = [{ text: "Budget" }, { text: "Budget excel" }];
     const graphOptions: ItemModel[] = [{ text: "3DBar Advance Comparative" }, { text: "TimeLine" }, { text: "Gr1" }, { text: "Gr2" }, { text: "Gr3" }];
-    const planningOptions: ItemModel[] = [{ text: "Gantt" }, { text: "Kanban" }];
+    const planningOptions: ItemModel[] = [{ text: "Gantt" }, { text: "Schedulle" } , { text: "Kanban" }];
 
     let isPasteDisabled: boolean = true;
     const enablePaste = () => {
@@ -116,7 +116,7 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
                                             </RibbonCollectionsDirective>
                                         </RibbonGroupDirective>
 
-                                        <RibbonGroupDirective header="Font" overflowHeader="More Font Options" groupIconCss="e-icons e-bold" isCollapsible={false} enableGroupOverflow={true} orientation="Row" cssClass='font-group'>
+                                        {/* <RibbonGroupDirective header="Font" overflowHeader="More Font Options" groupIconCss="e-icons e-bold" isCollapsible={false} enableGroupOverflow={true} orientation="Row" cssClass='font-group'>
                                             <RibbonCollectionsDirective>
                                                 <RibbonCollectionDirective>
                                                     <RibbonItemsDirective>
@@ -199,7 +199,7 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
                                                     </RibbonItemsDirective>
                                                 </RibbonCollectionDirective>
                                             </RibbonCollectionsDirective>
-                                        </RibbonGroupDirective>
+                                            </RibbonGroupDirective>*/}
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>  
 

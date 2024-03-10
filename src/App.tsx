@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalProvider';
 
 
-L10n.load({
+/*L10n.load({
   'es': {
       'grid': {
           'EmptyRecord': 'Registro vacio',
@@ -28,7 +28,7 @@ L10n.load({
       }
   }
 });
-
+*/
 
 function App() {
 
@@ -60,7 +60,7 @@ function App() {
     };
 
   //import "/node_modules/@syncfusion/ej2/tailwind-dark.css";
-  setCulture('es');
+  //setCulture('es');
 
 
   return (

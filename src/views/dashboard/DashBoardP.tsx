@@ -11,9 +11,13 @@ import DefaultMaps from './Map';*/
 import Today from './today';
 import CardUser from './maindashboard/CardUser';
 import Cardinformation from './maindashboard/CardInformation';
-import { ViewerSc } from '../viewers/ViewerSc';
+import PolarGraph from './graphics/PolarGraph';
+import TmaGraph from './graphics/TmaGraph';
+import AnotationGraph from './graphics/AnotationGraph';
+//import { ViewerSc } from '../viewers/ViewerSc';
 
 //import { ViewerSc } from './ViewerSc';
+import { lockRowDropDownData } from '../Erp/Tables/data1';
 
 
 export let expensedata: any[] = [
@@ -153,6 +157,7 @@ const SEODashboard = () => {
     const card2 = () => {
         return (
             <div style={{ height: "100%", width: "100%", overflow: 'scroll' }}>
+                <PolarGraph/>
                 {/* <ViewerSc/> */}
                 {/* <DataGrd/> */}
             </div>
@@ -203,12 +208,13 @@ const SEODashboard = () => {
     const pie = () => {
         return (
             <div style={{ height: "100%", width: "100%" }}>
-                <AccumulationChartComponent id='pie' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode={"Point"} center={{ x: '50%', y: '50%' }} tooltip={{ enable: false, header: "<b>${point.x}</b>", format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
+                <AnotationGraph/>
+                {/* <AccumulationChartComponent id='pie' legendSettings={{ visible: false }} enableSmartLabels={true} height="100%" width="100%" enableAnimation={false} selectionMode={"Point"} center={{ x: '50%', y: '50%' }} tooltip={{ enable: false, header: "<b>${point.x}</b>", format: 'Composition : <b>${point.y}%</b>' }} load={load.bind(this)}>
                     <Inject services={[AccumulationLegend, PieSeries, AccumulationTooltip, AccumulationDataLabel]} />
                     <AccumulationSeriesCollectionDirective>
                         <AccumulationSeriesDirective dataSource={expensedata} name='Revenue' xName='Device' yName='Amount' explode={false} dataLabel={{ visible: true, position: 'Inside', name: 'text', font: { fontWeight: '600' } }} radius='100%' innerRadius='35%' palettes={['#357cd2', '#00bdae', '#e36593']}></AccumulationSeriesDirective>
                     </AccumulationSeriesCollectionDirective>
-                </AccumulationChartComponent>
+                </AccumulationChartComponent> */}
             </div>
         );
     }
@@ -230,6 +236,7 @@ const SEODashboard = () => {
     const visitorsChart = () => {
         return (
             <div style={{ height: "100%", width: "100%" }}>
+                <TmaGraph/>
                 {/* <ViewerSc/> */}
             </div>
         );
@@ -282,11 +289,13 @@ const SEODashboard = () => {
     function onResizeStop(args: any) {
         console.log("Resize stop");
     }
-    let dashboardObj: any;
+    let dashboardObj: DashboardLayoutComponent | null;
     function onCreated(args: any) {
+        
         // resizePanel("id", sizeX, sizeY)
         //dashboardObj.resizePanel("layout_4", 1, 1);
         //dashboardObj.resizePanel("layout_5", 2, 1);
+        
     }
 
 
@@ -307,13 +316,18 @@ const SEODashboard = () => {
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={4} content={card1.bind(this) as any} ></PanelDirective>
                                         <PanelDirective sizeX={1} sizeY={0.5} row={0} col={5} content={card1.bind(this) as any} ></PanelDirective>
 
-                                        <PanelDirective sizeX={2} sizeY={2} row={1} col={2} content={card2.bind(this) as any} header="<div>Listado </div>"></PanelDirective>
-                                        <PanelDirective sizeX={2} sizeY={1} row={1} col={4} content={card3 as any}></PanelDirective>
-                                        <PanelDirective sizeX={2} sizeY={2} row={1} col={0} content={pie.bind(this) as any} header="<div>Active Visitors</div>"></PanelDirective>
+                                        
+                                        <PanelDirective sizeX={4} sizeY={2} row={1} col={0} content={pie.bind(this) as any} header="<div>Active Visitors</div>"></PanelDirective>
+                                        
+                                        <PanelDirective sizeX={2} sizeY={2} row={1} col={5} content={card2.bind(this) as any} header="<div>Listado </div>"></PanelDirective>
+                                        
+                                        <PanelDirective sizeX={2} sizeY={1} row={4} col={4} content={card3 as any}></PanelDirective>
+                                        
                                         {/* <PanelDirective sizeX={2} sizeY={2} row={1} col={2} content={DefaultMaps.bind(this) as any} header="<div>Regional Map</div>"></PanelDirective>  */}
-                                        <PanelDirective sizeX={2} sizeY={2} row={1} col={4} content={colChart.bind(this) as any} header="<div>Visitors by Type</div>"></PanelDirective>
-                                        <PanelDirective sizeX={2} sizeY={2} row={3} col={0} content={pieChart.bind(this) as any} header="<div>Useage Statistics</div>"></PanelDirective>
-                                        <PanelDirective sizeX={4} sizeY={2} row={3} col={2} content={visitorsChart.bind(this) as any} header="<div>Traffic History</div>"></PanelDirective>
+                                        <PanelDirective sizeX={2} sizeY={1} row={4} col={4} content={colChart.bind(this) as any} header="<div>Visitors by Type</div>"></PanelDirective>
+
+                                        <PanelDirective sizeX={2} sizeY={2} row={4} col={0} content={pieChart.bind(this) as any} header="<div>Useage Statistics</div>"></PanelDirective>
+                                        <PanelDirective sizeX={4} sizeY={2} row={4} col={2} content={visitorsChart.bind(this) as any} header="<div>Traffic History</div>"></PanelDirective>
                                     </PanelsDirective>
                                 </DashboardLayoutComponent>
                             </div>

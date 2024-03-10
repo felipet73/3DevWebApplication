@@ -148,6 +148,12 @@ const LayoutAppplications = () => {
         if (args === 'Planning -> Kanban') {
             SetOptionModel('Kanban1');
         }
+
+        if (args === 'Planning -> Schedulle') {
+            SetOptionModel('Schedulle');
+        }
+
+        
         
     }
 
