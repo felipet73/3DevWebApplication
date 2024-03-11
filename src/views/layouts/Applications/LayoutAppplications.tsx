@@ -11,13 +11,15 @@ import ErpMenu from '../../Erp/ErpMenu';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 import SideOptions from './SideOptions';
 import { useGlobalStore, useMenuStore, useOptionModelStore } from '../../../stores';
-import { RefrescarV, ViewerSc } from '../../viewers/ViewerSc';
+import { ViewerSc } from '../../viewers/ViewerSc';
 import ViewerMenu from '../../viewers/VieverMenu';
 import { dataSource } from './Lists/listData';
 import { FileMenuEventArgs, LauncherClickEventArgs } from '@syncfusion/ej2-react-ribbon';
 import { MenuBimProjects } from './Menus/MenuBimProjects';
 import SideRightOptions from './SideRightOptions';
 import BarChart1 from '../../Erp/Graphics/BarChart1';
+import { GlobalContext } from '../../../context/GlobalContext';
+import { CurrentAction } from '@syncfusion/ej2-react-schedule';
 
 
 
@@ -32,7 +34,7 @@ const LayoutAppplications = () => {
     const [widthVw, setWidthVw] = React.useState(700);
     const renderizar = React.useRef(true);
     const setOption = useGlobalStore(state => state.setOption);
-
+    const { viewerC } = React.useContext( GlobalContext );
     let panelR = useRef<SplitterComponent>(null);
 
     let toastInstance = useRef<ToastComponent>(null);
@@ -193,17 +195,11 @@ const LayoutAppplications = () => {
                 renderizar.current = false;
                 //setWidthVw(e.paneSize[1]);
                 console.log(panelR);
-                setTimeout(() => {
-                    RefrescarV();
-                }, 300);
+                setTimeout(() => {if (viewerC.current) viewerC.current.resize();}, 300);
             }} beforeCollapse={() => {
-                setTimeout(() => {
-                    RefrescarV();
-                }, 300);
+                setTimeout(() => {if (viewerC.current) viewerC.current.resize();}, 300);
             }} beforeExpand={() => {
-                setTimeout(() => {
-                    RefrescarV();
-                }, 300);
+                setTimeout(() => {if (viewerC.current) viewerC.current.resize();}, 300);
             }}>
                 <PanesDirective>
                     {option==='Viewer' &&

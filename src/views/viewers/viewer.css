@@ -6,6 +6,47 @@
 }
 
 
+#forgeViewer #LateralToolbar.ControlGroup {
+    background-color: black !important;
+    border-radius: 10px !important;
+    display: block !important;
+};
+
+#forgeViewer #guiviewer3d-toolbar{
+    background-color: rgba(255,255,255,0.10)!important;
+    border-radius: 5px !important;
+    display: block !important;
+}
+
+#forgeViewer #settingsTools{
+    background-color: rgba(255,255,255,0.15)!important;
+    border-radius: 15px!important;
+    color: rgba(1,1,1,0.80)!important;
+    display: block !important;
+}
+
+#forgeViewer #modelTools {
+    background-color: rgba(255,255,255,0.15)!important;
+    border-radius: 15px!important;
+    color: rgba(1,1,1,0.80)!important;
+    display: block!important;
+}
+
+#forgeViewer #navTools{
+    background-color: rgba(255,255,255,0.15)!important;
+    border-radius: 15px!important;
+    color: rgba(1,1,1,0.80)!important;
+    display: block!important;
+}
+
+#forgeViewer #toolbar-documentModels{
+    background-color: rgba(1,1,1,0.55)!important;
+    border-radius: 15px!important;
+    color: rgba(1,1,1,0.90)!important;
+    display: block!important;
+}
+
+
 /*.e-splitter.e-splitter-horizontal .e-pane.e-scrollable, .e-splitter.e-splitter-vertical .e-pane.e-scrollable {
     z-index: 999999;
 }

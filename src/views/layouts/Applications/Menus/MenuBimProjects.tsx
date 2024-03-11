@@ -199,7 +199,7 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
                                                     </RibbonItemsDirective>
                                                 </RibbonCollectionDirective>
                                             </RibbonCollectionsDirective>
-                                            </RibbonGroupDirective>*/}
+                                        </RibbonGroupDirective>*/}
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective>  
 

@@ -45,7 +45,7 @@
     "react-load-script": "^0.0.6",
     "react-router-dom": "6",
     "react-scripts": "^5.0.1",
-    "three": "^0.161.0",
+    "three": "^0.131.2",
     "typescript": "^4.5.2",
     "web-vitals": "^2.1.2",
     "zustand": "^4.5.1"

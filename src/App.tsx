@@ -4,6 +4,7 @@ import { FabComponent } from '@syncfusion/ej2-react-buttons';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { GlobalProvider } from './context/GlobalProvider';
+import { useGlobalStore } from './stores';
 
 
 /*L10n.load({
@@ -32,7 +33,10 @@ import { GlobalProvider } from './context/GlobalProvider';
 
 function App() {
 
-  const [selectedTheme, setSelectedTheme] = useState('material3-dark');
+  //const [selectedTheme, setSelectedTheme] = useState('material3-dark');
+  const selectedTheme = useGlobalStore(store => store.selectedTheme);
+  const setSelectedTheme = useGlobalStore(store => store.setSelectedTheme);
+
   const [cambios, setCambios] = useState(true);
   /*const selectCSS = () => {
       if (selectedTheme){

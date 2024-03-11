@@ -7,6 +7,7 @@ import TreeViewOptions from './tree/TreeViewOptions';
 import ListItems1 from './Lists/ListItems1';
 import DropDown from './Lists/DropDown';
 import Bstadistics1 from '../../Erp/Graphics/stadistics/Bstadistics1';
+import DragAndDrop from './Lists/ListsDragDrop';
 
 const SideRightOptions = () => {
 
@@ -58,11 +59,7 @@ const SideRightOptions = () => {
     const racing_games = () => {
       return(       
         <div id="elements">
-          <li><span className='e-acrdn-icons e-content-icon cycle_BMX'></span>Cycling BMX</li>
-          <li><span className='e-acrdn-icons e-content-icon cycle_Mountain'></span>Cycling Mountain Bike</li>
-          <li><span className='e-acrdn-icons e-content-icon cycle'></span>Cycle Racing</li>
-          <li><span className='e-acrdn-icons e-content-icon sailing'></span>Sailing</li>
-          <li><span className='e-acrdn-icons e-content-icon rowing'></span>Rowing</li>
+          <DragAndDrop/>
         </div>
       );
     }

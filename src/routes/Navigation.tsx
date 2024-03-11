@@ -20,7 +20,6 @@ import Register from '../views/auth/register/Register';
 import { UserInterface } from '../interfaces/userInterface';
 import { useGlobalStore } from '../stores';
 import { AxiosAutodesk } from '../config/axios';
-import { RefrescarV } from '../views/viewers/ViewerSc';
 import { GlobalContext } from '../context/GlobalContext';
 
 interface Prps {

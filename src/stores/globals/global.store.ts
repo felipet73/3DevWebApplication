@@ -20,7 +20,8 @@ interface GlobalState {
     setUrn: (urn:string) => void,
     token:tokenInterface,
     setToken: (token:tokenInterface) => void,
-
+    selectedTheme:string,
+    setSelectedTheme: (selectedTheme:string) => void,
 }
 
 export const useGlobalStore = create<GlobalState>()((set) => ({
@@ -36,10 +37,12 @@ export const useGlobalStore = create<GlobalState>()((set) => ({
     setOption:(opt:string) => set({ option:opt }),
     viewer:{ current:null },
     setViewer: (viewer: RefObject<Autodesk.Viewing.GuiViewer3D>) => set({ viewer }),
-    urn:'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmlPbG9fOEJSU2JDODh6ZmxaaUpxVXc/dmVyc2lvbj0x',
+    urn:'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkhKRDg1b2VSUUxhWExOcGtNRG42eFE/dmVyc2lvbj0x',
     setUrn: (urn:string) => set({ urn:urn }),
     token:{access_token: '', expires_in: 0, token_type: ''},
     setToken: (token:tokenInterface) => set({ token:token }),
+    selectedTheme:'material3-dark',
+    setSelectedTheme: (selectedTheme:string) => set({ selectedTheme:selectedTheme }),
 
     /*bears: 0,
   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),

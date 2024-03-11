@@ -3,12 +3,16 @@ import Script from 'react-load-script';
 import $ from 'jquery';
 import queryString from 'query-string';
 //import Swal from 'sweetalert2'
-import * as THREE from 'three';
+//import * as THREE from 'three';
+//import {Vector3, LineBasicMaterial, Line, Geometry} from "three";
 import { useGlobalStore } from '../../stores';
-import { AxiosAutodesk } from '../../config/axios';
+//import { AxiosAutodesk } from '../../config/axios';
 //import { useDispatch, useSelector } from 'react-redux';
 //import { actualizaMetrado, agregaCategoria, agregaCategoriaB, agregaElementos, agregaFamilia, agregaFamiliaB, agregaMetrado, agregaTipo, agregaTipoB, guardarAsociado, guardarMedicion, limpiaAsociado, limpiaElementos, limpiaElementosItems, ponerPropiedades, selectAsociados, selectELEMENTOS_METRADOS, selectParidas } from '../actions/proyects.actions';
 import { GlobalContext } from '../../context/GlobalContext';
+import './viewer.css'
+import { useViewerStore } from '../../stores/viewer/viewer.store';
+
 
 const devices = [
     {
@@ -77,11 +81,12 @@ let viewerStyleLoaded = false;
 let viewerLoading = false;
 
 //const viewerLibaryURL1 = 'js/ForgeViewer.js';
-var viewer:any;
-export const RefrescarV = async () => {
+//var viewer:any;
+
+/*export const RefrescarV = async () => {
     if (viewer)
         viewer.resize();
-}
+}*/
 
 //export const Viewer1=null;
 //export const CambiardeModelo = async (NuevoModelo) => {
@@ -483,9 +488,12 @@ export const ViewerSc = () => {
     
     //const dataMetrado = useRef([]);
     
-   
+
+    const setSelectedItems = useViewerStore(store => store.setSelectedItems);
+
     const { viewerC } = useContext( GlobalContext );
-    const setToken = useGlobalStore(state => state.setToken);
+    //const setToken = useGlobalStore(state => state.setToken);
+    const selectedTheme = useGlobalStore(store => store.selectedTheme);
     const [modelURL, setModelURL] = useState('dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x');
     //'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x'
     //const [Viewer1, setViewer1] = useState(null);
@@ -802,25 +810,124 @@ export const ViewerSc = () => {
         //loadViewer(modelURL);
     }
 
-    function carga2() {
+    async function carga2() {
+
+
+
+        var geom = new THREE.SphereGeometry(10, 8, 8);
+        var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        var sphereMesh = new THREE.Mesh(geom, material);
+        sphereMesh.position.set(12, 23, 43);
+        //var scene = new THREE.scene(geom, material);
+        //var sphereMesh = new THREE.(geom, material);
+        //var scene = new THREE.Scene();
+        //viewer.impl.scene.add(scene);
+        //if (!viewerC.current.overlays.hasScene(scene)) {
+            //viewerC.current.overlays.addScene(scene);
+            //viewerC.current.impl.scene.add(scene);
+        //}
+        if (!viewerC.current.overlays.hasScene('custom-scene')) {
+            viewerC.current.overlays.addScene('custom-scene');
+            //viewer.impl.scene.add('custom-scene');
+        }
+        //alert('hola');
+        //viewerC.current.impl.scene.add(sphereMesh);
+
+        //scene.background = new THREE.Color(0x2a3b4c);
+        //alert('carga2');
+        viewerC.current.overlays.addMesh(sphereMesh as THREE.Object3D, 'custom-scene');
+        
+        //viewerC.current.refresh();
+
+
         //var urn = getParameterByName('urn');
         //alert('esta es la funcion');
         //seleccionados='c884ae1b-61e7-4f9d-0001-719e20b22d0b-006f9464';
         //var cadena = '5c069bcb-62a6-44a8-a199-48eb6d184f17-000546cc';
         //var cadena = '5c069bcb-62a6-44a8-a199-48eb6d184f17-000546cc';
-        if (viewer)
-            highlightRevit(seleccionados);
-        var geom = new THREE.SphereGeometry(1, 8, 8);
+        
+        
+        /*if (viewer)
+            highlightRevit(seleccionados);*/
+        /*var geom = new THREE.SphereGeometry(1, 2, 2);
         var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
         var sphereMesh = new THREE.Mesh(geom, material);
         //var scene = new THREE.scene(geom, material);
-        //var sphereMesh = new THREE.(geom, material);
         var scene = new THREE.Scene();
+        scene.add(sphereMesh);
+        //viewerC.current?.overlays.addMesh(sphereMesh, scene.toString());
+        //viewerC.current?.impl.scene.add(scene);
+        sphereMesh.position.set(1, 2, 3);
+
+        var geometry = new THREE.BoxGeometry(1,2,3);
+        var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+        var cube = new THREE.Mesh(geometry, material);
+        scene.add(cube); 
+
+        if (!viewerC.current?.overlays.hasScene(scene)) {
+            viewerC.current?.overlays.addScene(scene);
+            //viewerC.current.impl.scene.add(scene);
+        }
+
+        viewerC.current?.refresh();
+
+        if (!viewerC.current.overlays.hasScene('custom-scene')) {
+            viewerC.current.overlays.addScene('custom-scene');
+        }
+
+        viewerC.current.overlays.addMesh(cube, 'custom-scene');*/
+
+        /*var geometry = new THREE.BoxGeometry(1,2,3);
+        var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+        var mesh = new THREE.Mesh(geometry, material);
+
+        
+        var ext = viewerC.current.getExtension('Autodesk.Viewing.SceneBuilder');
+
+        var modelBuilder = await ext.addNewModel({
+            conserveMemory: false,
+            modelNameOverride: 'My Model Name'
+        });
+        var purple = new THREE.MeshPhongMaterial({
+            color: new THREE.Color(1, 0, 1)
+        });
+        modelBuilder.addMaterial('purple', purple);    
+        //var box = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(10, 10, 10));
+        let id = modelBuilder.addGeometry(geometry);
+        var transform1 = new THREE.Matrix4().compose(
+            new THREE.Vector3(-15, 0, 0),
+            new THREE.Quaternion(0, 0, 0, 1),
+            new THREE.Vector3(1, 1, 1)
+        );
+        modelBuilder.addFragment(1, 'purple', transform1);        
+        var red = new THREE.MeshPhongMaterial({
+            color: new THREE.Color(1, 0, 0)
+        });
+        //let torus = new THREE.BufferGeometry().fromGeometry(new THREE.TorusGeometry(10, 2, 32, 32) as any);
+        
+        const transform = new THREE.Matrix4().compose(
+            new THREE.Vector3(19, 0, 0),
+            new THREE.Quaternion(0, 0, 0, 1),
+            new THREE.Vector3(1, 1, 1)
+        );
+        //modelBuilder.addFragment(torus, red, transform);
+
+        //let mesh = new THREE.Mesh(torus, purple);
+        mesh.matrix = new THREE.Matrix4().compose(
+            new THREE.Vector3(0, 12, 12),
+            new THREE.Quaternion(0, 0, 0, 1),
+            new THREE.Vector3(1, 1, 1)
+        );
+        mesh.dbId = 100;    // Set the database id for the mesh
+        modelBuilder.addMesh(mesh);*/
+
+        //var sphereMesh = new THREE.(geom, material);
+        //var scene = new THREE.Scene();
         //viewer.impl.scene.add(scene);
-        if (!viewer?.overlays.hasScene(scene.toString())) {
+        /*if (!viewer?.overlays.hasScene(scene.toString())) {
             viewer?.overlays.addScene(scene.toString());
             //viewer.impl.scene.add('custom-scene');
-        }
+        }*/
 
 
         /*if (!viewer.overlays.hasScene('custom-scene')) {
@@ -830,11 +937,8 @@ export const ViewerSc = () => {
         //alert('hola');
         //viewer.impl.scene.add(sphereMesh);
 
-        scene.background = new THREE.Color(0x2a3b4c);
-        alert('carga2');
-        viewer?.overlays.addMesh(sphereMesh, scene.toString());
-        sphereMesh.position.set(1, 2, 3);
-        viewer?.refresh(false);
+        //scene.background = new THREE.Color(0x2a3b4c);
+        //alert('carga2');
         //alert('mostrado');
         //handleScriptLoad2();
         ///onModelLoaded(viewer);
@@ -951,14 +1055,19 @@ export const ViewerSc = () => {
 
         // CrearPanel('');
 
+
+
+
+
+
     }
 
 
     function highlightRevit(idsRevit:any) {
         // Every Forge Viewer model has an ‘ExternalId Mapping’
         // this mapping is an object that has as keys the
-        if (viewer && viewer.model)
-            viewer.model.getExternalIdMapping( (mapping:any) => {
+        if (viewerC.current && viewerC.current.model)
+            viewerC.current.model.getExternalIdMapping( (mapping:any) => {
                 configureElementByUniqueIdAndMapping(idsRevit, mapping);
             } , ()=>{});
     }
@@ -972,8 +1081,8 @@ export const ViewerSc = () => {
                 elementsDbId.push(elementDbId);
             }
         }
-        viewer?.isolate(elementsDbId);
-        viewer?.fitToView(elementsDbId);
+        viewerC.current?.isolate(elementsDbId);
+        viewerC.current?.fitToView(elementsDbId);
     }
 
     // @urn the model to show
@@ -1001,20 +1110,36 @@ export const ViewerSc = () => {
             const config = {
                 extensions: ['Autodesk.VisualClusters', 'Autodesk.DocumentBrowser', 'MenuContextual']
             };
-        if (viewer) viewer=null;
-        viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer')!);
+        if (viewerC.current) viewerC.current=null;
+        viewerC.current = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer')!);
         ///setViewer( new Autodesk.Viewing.GuiViewer3D(document.getElementById('forgeViewer')!) );
-        viewerC.current=viewer;
+        //viewerC.current=viewerC.current;
         
-        viewer?.start();
+        viewerC.current?.start();
         Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
-        viewer!.autocam.shotParams.destinationPercent! = 3;
-        viewer!.autocam.shotParams.duration = 3;
-        //viewer?.setTheme('light-theme');
-        viewer?.setLightPreset(1);
-        const options1:any = {tintColor: {r: 0, g: 1, b: 0},gizmoOffsetRight:10};
-        viewer?.loadExtension('Autodesk.Section',options1);
-        viewer?.loadExtension('Autodesk.VisualClusters');
+        viewerC.current!.autocam.shotParams.destinationPercent! = 3;
+        viewerC.current!.autocam.shotParams.duration = 3;
+        
+        setTimeout(() => {
+            //alert();
+            const options1:any = {tintColor: {r: 0, g: 1, b: 0},gizmoOffsetRight:10};
+            viewerC.current?.loadExtension('Autodesk.Section',options1);
+            viewerC.current?.loadExtension('Autodesk.VisualClusters');
+            viewerC.current?.loadExtension('Autodesk.DocumentBrowser');
+            viewerC.current?.loadExtension('Autodesk.Viewing.SceneBuilder');
+            viewerC.current?.loadExtension('MenuContextual');
+            if (selectedTheme==='material3-dark'){
+                viewerC.current?.setTheme('dark-theme');
+                viewerC.current?.setLightPreset(3);    
+            }else{
+                viewerC.current?.setTheme('light-theme');
+                viewerC.current?.setLightPreset(0);
+            }
+            setTimeout(() => {
+                carga2();                
+            }, 2000);
+        }, 2000);
+        
         
     });        
         
@@ -1069,27 +1194,61 @@ export const ViewerSc = () => {
             employees1.push({'ID': '','Name': '','Familia': '','Categoria': ''});*/
             //var E_Id = '', E_cat = '', E_tip = '', E_ext = '';
             
-            if (!viewer) return;
-            viewer.loadDocumentNode(doc, viewables).then( (i:any) => {
+            if (!viewerC.current) return;
+            console.log('antes binded',viewerC.current);
+            viewerC.current.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, onSelectionBinded);
+
+            viewerC.current.loadDocumentNode(doc, viewables).then( (i:any) => {
                 console.log('estas son las vistas', i);
                 //elementos = [];
-                viewer.getObjectTree(function (objTree:any) {
+                viewerC.current.getObjectTree(function (objTree:any) {
                     objTree.enumNodeChildren(
                         objTree.getRootId(),
                         function (dbId:any) {
                             var objSelected = dbId;
-                            viewer.getProperties(objSelected, (props:any) => {}
+                            viewerC.current.getProperties(objSelected, (props:any) => {}
                             )}   
                         )}
                         )
                         }, true as any);
                 };
             
-            viewer?.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, onSelectionBinded);
-            viewer?.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
-            setTimeout(() => {
+                //viewerC.current.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
+
+
+                /*const material = new THREE.LineBasicMaterial({color: 0xffff00, linewidth: 2});
+                const geometry = new THREE.Geometry();
+                geometry.vertices.push(
+                    new Vector3(-10, 0, 0),
+                    new Vector3(0, 10, 0),
+                    new Vector3(10, 0, 0)
+                );
+
+                const line = new THREE.Line(geometry, material);
+
+                viewerC.current.impl.createOverlayScene('pointclouds');
+                viewerC.current.impl.addOverlay('pointclouds', line);
+
+                viewerC.current.addEventListener(
+                    Autodesk.Viewing.OBJECT_TREE_CREATED_EVENT, (args:any) => {
+                        //and can't add in this place
+                        const material = new THREE.LineBasicMaterial({color: 0xffff00, linewidth: 2});
+                        const geometry = new THREE.Geometry();
+                        geometry.vertices.push(
+                            new THREE.Vector3(-10, 0, 0),
+                            new THREE.Vector3(0, 10, 0),
+                            new THREE.Vector3(10, 0, 0)
+                        );
+
+                        const line = new THREE.Line(geometry, material);
+
+                        viewerC.current.impl.createOverlayScene('pointclouds');
+                        viewerC.current.impl.addOverlay('pointclouds', line);
+                    })*/
+
+            /*setTimeout(() => {
                 PonerProps(15);
-            }, 500);
+            }, 500);*/
             
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
@@ -1112,7 +1271,7 @@ export const ViewerSc = () => {
 
 
         function verseleccionado() {
-            let viewerImpl = viewer!.impl;
+            //let viewerImpl = viewer!.impl;
 
             /*this.activate = (name) => {
                 this.active = true;
@@ -1147,13 +1306,16 @@ export const ViewerSc = () => {
 
         function onSelectionBinded(event:any) {
             //alert('hola');
-            var currSelection = viewer!.getSelection();
+            //var currSelection = viewerC.current!.getSelection();
             //var domElem = document.getElementById('MySelectionValue');
-            //let vector = new THREE.Vector3();
-            //event.object.getWorldPosition(vector);
-            //console.log(vector);
+            //console.log(event)
+            //console.log(currSelection)
+            /*let vector = new THREE.Vector3();
+            event.object.getWorldPosition(vector);
+            console.log(vector);*/
+
             //domElem.innerText = currSelection.length /*+ " " + vector.x + "," + vector.y + "," + vector.z*/;
-            console.log('Este es el evento de cambiar ', event);
+            //console.log('Este es el evento de cambiar ', event);
 
             
             //verseleccionado();
@@ -1170,16 +1332,34 @@ export const ViewerSc = () => {
 
             //console.log('Estas son las props');
             var uniqueIds = [];
-            var DBids = viewer!.getSelection();
+            var DBids = viewerC.current!.getSelection();
             //setSeleccionaE1(DBids);
+            /*const obj={
+    DataA:[{Name:'Nombre2', dbId:'0101'},{Name:'Nombre3', dbId:'0105'}],
+    DataB:[{},{}]
+}*/
+            
+            let array:any=[];
+            const obtener = (props:any, array:any) => {
+                //await array.push(props);
+                //array = [...array, props];
+                //console.log('Este e el array',  array);    
+                console.log('Este e el array',  array);    
+                setSelectedItems({ DataModel:array, DataList:[] });
+            }
+            
+            
+
             var n = 0;
             for (var uniqueId of DBids) {
-                var objSelected = viewer!.getSelection()[n];
+                var objSelected = viewerC.current!.getSelection()[n];
                 n = n + 1;
                 //const el = proyects.DataElementos?.find(x=>x.Id===objSelected);
                 //console.log('elementoss', proyects?.DataElementos);
                 //console.log('elemento', el);
-                viewer!.getProperties(objSelected, (props:any) => {
+                //const elems=[];
+                
+                /*viewerC.current!.getProperties(objSelected, (props:any) => {
                     uniqueIds.push(props.externalId);
                     if (n == DBids.length) {
                         //callbackObj.showMessage(uniqueIds);
@@ -1188,10 +1368,15 @@ export const ViewerSc = () => {
                         console.log(props);
                         //9c9538fd-af40-4b3d-bd89-f8e4acac1fd8-000525ae
                     }
-                })
+                })*/
+                viewerC.current!.getProperties(objSelected, (props:any)=>{
+                    //array = [...array, {Name:`${props.dbId}-${props.name}`, dbId:props.dbId}];
+                    array.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
+                    obtener([{Name:`${props.dbId}-${props.name}`, dbId:props.dbId}],array );
+                });
             }
 
-            let viewerImpl = viewer!.impl;
+            let viewerImpl = viewerC.current!.impl;
 
             /*this.activate = (name) => {
                 this.active = true;
@@ -1301,36 +1486,14 @@ export const ViewerSc = () => {
 
 
         function onDocumentLoadFailure(viewerErrorCode:any) {
-            console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
-            (async ()=>{
-                try {
-                  await AxiosAutodesk.post("authentication/v1/authenticate",
-                    {
-                      client_id: 'Lrn6oqLnwpCBd8GS0LuimGx5SHONYw4b',
-                      client_secret: 'JLA2LfrdwUg4hMkz',
-                      grant_type: 'client_credentials',
-                      scope: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
-                    },
-                    {headers: {'Content-Type':'application/x-www-form-urlencoded'}}
-                  ).then(response => {
-                    console.log('Response token ',response.data);
-                    setToken(response.data)
-                }).catch(response => {              
-                    console.log('Error Acad Token',response);
-                });         
-              } catch (error) {
-                  console.log('Response Acad token error catch ', error);
-              }})();  
-              setTimeout(() => {
-                cargar();
-              }, 1000);
+            console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);            
         }
 
         function addIds(DBids:any, uniqueIds:any, callback:any) {
             var n = 0;
             for (var uniqueId of DBids) {
-                var objSelected = viewer!.getSelection()[uniqueId];
-                viewer!.getProperties(objSelected, (props:any) => {
+                var objSelected = viewerC.current!.getSelection()[uniqueId];
+                viewerC.current!.getProperties(objSelected, (props:any) => {
                     uniqueIds.push(props.externalId);
                     n = n++;
                     if (n == DBids.length) {
@@ -1360,7 +1523,7 @@ export const ViewerSc = () => {
         /**
          * Handles `Autodesk.Viewing.GEOMETRY_LOADED_EVENT` event that is sent when a model has been completely loaded in the viewer.
          *
-         * @param {Autodesk.Viewing.GuiViewer3D} viewer The viewer in which the model is loaded.
+         * @param {Autodesk.Viewing.GuiViewer3D} viewerC.current The viewer in which the model is loaded.
          */
         async function onModelLoaded1(viewer:any) {
             const dataVizExt = viewer.getExtension("Autodesk.DataVisualization");
@@ -1606,9 +1769,9 @@ export const ViewerSc = () => {
 
         function init22() {
             //delegate the mouse click event
-            $(viewer!.container).bind("click", onMouseClick);
+            $(viewerC.current!.container).bind("click", onMouseClick);
             //delegate the event of CAMERA_CHANGE_EVENT
-            viewer!.addEventListener(Autodesk.Viewing.CAMERA_CHANGE_EVENT, function (rt:any) {
+            viewerC.current!.addEventListener(Autodesk.Viewing.CAMERA_CHANGE_EVENT, function (rt:any) {
                 //find out all pushpin markups
                 var $eles = $("div[id^='mymk']");
                 var DOMeles = $eles.get();
@@ -1620,7 +1783,7 @@ export const ViewerSc = () => {
                     var val = divEle.data('3DData');
                     var pushpinModelPt = JSON.parse(val);
                     //get the updated screen point
-                    var screenpoint = viewer!.worldToClient(new THREE.Vector3(
+                    var screenpoint = viewerC.current!.worldToClient(new THREE.Vector3(
                         pushpinModelPt.x,
                         pushpinModelPt.y,
                         pushpinModelPt.z));
@@ -1666,7 +1829,7 @@ export const ViewerSc = () => {
         function drawPushpin(pushpinModelPt:any) {
 
             //convert 3D position to 2D screen coordination
-            var screenpoint = viewer!.worldToClient(
+            var screenpoint = viewerC.current!.worldToClient(
                 new THREE.Vector3(pushpinModelPt.x,
                     pushpinModelPt.y,
                     pushpinModelPt.z));
@@ -1687,18 +1850,18 @@ export const ViewerSc = () => {
 
 
 
-            onModelLoaded1(viewer);
+            onModelLoaded1(viewerC.current);
 
         }
 
         const CargarPartidas = () => {
-            var DBids = viewer!.getSelection();
+            var DBids = viewerC.current!.getSelection();
             var n = 0;
             for (var uniqueId of DBids) {
                 //alert(uniqueId);
 
-                var objSelected = viewer!.getSelection()[0];
-                viewer!.getProperties(objSelected, (props:any) => {
+                var objSelected = viewerC.current!.getSelection()[0];
+                viewerC.current!.getProperties(objSelected, (props:any) => {
                     var Idunico = props.externalId;
                     //alert(Idunico);
                     
@@ -1782,16 +1945,16 @@ export const ViewerSc = () => {
 
             onCreacionContextualMenuItem(menu:any, status:any) {
                 if (status.hasSelected) {
-                    if (viewer!.getSelection().length > 0) {
+                    if (viewerC.current!.getSelection().length > 0) {
                         menu.push(
                             {
-                                title: 'Mostrar partidas asociadas a este elemento',
+                                title: 'Mi opcion 1',
                                 target: () => {
                                     CargarPartidas();
                                 }
                             },
                             {
-                            title: 'Cargar ',
+                            title: 'Mi Opcion 2 ',
                             target:[
                             /*{
                                 title: 'Añadir una comentario',
@@ -1807,10 +1970,10 @@ export const ViewerSc = () => {
 
                             },*/
                             {
-                                title: 'Categoria a Partida actual',
+                                title: 'Mi option 3',
                                 target: () => {
 
-                                    
+                                        alert('option 3')
 
 
                                    
@@ -1819,14 +1982,14 @@ export const ViewerSc = () => {
                                 
                             },
                             {
-                                title: 'Familia a Partida actual',
+                                title: 'Mi option 4',
                                 target: () => {
 
                                     
                                 }
                             },
                             {
-                                title: 'Tipo a Partida actual',
+                                title: 'Mi option 5',
                                 target: () => {
                                    
                                 }
@@ -1840,7 +2003,7 @@ export const ViewerSc = () => {
 
                     menu.push(
                         {
-                            title: 'Ver elementos asociados a Partidas',
+                            title: 'Mi option 6',
                             target: () => {
                                
 
@@ -2451,7 +2614,7 @@ export const ViewerSc = () => {
 
                 //$('#lista-tipos').append('<a class="item_tipo list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" role="tab" aria-controls="list-home">'+$( this ).text()+' </a>');
 
-                if (viewer && auxcadenamuestra != "")
+                if (viewerC.current && auxcadenamuestra != "")
                     highlightRevit(auxcadenamuestra);
 
 
@@ -2499,7 +2662,7 @@ export const ViewerSc = () => {
                         cont3++;
                     }*/
 
-                    if (viewer && cadenamostrar != "")
+                    if (viewerC.current && cadenamostrar != "")
                         highlightRevit(cadenamostrar);
 
                     //$('#lista-tipos').append('<a class="item_tipo list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" role="tab" aria-controls="list-home">'+$( this ).text()+' </a>');
@@ -2697,7 +2860,7 @@ export const ViewerSc = () => {
     }
 
     const cargar = async () => {
-        if (viewer) {
+        if (viewerC.current) {
             //viewer.uninitialize();
             //viewer.finish();
             //viewer=null;
