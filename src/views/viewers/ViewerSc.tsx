@@ -681,10 +681,10 @@ export const ViewerSc = () => {
         startRange.setTime(dataStart.getTime() - 2 * 60 * 60 * 24 * 1000);
         endRange.setTime(dataEnd.getTime() + 2 * 60 * 60 * 24 * 1000);
     }*/
-
-
+    //const appStateRef = useRef();
+    //appStateRef.current = appState;
     /*timeOptionRef.current = timeOptions;
-    appStateRef.current = appState;
+    
     hoveredDeviceInfoRef.current = hoveredDeviceInfo;*/
 
     //var urn;
@@ -940,8 +940,8 @@ export const ViewerSc = () => {
         //scene.background = new THREE.Color(0x2a3b4c);
         //alert('carga2');
         //alert('mostrado');
-        //handleScriptLoad2();
-        ///onModelLoaded(viewer);
+        handleScriptLoad2();
+        onModelLoaded1(viewerC.current);
         //var geom1 = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
         //var material_red = new THREE.MeshPhongMaterial({ color: 0xff0000 });
         /*var material_red = new THREE.MeshBasicMaterial({ color: 0xff0000 });
@@ -1128,6 +1128,8 @@ export const ViewerSc = () => {
             viewerC.current?.loadExtension('Autodesk.DocumentBrowser');
             viewerC.current?.loadExtension('Autodesk.Viewing.SceneBuilder');
             viewerC.current?.loadExtension('MenuContextual');
+            viewerC.current?.loadExtension('Autodesk.DataVisualization');
+            
             if (selectedTheme==='material3-dark'){
                 viewerC.current?.setTheme('dark-theme');
                 viewerC.current?.setLightPreset(3);    
@@ -1253,7 +1255,10 @@ export const ViewerSc = () => {
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
             //viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
             // onModelLoaded1(viewer);
-            //init22();
+            setTimeout(() => {
+                init22();    
+            }, 1500);
+            
             /*viewer.hideModel(doc);
             viewer.showModel(doc);
             if (viewer.areAllVisible())
@@ -1304,7 +1309,7 @@ export const ViewerSc = () => {
         }
 
 
-        function onSelectionBinded(event:any) {
+        async function onSelectionBinded(event:any) {
             //alert('hola');
             //var currSelection = viewerC.current!.getSelection();
             //var domElem = document.getElementById('MySelectionValue');
@@ -1315,7 +1320,7 @@ export const ViewerSc = () => {
             console.log(vector);*/
 
             //domElem.innerText = currSelection.length /*+ " " + vector.x + "," + vector.y + "," + vector.z*/;
-            //console.log('Este es el evento de cambiar ', event);
+            console.log('Este es el evento de cambiar ', event);
 
             
             //verseleccionado();
@@ -1339,18 +1344,19 @@ export const ViewerSc = () => {
     DataB:[{},{}]
 }*/
             
-            let array:any=[];
+           /* let array:any=[];
             const obtener = (props:any, array:any) => {
                 //await array.push(props);
                 //array = [...array, props];
                 //console.log('Este e el array',  array);    
                 console.log('Este e el array',  array);    
                 setSelectedItems({ DataModel:array, DataList:[] });
-            }
+            }*/
             
             
 
             var n = 0;
+            const data:any = [];
             for (var uniqueId of DBids) {
                 var objSelected = viewerC.current!.getSelection()[n];
                 n = n + 1;
@@ -1369,16 +1375,33 @@ export const ViewerSc = () => {
                         //9c9538fd-af40-4b3d-bd89-f8e4acac1fd8-000525ae
                     }
                 })*/
-                viewerC.current!.getProperties(objSelected, (props:any)=>{
+                /*viewerC.current!.getProperties(objSelected, (props:any)=>{
                     //array = [...array, {Name:`${props.dbId}-${props.name}`, dbId:props.dbId}];
                     array.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
                     obtener([{Name:`${props.dbId}-${props.name}`, dbId:props.dbId}],array );
-                });
+                });*/
+                
+                const obtener = ((props:any)=>{
+                    //console.log('estas son las propiedades', props);
+                    //return (props);
+                    //data.push(props)
+                    data.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
+                })
+                
+                viewerC.current!.getProperties(objSelected, obtener);
+                
+                
+
             }
+            setTimeout(async() => {
+                console.log('estas son las propiedades', await data);
+                setSelectedItems({ DataModel:await data, DataList:[] });
+            }, 600);
+
 
             let viewerImpl = viewerC.current!.impl;
 
-            /*this.activate = (name) => {
+            /*this.activate = (name:any) => {
                 this.active = true;
             };
     
@@ -1389,20 +1412,34 @@ export const ViewerSc = () => {
 
             //this.handleSingleClick = (event, button) => {
             //if (button === 0) {
-            //const res = [];
-            //const vpVec = viewerImpl.clientToViewport(event.canvasX, event.canvasY);
-            /* const dbId = viewerImpl
+            const res:any = [];
+            const vpVec = viewerImpl.clientToViewport(event.canvasX, event.canvasY);
+             const dbId = viewerImpl
                  .renderer()
                  .idAtPixel(vpVec.x, vpVec.y, res, [viewerImpl.renderer().getOverlayIdTarget()]);
- 
+
+                 /*var geom = new THREE.SphereGeometry(2, 2, 2);
+                 var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                 var sphereMesh = new THREE.Mesh(geom, material);
+                 sphereMesh.position.set(vpVec.x, vpVec.y, res);
+                 if (!viewerC.current.overlays.hasScene('custom-scene1')) {
+                     viewerC.current.overlays.addScene('custom-scene1');
+                     //viewer.impl.scene.add('custom-scene');
+                 }
+                 viewerC.current.overlays.addMesh(sphereMesh as THREE.Object3D, 'custom-scene1');
+                 console.log(vpVec.x, vpVec.y, res);*/
+
              if (true) {
                  let test = viewerImpl.hitTestViewport(vpVec, false);
                  console.log(test);
-             }*/
 
-            // "dbId == -1" when nothing is clicked.
+         
 
-            // }
+             }
+
+             //"dbId == -1" when nothing is clicked.
+
+            //}
 
 
 
@@ -1505,20 +1542,7 @@ export const ViewerSc = () => {
 
         }
 
-        const SensorStyleDefinitions = {
-            co2: {
-                url: `uno.svg`,
-                color: 0xffffff,
-            },
-            temperature: {
-                url: `uno.svg`,
-                color: 0xffffff,
-            },
-            default: {
-                url: `uno.svg`,
-                color: 0xffffff,
-            },
-        };
+        
 
         /**
          * Handles `Autodesk.Viewing.GEOMETRY_LOADED_EVENT` event that is sent when a model has been completely loaded in the viewer.
@@ -1529,18 +1553,39 @@ export const ViewerSc = () => {
             const dataVizExt = viewer.getExtension("Autodesk.DataVisualization");
             const DATAVIZEXTN = Autodesk.DataVisualization?.Core;
             if (!DATAVIZEXTN) { return; }
+            
             var styleMap:any;
+            
+            const SensorStyleDefinitions = {
+                co2: {
+                    url: `uno.svg`,
+                    color: 0xffffff,
+                },
+                temperature: {
+                    url: `uno.svg`,
+                    color: 0xffffff,
+                },
+                default: {
+                    url: `uno.svg`,
+                    color: 0xffffff,
+                },
+            };
 
             // Create model-to-style map from style definitions.
-            Object.entries(SensorStyleDefinitions).forEach(([type, styleDef]) => {
+            /*Object.entries(SensorStyleDefinitions).forEach(([type, styleDef]) => {
 
-                styleMap[type] = new DATAVIZEXTN.ViewableStyle(
+                styleMap['default'] = new DATAVIZEXTN.ViewableStyle(
                     DATAVIZEXTN?.ViewableType.SPRITE,
-                    new THREE.Color(styleDef.color) ,
-                    styleDef.url
+                    new THREE.Color(0xffffff) ,
+                    `uno.svg`
                 );
-            });
+            });*/
 
+            /*styleMap['default'] = new DATAVIZEXTN.ViewableStyle(
+                DATAVIZEXTN?.ViewableType.SPRITE,
+                new THREE.Color(0xffffff) ,
+                `uno.svg`
+            );*/
 
             const div = document.createElement("div");  // <div></div>
             const app = document.getElementById('root'); // <div id="app">App</div>
@@ -1561,7 +1606,8 @@ export const ViewerSc = () => {
             let startId = 1;
 
             devices.forEach((device) => {
-                let style = styleMap[device.type] || styleMap["default"];
+                //let style = styleMap[device?.type] || styleMap["default"];
+                let style = new DATAVIZEXTN.ViewableStyle(DATAVIZEXTN?.ViewableType.SPRITE,new THREE.Color(0xffffff),`uno.svg`);
                 const viewable = new DATAVIZEXTN.SpriteViewable(new THREE.Vector3(device.position.x, device.position.y, device.position.z), style, startId)!;
                 viewableData.addViewable(viewable);
                 startId++;
@@ -1586,44 +1632,48 @@ export const ViewerSc = () => {
              */
 
             function onItemHovering(event:any) {
-                //console.log("Show tooltip here", event);
-                //console.log("Show tooltip here", event.originalEvent);
+                //alert();
+                console.log("Show tooltip here", event);
+                console.log("Show tooltip here", event.originalEvent);
                 //alert(event.point);
                 //alert(viewer.model.getUpVector());
-                // const currAppState = appStateRef.current;
+                 //const currAppState = appStateRef.current;
 
                 div.style.display = 'none';
-
                 posX = event.originalEvent.normalizedX;
                 posY = event.originalEvent.normalizedY;
                 //posZ=event.point.z;
-
                 if (event.dbId) {
                     //alert(event.dbId);
                     //console.log(devices[event.dbId].position.x);
                     //alert(devices[event.dbId-1].position.x);
                     //alert(event.originalEvent.clientX);
-
-
-                    //const div = document.createElement("div");
-                    //div.textContent = "Esto es un div insertado con JS.";
+                    
+                    
+                    /*
+                    
+                    
+                    const div = document.createElement("div");
+                    div.textContent = "Esto es un div insertado con JS.";
                     var tempX = event.originalEvent.clientX + document.body.scrollLeft;
                     var tempY = event.originalEvent.clientY + document.body.scrollTop;
                     /*const app = document.createElement("div"); // <div></div>
                     app.id = "app"; // <div id="app"></div>
                     app.appendChild(div);*/
-
-
                     //var ClientRect = div.getBoundingClientRect();
                     /*var ClientRect = elemento.getBoundingClientRect();
                     return { //objeto
                     x: Math.round(evt.clientX - ClientRect.left),
                     y: Math.round(evt.clientY - ClientRect.top)
-                        }*/
+                        }
+                        
+                        
+                        */
+
+
+
+                    /*    
                     div.appendChild(div1);
-
-
-
                     div1.textContent = 'Ejemplo ' + event.dbId;
                     div1.style.textAlign = 'center';
                     //div.textContent = "Ejemplo "+ event.dbId;                // <div>Ejemplo</div>
@@ -1652,8 +1702,6 @@ export const ViewerSc = () => {
                     div.style.fontSize = '0.7rem';
                     div.style.width = '150px';
                     div.style.height = '110px';
-
-
                     //div.style.top = event.originalEvent.pageY;
                     //div.style.left = event.originalEvent.pageX;
                     //div.style.top = event.originalEvent.pageY+'px';
@@ -1663,6 +1711,11 @@ export const ViewerSc = () => {
                     div.style.display = 'block';
                     //div.style.visibility = 'block';
                     app!.insertAdjacentElement("beforebegin", div);
+
+                    */
+
+
+
                     //determina un margen de pixels del div al raton
                     //div.insertAdjacentElement("beforebegin", div1);
                     //div.insertAdjacentElement("beforebegin", div2);
@@ -1672,10 +1725,8 @@ export const ViewerSc = () => {
 
                     //Si no utilizamos IE capturamos el evento del mouse
 
-
                     /*var tempX = 0;
                     var tempY = 0;
-
                     //if (IE) { //para IE
                         tempX = event.clientX + document.body.scrollLeft;
                         tempY = event.clientY + document.body.scrollTop;*/
@@ -1718,9 +1769,9 @@ export const ViewerSc = () => {
                             setHoveredDeviceInfo({});
                         }
                     }*/
-                    //const positionx = event.originalEvent.clientX;
-                    //const positiony = event.originalEvent.clientY;
-                    /* var hitTest = this.viewer.clientToWorld(event.originalEvent.clientX, event.originalEvent.clientY, true);
+                    /*const positionx = event.originalEvent.clientX;
+                    const positiony = event.originalEvent.clientY;
+                     var hitTest = this.viewer.clientToWorld(event.originalEvent.clientX, event.originalEvent.clientY, true);
                      if (hitTest) {
                          let x = hitTest.point.x;
                          let y = hitTest.point.y;
@@ -1760,16 +1811,20 @@ export const ViewerSc = () => {
             }
 
             const DataVizCore = Autodesk.DataVisualization.Core;
-            // viewer.addEventListener(DataVizCore.MOUSE_CLICK, onItemClick);
-
-            //viewer.addEventListener(DataVizCore.MOUSE_HOVERING, onItemHovering);
+            viewerC.current.addEventListener(DataVizCore.MOUSE_CLICK, onItemClick);
+            viewerC.current.addEventListener(DataVizCore.MOUSE_HOVERING, onItemHovering);
 
 
         }
 
         function init22() {
+            
             //delegate the mouse click event
-            $(viewerC.current!.container).bind("click", onMouseClick);
+            $(viewerC.current?.container).bind("click", onMouseClick);
+
+            //viewerC.current?.container.addEventListener("onclick", onMouseClick);
+            //viewerC.current?.addEventListener("onclick", onMouseClick);
+            //$(viewerC.current?.container).bind("dblclick", onMouseClick);
             //delegate the event of CAMERA_CHANGE_EVENT
             viewerC.current!.addEventListener(Autodesk.Viewing.CAMERA_CHANGE_EVENT, function (rt:any) {
                 //find out all pushpin markups
@@ -1797,7 +1852,9 @@ export const ViewerSc = () => {
         }
 
         function onMouseClick(event:any) {
-            /*if (ponerdato){
+            console.log('diste click');
+            
+            if (ponerdato){
 
                 var screenPoint = {
                     x: event.clientX,
@@ -1808,20 +1865,21 @@ export const ViewerSc = () => {
     
                 //viewer canvas might have offset from the webpage.
     
-                let viewer_pos = viewer.container.getBoundingClientRect();
-                var hitTest = viewer.impl.hitTest(screenPoint.x - viewer_pos.x,
+                let viewer_pos = viewerC.current.container.getBoundingClientRect();
+                var hitTest = viewerC.current.impl.hitTest(screenPoint.x - viewer_pos.x,
                     screenPoint.y - viewer_pos.y, true);
-    
+                
                 if (hitTest) {
                     drawPushpin({
                         x: hitTest.intersectPoint.x,
                         y: hitTest.intersectPoint.y,
                         z: hitTest.intersectPoint.z
                     });
+
                 }
     
 
-            }*/
+            }
         }
 
         //generate a random id for each pushpin markup
@@ -1847,6 +1905,16 @@ export const ViewerSc = () => {
                     sensorTypes: ["co2", "temperature"],
                 });
 
+                 var geom = new THREE.SphereGeometry(2, 2, 2);
+                 var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                 var sphereMesh = new THREE.Mesh(geom, material);
+                 sphereMesh.position.set(pushpinModelPt.x, pushpinModelPt.y, pushpinModelPt.z);
+                 if (!viewerC.current.overlays.hasScene('custom-scene1')) {
+                     viewerC.current.overlays.addScene('custom-scene1');
+                     //viewer.impl.scene.add('custom-scene');
+                 }
+                 viewerC.current.overlays.addMesh(sphereMesh as THREE.Object3D, 'custom-scene1');
+                 
 
 
 

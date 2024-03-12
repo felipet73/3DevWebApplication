@@ -6,7 +6,10 @@ import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import { ListBoxComponent, FieldSettingsModel, DragEventArgs } from '@syncfusion/ej2-react-dropdowns';
 import { DataManager } from '@syncfusion/ej2-data';
+import { ContextMenuComponent, MenuAnimationSettingsModel, MenuEventArgs, MenuItemModel } from '@syncfusion/ej2-react-navigations';
 //import data from './dataSourceDrag.json';
+import { Browser } from '@syncfusion/ej2-base';
+
 import './drag-and-drop.css';
 import { useViewerStore } from '../../../../stores/viewer/viewer.store';
 
@@ -55,20 +58,75 @@ const DragAndDrop = () => {
         });
     }
 
+
+    let animationSettings: MenuAnimationSettingsModel = {
+        effect: Browser.isDevice ? 'ZoomIn' : 'SlideDown'
+    };
+    let content: string = Browser.isDevice ? 'Touch hold to open the ContextMenu' : 'Right click/Touch hold to open the ContextMenu';
+
+    //ContextMenu items definition
+    let menuItems: MenuItemModel[] = [
+        {
+            text: 'Cut',
+            iconCss: 'e-cm-icons e-cut'
+        },
+        {
+            text: 'Copy',
+            iconCss: 'e-cm-icons e-cm-copy'
+        },
+        {
+            text: 'Paste',
+            iconCss: 'e-cm-icons e-paste',
+            items: [
+                {
+                    text: 'Paste Text',
+                    iconCss: 'e-cm-icons e-pastetext'
+                },
+                {
+                    text: 'Paste Special',
+                    iconCss: 'e-cm-icons e-pastespecial'
+                }
+            ]
+        },
+        {
+            separator: true
+        },
+        {
+            text: 'Link',
+            iconCss: 'e-cm-icons e-link'
+        },
+        {
+            text: 'New Comment',
+            iconCss: 'e-cm-icons e-comment'
+        }];
+
+    // Event triggers while rendering each menu item where “Link” menu item is disabled
+    const addDisabled: any = (args: MenuEventArgs) => {
+        if (args.item.text === 'Link') {
+            args.element.classList.add('e-disabled');
+        }
+    }
+
+
+
+
     return (
         <div className='control-pane'>
             <div className='col-lg-12 control-section' style={{ minHeight: '450px' }}>
                 <div id="drag-drop-wrapper">
-                    <div className="listbox-control">
+                    <div id="contextmenutarget" className="listbox-control">
                         <h4>Selected</h4>
-                        <ListBoxComponent ref={listObj1} dataSource={dataA} scope="combined-list" height="230px" allowDragAndDrop={true} fields={fields} drop={onDropGroupA} />
+                        <ListBoxComponent ref={listObj1} dataSource={dataA} scope="combined-list" height="230px" allowDragAndDrop={true} fields={fields} drop={onDropGroupA} change={(e)=>console.log('seleccion', e)} />
                     </div>
+                    <ContextMenuComponent target='#contextmenutarget' items={menuItems} animationSettings={animationSettings} beforeItemRender={addDisabled} select={(e)=> console.log(e)} />
                     {/* <span className="e-swap-icon"></span> */}
                     <div className="listbox-control">
                         <h4>My List</h4>
                         <ListBoxComponent ref={listObj2} dataSource={dataB} scope="combined-list" height="230px" allowDragAndDrop={true} fields={fields} drop={onDropGroupB} />
                         <button className="e-btn" onClick={saveChanges}>Update</button>
                     </div>
+                    
+
                 </div>
             </div>
         </div>
