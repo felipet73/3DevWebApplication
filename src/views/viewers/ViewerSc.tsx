@@ -1,18 +1,20 @@
-import React, { useRef, useEffect, useState, useContext } from 'react'
-import Script from 'react-load-script';
-import $ from 'jquery';
-import queryString from 'query-string';
+
+//import Script from 'react-load-script';
+
+//import queryString from 'query-string';
 //import Swal from 'sweetalert2'
 //import * as THREE from 'three';
 //import {Vector3, LineBasicMaterial, Line, Geometry} from "three";
-import { useGlobalStore } from '../../stores';
+
 //import { AxiosAutodesk } from '../../config/axios';
 //import { useDispatch, useSelector } from 'react-redux';
 //import { actualizaMetrado, agregaCategoria, agregaCategoriaB, agregaElementos, agregaFamilia, agregaFamiliaB, agregaMetrado, agregaTipo, agregaTipoB, guardarAsociado, guardarMedicion, limpiaAsociado, limpiaElementos, limpiaElementosItems, ponerPropiedades, selectAsociados, selectELEMENTOS_METRADOS, selectParidas } from '../actions/proyects.actions';
+import React, { useRef, useEffect, useState, useContext } from 'react'
 import { GlobalContext } from '../../context/GlobalContext';
 import './viewer.css'
 import { useViewerStore } from '../../stores/viewer/viewer.store';
-
+import $ from 'jquery';
+import { useGlobalStore } from '../../stores';
 
 const devices = [
     {
@@ -58,14 +60,14 @@ var ponerdato = true;
 //const viewerLibaryURL1 = '//cdn.jsdelivr.net/gh/autodesk-forge/forge-extensions/public/extensions/NestedViewerExtension/contents/main.js';
 //const viewerStylesheetURL1 = '//cdn.jsdelivr.net/gh/autodesk-forge/forge-extensions/public/extensions/NestedViewerExtension/contents/main.css';
 
-var seleccionados = "", seleccionadosCat = "", seleccionadosFamilia = "", seleccionadosTipo = "";
+//var seleccionados = "", seleccionadosCat = "", seleccionadosFamilia = "", seleccionadosTipo = "";
 //const viewerLibaryURL2 = 'js/three.js';
 
 /*var T_uniqueIds = [];
 var T_categorias = [];
 var T_NombreT = [];
 var T_TipoT = [];*/
-var T_cantidad_elementos = 0;
+//var T_cantidad_elementos = 0;
 
 //URN=dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLi02VW9rWXRDUVZXVDdiWDFZeXRZUHc/dmVyc2lvbj0x
 //const modelURL = 'https://dukedhx.github.io/Forge-Workshop/shaver/0.svf';
@@ -73,12 +75,12 @@ var T_cantidad_elementos = 0;
 //const modelURL = 'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x';
 //const modelURL = 'https:\/\/developer.api.autodesk.com\/derivativeservice\/v2\/derivatives\/dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmhxbTRIV0ZmUm82VGtzand2MjZQSlE_dmVyc2lvbj0x'
 //const viewerLibaryURL = 'https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=v7.*';
-const viewerStylesheetURL = 'https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css?v=v7.*';
-const viewerLibaryURL = 'https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js';
-let viewerLibraryLoaded = false;
+//const viewerStylesheetURL = 'https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css?v=v7.*';
+//const viewerLibaryURL = 'https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js';
+/*let viewerLibraryLoaded = false;
 let viewerLibraryLoaded1 = false;
 let viewerStyleLoaded = false;
-let viewerLoading = false;
+let viewerLoading = false;*/
 
 //const viewerLibaryURL1 = 'js/ForgeViewer.js';
 //var viewer:any;
@@ -701,6 +703,7 @@ export const ViewerSc = () => {
     const [loadViewerLibrary, setLoadViewerLibrary] = useState(false);
     const [loadViewerLibrary1, setLoadViewerLibrary1] = useState(false);
 
+    /*
     const handleStyleLoad = async () => {
         viewerStyleLoaded = true;
         if (cargado1 && cargado2) {
@@ -711,14 +714,16 @@ export const ViewerSc = () => {
 
         if (viewerLibraryLoaded && viewerLibraryLoaded1) {
             /*urn = 'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmhxbTRIV0ZmUm82VGtzand2MjZQSlE_dmVyc2lvbj0x';
-            viewerLibraryLoaded && launchViewer(urn)*/
+            viewerLibraryLoaded && launchViewer(urn)
 
         }
-    }
+    }*/
+    
+    
     var cargado1 = false;
     var cargado2 = false;
 
-
+/*
     const handleScriptLoad1 = async () => {
         //alert('ya cargo');
         cargado2 = true;
@@ -741,8 +746,8 @@ export const ViewerSc = () => {
                 //alert(viewer.isExtensionLoaded("NestedViewerExtension"));
                 //viewer.refresh(true);
             }
-        }, 5000);*/
-    }
+        }, 5000);
+    }*/
 
 
     const handleScriptLoad2 = () => {
@@ -775,7 +780,7 @@ export const ViewerSc = () => {
 
     }
 
-    const handleScriptLoad = async () => {
+    /*const handleScriptLoad = async () => {
         viewerLibraryLoaded = true;
 
         //viewerStyleLoaded && loadViewer(modelURL)
@@ -798,7 +803,7 @@ export const ViewerSc = () => {
             //viewer.loadExtension('MenuContextual');
 
             //alert('se carga');
-            //launchViewer(urn);*/
+            //launchViewer(urn);
 
         }, 4000);
         setTimeout(() => {
@@ -808,7 +813,7 @@ export const ViewerSc = () => {
         }, 8000);
 
         //loadViewer(modelURL);
-    }
+    }*/
 
     async function carga2() {
 
@@ -3009,14 +3014,14 @@ export const ViewerSc = () => {
             });
     }*/
 
-    const loadStyleSheet = (href: string) => {
+   /* const loadStyleSheet = (href: string) => {
         const styles = document.createElement('link');
         styles.rel = 'stylesheet';
         styles.type = 'text/css';
         styles.href = href;
         styles.onload = handleStyleLoad;
         document.getElementsByTagName('head')[0].appendChild(styles);
-    }
+    }*/
 
 
     /*useEffect(() => {

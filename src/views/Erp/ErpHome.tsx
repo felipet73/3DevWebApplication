@@ -27,7 +27,7 @@ const CardErp = ({name, type, description}:PropsCardErp) => {
                 <div className="e-card-separator"></div>
                 <div className="e-card-content">{description}</div>
                 <div className="e-card-actions center">
-                    <ButtonComponent onClick={()=>setOption('Viewer')}>Ingresar</ButtonComponent>
+                    <ButtonComponent onClick={()=>setOption('Viewer')}>Enter</ButtonComponent>
 
                 </div>
             </div>

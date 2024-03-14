@@ -11,8 +11,8 @@ const ViewerMenu = () => {
     
     let headertext: any;
     // Mapping Tab items Header property
-    headertext = [{ text: "Recent" }, { text: "All application" }, { text: "Tecnical Applications" }, { text: "Administrative applications" }, { text: "Sales applications" },
-    { text: "" }, { text: "" }, { text: "" }];
+    headertext = [{ text: "ModelWorkSpace" }, { text: "ProjectInformation" }, { text: "BudgetAndSchedulling" }, { text: "Documents" }, { text: "Users" }, { text: "Products&Specifications" }, { text: "Others" },
+    { text: "" }];
     return (
         <div className='control-pane'>
             <div className='control-section tab-control-section row'>

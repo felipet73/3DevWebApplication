@@ -22,6 +22,9 @@ interface GlobalState {
     setToken: (token:tokenInterface) => void,
     selectedTheme:string,
     setSelectedTheme: (selectedTheme:string) => void,
+    selectedMenu:string,
+    setSelectedMenu: (selectedmenu:string) => void,
+
 }
 
 export const useGlobalStore = create<GlobalState>()((set) => ({
@@ -43,6 +46,8 @@ export const useGlobalStore = create<GlobalState>()((set) => ({
     setToken: (token:tokenInterface) => set({ token:token }),
     selectedTheme:'material3-dark',
     setSelectedTheme: (selectedTheme:string) => set({ selectedTheme:selectedTheme }),
+    selectedMenu:'',
+    setSelectedMenu: (selectedMenu:string) => set({ selectedMenu:selectedMenu }),
 
     /*bears: 0,
   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),

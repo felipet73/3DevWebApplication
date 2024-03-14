@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { AccordionComponent, AccordionItemDirective, AccordionItemsDirective } from '@syncfusion/ej2-react-navigations';
 import './sideoptions.css'
-import TreeViewOptions from './tree/TreeViewOptions';
+import TreeViewOptions from './trees/TreeViewOptions';
 import ListItems1 from './Lists/ListItems1';
 import DropDown from './Lists/DropDown';
 import Bstadistics1 from '../../Erp/Graphics/stadistics/Bstadistics1';

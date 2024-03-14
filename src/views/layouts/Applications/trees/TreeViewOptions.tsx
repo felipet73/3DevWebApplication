@@ -1,6 +1,6 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { TreeGridComponent, ColumnsDirective, ColumnDirective, Selection, Filter, Sort, Reorder, Inject, ITreeData, RowDD, ContextMenu, Toolbar, Page, Edit } from '@syncfusion/ej2-react-treegrid';
 //import { countries } from './data';
 import { IFilter } from '@syncfusion/ej2-react-grids';
@@ -18,22 +18,38 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 import { encode as base64_encode} from 'base-64';
 
+import AddNewModel from '../../../Erp/Modals/bimprojects/AddNewModel';
+import NewProject from '../../../Erp/Modals/bimprojects/NewProject';
+import OpenProject from '../../../Erp/Modals/bimprojects/OpenProject';
+
 const TreeViewOptions = () => {
   
   const setUrn = useGlobalStore(state => state.setUrn);
+  const urn = useGlobalStore(state => state.urn);
+  //const loading = useRef<boolean>(false);
+  const [status, setStatus] = React.useState<boolean>(false);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
+
+    const selectedMenu = useGlobalStore(state => state.selectedMenu);
+    const setSelectedMenu = useGlobalStore(state => state.setSelectedMenu);
+    const [status1, setStatus1] = React.useState<boolean>(false);
+    const [loading1, setLoading1] = React.useState<boolean>(true);
+
+    const [status2, setStatus2] = React.useState<boolean>(false);
+    //const actualProject = useBimProjectsStore( store=>store.actualProject )
 
   const items: ItemModel[] = [
     {
-        text: 'Open',
+        text: 'View-Open',
         iconCss: 'e-ddb-icons e-dashboard'
     },
     {
-        text: 'Copy',
+        text: 'Add to Project',
         iconCss: 'e-ddb-icons e-notifications',
     },
     {
-        text: 'Move',
+        text: 'Copy',
         iconCss: 'e-ddb-icons e-settings',
     },
     {
@@ -62,8 +78,25 @@ const TreeViewOptions = () => {
           {props.type==='items' && 
           <DropDownButtonComponent items={items} iconCss='' style={{ position:'absolute', right:'5px', marginTop:'-5px' }} select={(e)=>{
             //console.log(e, props);
-            if (e.item.properties.text === 'Open')
+            if (e.item.properties.text === 'View-Open')
               setUrn(base64_encode(props.included.id));
+            if (e.item.properties.text === 'Copy'){
+              
+              //console.log(img)
+            }
+            if (e.item.properties.text === 'Add to Project'){
+              if (urn!==base64_encode(props.included.id)){
+                setUrn(base64_encode(props.included.id));
+                setLoading(true);
+              }
+              
+              setStatus(true);
+            }
+
+              
+
+
+              
 
           }}></DropDownButtonComponent>
           }
@@ -541,30 +574,30 @@ const TreeViewOptions = () => {
 
 
 
-	
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  useEffect(() => {
+    if (selectedMenu==='NewProject') {
+      setStatus1(true)
+      setSelectedMenu('');
+    }
+    if (selectedMenu==='OpenProject') {
+      setStatus2(true)
+      setSelectedMenu('');
+    }
+    
+  }, [selectedMenu])
 
 
 
 
   return (
     <div className="control-pane">
+      {status && <AddNewModel status={status} setStatus={setStatus} loading={loading} setLoading={setLoading}/>}
+      {status1 && <NewProject status={status1} setStatus={setStatus1} loading={loading1} setLoading={setLoading1}/>}
+      {status2 && <OpenProject status={status2} setStatus={setStatus2} />}
       <div className="control-section">
+        
         <TreeGridComponent
           ref={treegridObj}
           dataSource={tremodels}

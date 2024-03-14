@@ -20,6 +20,7 @@
     "@syncfusion/ej2-react-navigations": "^24.2.4",
     "@syncfusion/ej2-react-notifications": "^24.2.4",
     "@syncfusion/ej2-react-popups": "^24.1.46",
+    "@syncfusion/ej2-react-progressbar": "^24.2.9",
     "@syncfusion/ej2-react-ribbon": "^24.2.8",
     "@syncfusion/ej2-react-schedule": "^24.2.8",
     "@syncfusion/ej2-react-splitbuttons": "^24.1.46",

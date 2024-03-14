@@ -1,7 +1,7 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { useEffect } from 'react';
-import TreeViewOptions from '../layouts/Applications/tree/TreeViewOptions';
+import TreeViewOptions from '../layouts/Applications/trees/TreeViewOptions';
 //import './card.component.css';
 
 

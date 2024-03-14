@@ -20,6 +20,7 @@ import SideRightOptions from './SideRightOptions';
 import BarChart1 from '../../Erp/Graphics/BarChart1';
 import { GlobalContext } from '../../../context/GlobalContext';
 import { CurrentAction } from '@syncfusion/ej2-react-schedule';
+import NewProject from '../../Erp/Modals/bimprojects/NewProject';
 
 
 
@@ -32,8 +33,14 @@ const LayoutAppplications = () => {
     const option = useGlobalStore(state => state.option);
     const SetOptionModel = useOptionModelStore(state => state.setOptionModel);
     const [widthVw, setWidthVw] = React.useState(700);
+    
+    
+    //const [status, setStatus] = React.useState(false);
+    //const [loading, setLoading] = React.useState<boolean>(false);
+    
     const renderizar = React.useRef(true);
     const setOption = useGlobalStore(state => state.setOption);
+    const setSelectedMenu = useGlobalStore(state => state.setSelectedMenu);
     const { viewerC } = React.useContext( GlobalContext );
     let panelR = useRef<SplitterComponent>(null);
 
@@ -113,6 +120,14 @@ const LayoutAppplications = () => {
 
     const updateContent = (args: any) => {
         toastInstance.current!.show({ content: "Last clicked item is " + args });
+        
+        if (args === 'File -> New') {
+            setSelectedMenu('NewProject');
+        }
+        if (args === 'File -> Open') {
+            setSelectedMenu('OpenProject');
+        }
+
         if (args === 'Cut') {
             setOption('Viewer');
             renderizar.current = true;
@@ -190,7 +205,6 @@ const LayoutAppplications = () => {
 
     const ChildPanel = () => {
         return (
-
             <SplitterComponent ref={panelR} height='100%' width="100%" separatorSize={4} resizeStop={(e) => {
                 renderizar.current = false;
                 //setWidthVw(e.paneSize[1]);
@@ -392,7 +406,7 @@ const LayoutAppplications = () => {
 
 
     return (
-        <div className='control-pane'>
+        <div className='control-pane'>            
             <div className='col-lg-12 control-section default-ribbon-section'>
                 <div className='control ribbon-sample'>
                     <div id="default-ribbonContainer" className='default-ribbon-container' style={{ height: '93vh' }}>
