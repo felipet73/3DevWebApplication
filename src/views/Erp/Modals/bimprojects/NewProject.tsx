@@ -6,6 +6,8 @@ import { GlobalContext } from '../../../../context/GlobalContext';
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import Loading from '../../../layouts/common/Loading';
+//import { jsPDF } from "jspdf";
+
 interface Props {
     status: boolean;
     setStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -50,6 +52,11 @@ const NewProject = ({ status, setStatus, loading, setLoading }: Props) => {
             const img = viewerC.current.canvas.toDataURL('image/png')
             setImg(img);                        
         }
+
+        //var imgData = canvas.toDataURL('image/png');              
+        //var doc = new jsPDF('p', 'mm');
+        //doc.addImage(img, 'PNG', 10, 10);
+        //doc.save('sample-file.pdf');
         //window.location = viewerC.current.canvas.toDataURL('image/png')
         //document.write('<img src="'+img+'"/>');
     }, [])

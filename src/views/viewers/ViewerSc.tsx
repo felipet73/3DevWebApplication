@@ -15,6 +15,9 @@ import './viewer.css'
 import { useViewerStore } from '../../stores/viewer/viewer.store';
 import $ from 'jquery';
 import { useGlobalStore } from '../../stores';
+//import * as TransformControls from 'three/examples/js/controls/TransformControls.js';
+
+
 
 const devices = [
     {
@@ -1655,11 +1658,12 @@ export const ViewerSc = () => {
                     //alert(event.originalEvent.clientX);
                     
                     
-                    /*
+                    
                     
                     
                     const div = document.createElement("div");
-                    div.textContent = "Esto es un div insertado con JS.";
+                    div1.style.fontSize = '1rem';
+                    div.textContent = "Msj.";
                     var tempX = event.originalEvent.clientX + document.body.scrollLeft;
                     var tempY = event.originalEvent.clientY + document.body.scrollTop;
                     /*const app = document.createElement("div"); // <div></div>
@@ -1677,47 +1681,52 @@ export const ViewerSc = () => {
 
 
 
-                    /*    
+                        
                     div.appendChild(div1);
                     div1.textContent = 'Ejemplo ' + event.dbId;
                     div1.style.textAlign = 'center';
                     //div.textContent = "Ejemplo "+ event.dbId;                // <div>Ejemplo</div>
                     div2.innerHTML = 'Otro dato';
-                    div1.classList.add('card');
+                    //div1.classList.add('card');
                     //div1.classList.add('card-header');
-
-                    div2.classList.add('card-title');
+                    div.classList.add('element');
+                    div1.classList.add('element');
+                    //div2.classList.add('card-title');
                     //div3.classList.add('card-header');
 
 
                     div1.style.fontSize = '0.8rem';
                     //div1.style.border = '1px 1px 1px 2px rgba(255,255,255,0.95)';
 
-                    div1.style.backgroundColor = 'rgba(1,1,1,0.85)';
-                    div1.style.width = '100%';
+                    //div1.style.backgroundColor = 'rgba(1,1,1,0.85)';
+                    //div1.style.width = '100%';
 
-                    div.appendChild(div2);
+                    //div.appendChild(div2);
                     div2.style.fontSize = '0.7rem';
 
-                    div.style.backgroundColor = 'rgba(1,1,1,0.65)';
+                    //div.style.backgroundColor = 'rgba(1,1,1,0.65)';
                     //div.style.alignContent = 'center';
                     div.style.borderRadius = '10px';
                     div.style.position = 'absolute';
                     div.style.zIndex = '999';
-                    div.style.fontSize = '0.7rem';
-                    div.style.width = '150px';
-                    div.style.height = '110px';
+                    div.style.fontSize = '1.7rem';
+                    div.style.width = '100px';
+                    div.style.height = '70px';
                     //div.style.top = event.originalEvent.pageY;
                     //div.style.left = event.originalEvent.pageX;
                     //div.style.top = event.originalEvent.pageY+'px';
-                    div.style.top = (event.originalEvent.pageY - 120) + 'px';
+                    div.style.top = (event.originalEvent.pageY - 80) + 'px';
                     div.style.left = (event.originalEvent.pageX - 65) + 'px';
+                    div.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
                     //div.style.left = posX+'px';
                     div.style.display = 'block';
                     //div.style.visibility = 'block';
                     app!.insertAdjacentElement("beforebegin", div);
 
-                    */
+                    setTimeout(() => {
+                        div.style.display = 'none';    
+                    }, 1800);
+                    
 
 
 
@@ -1911,7 +1920,7 @@ export const ViewerSc = () => {
                 });
 
                  var geom = new THREE.SphereGeometry(2, 2, 2);
-                 var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+                 var material = new THREE.MeshLambertMaterial({ color: 0x3D6979  });
                  var sphereMesh = new THREE.Mesh(geom, material);
                  sphereMesh.position.set(pushpinModelPt.x, pushpinModelPt.y, pushpinModelPt.z);
                  if (!viewerC.current.overlays.hasScene('custom-scene1')) {
@@ -1920,7 +1929,6 @@ export const ViewerSc = () => {
                  }
                  viewerC.current.overlays.addMesh(sphereMesh as THREE.Object3D, 'custom-scene1');
                  
-
 
 
             onModelLoaded1(viewerC.current);

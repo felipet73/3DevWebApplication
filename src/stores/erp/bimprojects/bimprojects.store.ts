@@ -2,13 +2,14 @@
 import { create } from 'zustand'
 
 
-interface ModelInterface{
+export interface ModelInterface{
     id:string;
     name:string;
     dateCreated:Date;
     file:string;
     descripcion:string;
     image:string;
+    urn:string;
 }
 
 export interface ProjectInterface {

@@ -5,6 +5,7 @@ import { Internationalization } from '@syncfusion/ej2-base';
 //import { textdata } from './data';
 import { TreeGridComponent, ColumnsDirective, ColumnDirective, DetailRow, Inject } from '@syncfusion/ej2-react-treegrid';
 import { useBimProjectsStore } from '../../../../stores';
+import { DropDownButtonComponent, ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 
 let instance: Internationalization = new Internationalization();
 
@@ -56,6 +57,24 @@ const textdata = [{
 ];
 
 
+const items: ItemModel[] = [
+    {
+        text: 'View-Open',
+        iconCss: 'e-ddb-icons e-dashboard'
+    },
+    {
+        text: 'Add to Project',
+        iconCss: 'e-ddb-icons e-notifications',
+    },
+    {
+        text: 'Copy',
+        iconCss: 'e-ddb-icons e-settings',
+    },
+    {
+        text: 'Info',
+        iconCss: 'e-ddb-icons e-logout'
+    }];
+
 interface DateFormat extends Window {
     format?: Function;
 }
@@ -66,9 +85,11 @@ const TreeViewProject = () => {
 
     const actualProyect = useBimProjectsStore(store=> store.actualProject);
     const [tit, setTit]= React.useState('');
+    const [data, setData]= React.useState<any>([]);
 
     const detailtemplate = (props:any): any => {
-        var imag = "src/treegrid/images/" + props.FullName + ".png";
+        var imag = "http://localhost:3001/api/images/users/e719a8ae-68bf-4ad0-a3b2-6702936cef42.png"
+        // + props.image  + ".png";
         return (
             <div>
                 <div
@@ -79,7 +100,7 @@ const TreeViewProject = () => {
                         padding: "5px 4px 2px 27px",
                     }}
                 >
-                    <img src={imag} alt={props.FullName} />
+                    <img style={{ width:'60px' }} src={imag} alt={props.name} />
                 </div>
                 <div
                     style={{
@@ -91,22 +112,22 @@ const TreeViewProject = () => {
                     }}
                 >
                     <div className="e-description" style={{ marginTop: "5px" }}>
-                        <b>{props.Name}</b> was born on {format(props.DOB)}. Now lives at{" "}
-                        {props.Address}, {props.Country}. {props.Name} holds a position of{" "}
-                        <b>{props.Designation}</b> in our WA department, (Seattle USA).
+                        <b>{props?.description}</b> .
+                        <DropDownButtonComponent items={items} style={{ position:'absolute', right:'5px', marginTop:'-5px' }} select={(e:any)=>{
+            //console.log(e, props);
+          }}></DropDownButtonComponent>                        
                     </div>
-                    <div className="e-description" style={{ marginTop: "5px" }}>
-                        <b style={{ marginRight: "10px" }}>Contact:</b>
-                        {props.Contact}
-                    </div>
+                    
                 </div>
             </div>
         );
     };
 
     useEffect(() => {
-        console.log(actualProyect);
-        setTit(actualProyect?.name || '')
+        console.log('Este es actualProject', actualProyect);
+        
+        setData(actualProyect?.models || []);
+        //setTit(actualProyect?.name || '')
     }, [actualProyect])
     
 
@@ -114,27 +135,30 @@ const TreeViewProject = () => {
     return (
         <div className="control-pane">
             <div className="control-section">
+                {actualProyect?.name}
                 <TreeGridComponent
-                    dataSource={textdata}
-                    childMapping="Children"
+                    dataSource={data}
+                    childMapping="models"
                     detailTemplate={template.bind(this)}
+                    //detailTemplate={template}
                     treeColumnIndex={0}
                     height="335"
                 >
                     <ColumnsDirective>
                         <ColumnDirective
-                            headerText={tit}
+                            headerText='Model'
                             width="180"
-                            field="Name"
+                            field="name"
+                            //template={template}
                         ></ColumnDirective>
-                        <ColumnDirective
+                         {/* <ColumnDirective
                             headerText="Date"
-                            field="DOB"
+                            field="createdAt"
                             width="85"
                             type="date"
                             format="yMd"
                             textAlign="Right"
-                        ></ColumnDirective>
+                        ></ColumnDirective> */}
                         
                     </ColumnsDirective>
                     <Inject services={[DetailRow]} />

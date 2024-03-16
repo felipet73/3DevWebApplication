@@ -30,7 +30,7 @@ const TreeViewOptions = () => {
   const [status, setStatus] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
 
-
+    const selectedModel = useRef<any>(null);
     const selectedMenu = useGlobalStore(state => state.selectedMenu);
     const setSelectedMenu = useGlobalStore(state => state.setSelectedMenu);
     const [status1, setStatus1] = React.useState<boolean>(false);
@@ -87,16 +87,13 @@ const TreeViewOptions = () => {
             if (e.item.properties.text === 'Add to Project'){
               if (urn!==base64_encode(props.included.id)){
                 setUrn(base64_encode(props.included.id));
+                
                 setLoading(true);
               }
-              
+              selectedModel.current=props.included;
               setStatus(true);
             }
 
-              
-
-
-              
 
           }}></DropDownButtonComponent>
           }
@@ -558,8 +555,6 @@ const TreeViewOptions = () => {
     }
     */
     
-    
-    
     const ObteinData = (async ()=>{
       //setAllLevels(null);
       //await ObtenerTokenAdsk();
@@ -593,7 +588,7 @@ const TreeViewOptions = () => {
 
   return (
     <div className="control-pane">
-      {status && <AddNewModel status={status} setStatus={setStatus} loading={loading} setLoading={setLoading}/>}
+      {status && <AddNewModel selectedModel={selectedModel} status={status} setStatus={setStatus} loading={loading} setLoading={setLoading}/>}
       {status1 && <NewProject status={status1} setStatus={setStatus1} loading={loading1} setLoading={setLoading1}/>}
       {status2 && <OpenProject status={status2} setStatus={setStatus2} />}
       <div className="control-section">

@@ -6,13 +6,12 @@ import './sideoptions.css'
 import TreeViewOptions from './trees/TreeViewOptions';
 import ListItems1 from './Lists/ListItems1';
 import TreeViewProject from './trees/TreeViewProject';
-import { useBimProjectsStore, useGlobalStore } from '../../../stores';
-import NewProject from '../../Erp/Modals/bimprojects/NewProject';
+import TreeViewProject1 from './trees/TreeViewProject1';
 
 
 const SideOptions = () => {
 
-    const actualProject = useBimProjectsStore( store=>store.actualProject )
+    //const actualProject = useBimProjectsStore( store=>store.actualProject )
     
     
 
@@ -42,7 +41,7 @@ const SideOptions = () => {
       return(              
         <div id="projectmodels" >
         
-        {actualProject ? <TreeViewProject/> : <div>No project Selected</div>}
+        <TreeViewProject1/>
 
           {/* <li><span className='e-acrdn-icons e-content-icon marathon'></span>Marathon</li>
           <li><span className='e-acrdn-icons e-content-icon javelin'></span>Javelin Throw</li>

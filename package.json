@@ -40,6 +40,7 @@
     "forge-dataviz-iot-data-modules": "^0.1.11",
     "forge-dataviz-iot-react-components": "^0.1.17",
     "jquery": "^3.7.1",
+    "jspdf": "^2.5.1",
     "query-string": "^9.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

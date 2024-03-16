@@ -22,14 +22,14 @@ const dataFolders ={
 }
 
 interface Props{
-  selected:any;
   setSelected:any;
-  projects:any;
+  projectSel:any;
 }
 
-const TreeFileProjects = ({selected, setSelected, projects}:Props) => {
+const TreeFileProjects = ({ setSelected, projectSel}:Props) => {
 
   const [data, setData] = React.useState<any>(dataFolders);
+  
   //const data = dataFolders as any;
   //const [selected, setSelected] = React.useState({});
   //const loggedUser = useGlobalStore( state => state.loggedUser);
@@ -46,8 +46,7 @@ const TreeFileProjects = ({selected, setSelected, projects}:Props) => {
   useEffect(() => {
     //{ "nodeId": "01-01", "nodeText": "Gouttes.mp3", "icon": "audio" }
 
-    const getProjects = (async () =>{
-            
+    /*const getProjects = (async () =>{
         //console.log('FormDATA ',formData);
         try {
             await Axios.get("projects/", {
@@ -85,7 +84,23 @@ const TreeFileProjects = ({selected, setSelected, projects}:Props) => {
             //toastObj.show({ title: 'Atention!', content: 'A problem has been occurred:\n '+error, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
             console.log('Response error catch ', error);
         }
-    })();
+    })();*/
+
+    console.log('*Estos son los proyectos',dataProjects);
+    const agrega = dataProjects.map((x:any)=>({ nodeId: x.id, nodeText: x.name, icon: 'project' }));
+    setData( {
+      iconData:   [
+         {
+             nodeId: "01", nodeText: "My Projects", icon: "folder",
+             nodeChild: agrega
+         },
+         {
+             nodeId: "02", nodeText: 'New Folder', icon: 'folder',
+             nodeChild: []
+         },
+     ]
+    });
+
 
   }, [])
   
@@ -122,7 +137,8 @@ const TreeFileProjects = ({selected, setSelected, projects}:Props) => {
             console.log(data?.iconData[0])
             //setSelected(e.nodeData);
             setSelected(data?.iconData[0]?.nodeChild?.find((x:any)=>x.nodeId===e.nodeData.id));
-            
+            projectSel.current=data?.iconData[0]?.nodeChild?.find((x:any)=>x.nodeId===e.nodeData.id);
+            //setActualProject( dataProjects.find ( (x:any) => x.id === e.nodeData.id )! as ProjectInterface );
           }}/>
   )
 }

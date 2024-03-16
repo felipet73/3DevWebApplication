@@ -19,11 +19,12 @@ const OpenProject = ({ status, setStatus }: Props) => {
     const textareaObj = useRef<TextBoxComponent>(null);
     const [selected, setSelected] = React.useState<any>({});
     const setActualProject = useBimProjectsStore(store=> store.setActualProject);
-    const setProjects = useBimProjectsStore(store => store.setProjects);
-    //const projects = useBimProjectsStore(store=> store.projects);
+    //const setProjects = useBimProjectsStore(store => store.setProjects);
+    const dataProjects = useBimProjectsStore(store=> store.projects);
     let animationSettings: AnimationSettingsModel;
     //const [projects, setProjects] = React.useState<any>([]);
-    const projects = useRef<ProjectInterface[]>([]);
+    const projectSel = useRef<any>([]);
+    //const setActualProject = useBimProjectsStore(store=> store.setActualProject);            
     //let buttonEle: HTMLButtonElement;
     //const [status, setStatus] = useState<boolean>(true);
     //const [display, setDisplay] = useState<string>('none');
@@ -38,22 +39,22 @@ const OpenProject = ({ status, setStatus }: Props) => {
 
     
     const selectProject = (): void => {
-        console.log(projects.current)
-        console.log(selected)
+        //console.log(projects.current)
+        console.log(projectSel)
         //return;
         //const actu:any = projects.current.find((x:any) => x.id===selected?.nodeId);
         //console.log(actu)
         //setProjects([...projects.current]);
         //setActualProject(actu);
-        
-        setActualProject({
+        setActualProject( dataProjects.find ( (x:any) => x.id === projectSel.current?.nodeId )! as ProjectInterface );
+        /*setActualProject({
             id:selected?.nodeId,
             name:selected?.nodeText,
             dateCreated: new Date(),
             descripcion:'',
             image:'',
             models: []
-        })
+        })*/
         setStatus(false);
         //setDisplay('inline-block');
     }
@@ -94,7 +95,7 @@ const OpenProject = ({ status, setStatus }: Props) => {
                                 <div className="e-card-header">
                                     <div className="e-card-header-caption">
                                         <div className="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                                        <TreeFileProjects selected={selected} setSelected={setSelected} projects={projects} />
+                                        <TreeFileProjects setSelected={setSelected} projectSel={projectSel} />
                                         </div>
                                     </div>
                                 </div>

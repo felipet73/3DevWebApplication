@@ -3,7 +3,7 @@ import { Ribbon, RibbonComponent, RibbonTabsDirective, RibbonTabDirective, Ribbo
 import { RibbonFileMenu, RibbonItemSize, Inject, FileMenuEventArgs, LauncherClickEventArgs, RibbonGroupButtonSelection } from '@syncfusion/ej2-react-ribbon';
 import { ItemModel } from '@syncfusion/ej2-react-splitbuttons';
 //import { MenuItemModel } from '@syncfusion/ej2-react-navigations';
-import { useMenuStore } from '../../../../stores';
+import { useBimProjectsStore, useMenuStore } from '../../../../stores';
 
 interface PrpsBimMenu {
     updateContent:(args: any) => void;
@@ -14,6 +14,7 @@ interface PrpsBimMenu {
 export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimMenu) => {
 
     let ribbonObj = useRef<RibbonComponent>(null);
+    const actualProject = useBimProjectsStore(store=>store.actualProject);
     const fileOptions = useMenuStore(state => state.fileOptions);
     const setFileOptions = useMenuStore(state => state.setFileOptions);
     //const viewer = useGlobalStore(state => state.viewer);
@@ -333,7 +334,11 @@ export const MenuBimProjects = ({updateContent,fileSelect,launchClick }:PrpsBimM
                                     </RibbonGroupsDirective>
                                 </RibbonTabDirective> 
 
-                                </RibbonTabsDirective>
+
+                                <RibbonTabDirective header={actualProject ? actualProject.name : 'No Project selected'}>
+                                </RibbonTabDirective>                                 
+
+                            </RibbonTabsDirective>
 
                             <Inject services={[RibbonFileMenu, RibbonColorPicker]} />
                         </RibbonComponent>

@@ -18,8 +18,8 @@ import { ChipDirective, ChipListComponent, ChipsDirective } from '@syncfusion/ej
 import '../views/layouts/sidebar-menu.css';
 import Register from '../views/auth/register/Register';
 import { UserInterface } from '../interfaces/userInterface';
-import { useGlobalStore } from '../stores';
-import { AxiosAutodesk } from '../config/axios';
+import { useBimProjectsStore, useGlobalStore } from '../stores';
+import Axios, { AxiosAutodesk } from '../config/axios';
 import { GlobalContext } from '../context/GlobalContext';
 
 interface Prps {
@@ -38,6 +38,7 @@ export const Navigation = ({ setCambios }: Prps) => {
   //const [actualUser, setActualUser] = React.useState<UserInterface>({name:'', email:'', emailValidated:false, id:'',role:['']});
 
   const loggedUser = useGlobalStore(state => state.loggedUser);
+  const setProjects = useBimProjectsStore(state => state.setProjects);
   //const setLoggedUser = useGlobalStore( state => state.setLoggedUser);
 
 
@@ -111,7 +112,6 @@ export const Navigation = ({ setCambios }: Prps) => {
   useEffect(() => {
     //setActualUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}' ) || {});
     //setLoggedUser(JSON.parse( localStorage.getItem("User3Dev") ?? '{}'));
-    
     sidebarobj.current?.toggle();
     setCambios(state => !state);
     setTimeout(() => setCambios(state => !state), 800);
@@ -150,6 +150,29 @@ export const Navigation = ({ setCambios }: Prps) => {
     }})();
 
   }, [])
+
+  useEffect(() => {
+
+    const getProjects = (async () =>{
+      try {
+          await Axios.get("projects/", {
+            headers:{Authorization:`Bearer ${localStorage.getItem("Token3Dev")?.replaceAll('"','')}`}
+          }).then(response => {
+              console.log('Response ',response.data);
+              console.log('Projects*****', response.data.projects);
+              setProjects(response.data.projects);
+          }).catch(response => {
+              console.log('Error ', response.response.data.error);
+          });        
+      } catch (error) {
+          console.log('Response error catch ', error);
+      }
+  })();
+  
+
+  }, [])
+
+
 
 
   /*function getForgeToken(callback:any) {
