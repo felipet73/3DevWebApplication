@@ -262,3 +262,22 @@ td.e-rowcell .statustxt.e-lowgdp {
     vertical-align: middle;
     width: 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dropdowntree-filtering .control_wapper {
+    margin: 0 auto;
+    width: 250px !important;
+    padding-top: 15px;
+}

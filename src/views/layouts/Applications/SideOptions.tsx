@@ -7,6 +7,7 @@ import TreeViewOptions from './trees/TreeViewOptions';
 import ListItems1 from './Lists/ListItems1';
 import TreeViewProject from './trees/TreeViewProject';
 import TreeViewProject1 from './trees/TreeViewProject1';
+import TreeProjectModel from './trees/TreeProjectModel';
 
 
 const SideOptions = () => {
@@ -53,8 +54,8 @@ const SideOptions = () => {
     }
     const projectTree = () => {
       return(              
-        <div id="athletics" >
-        <TreeViewOptions/>
+        <div id="projecttree" >
+        <TreeProjectModel/>
           {/* <li><span className='e-acrdn-icons e-content-icon marathon'></span>Marathon</li>
           <li><span className='e-acrdn-icons e-content-icon javelin'></span>Javelin Throw</li>
           <li><span className='e-acrdn-icons e-content-icon discus'></span>Discus Throw</li>

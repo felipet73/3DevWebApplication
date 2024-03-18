@@ -14,7 +14,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 import './viewer.css'
 import { useViewerStore } from '../../stores/viewer/viewer.store';
 import $ from 'jquery';
-import { useGlobalStore } from '../../stores';
+import { useBimProjectsStore, useGlobalStore } from '../../stores';
 //import * as TransformControls from 'three/examples/js/controls/TransformControls.js';
 
 
@@ -496,12 +496,14 @@ export const ViewerSc = () => {
 
     const setSelectedItems = useViewerStore(store => store.setSelectedItems);
 
-    const { viewerC } = useContext( GlobalContext );
+    const { viewerC, actualViewables } = useContext( GlobalContext );
+    
     //const setToken = useGlobalStore(state => state.setToken);
     const selectedTheme = useGlobalStore(store => store.selectedTheme);
     const [modelURL, setModelURL] = useState('dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x');
     //'dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLmktWmdsQkg4UnRXRWI1Zi1CWnZnQ0E/dmVyc2lvbj0x'
     //const [Viewer1, setViewer1] = useState(null);
+    //const setViewables = useBimProjectsStore(store => store.setViewables);
 
     /*function initTasks() {
         const currentDate = new Date();
@@ -703,8 +705,8 @@ export const ViewerSc = () => {
     const urn = useGlobalStore(store => store.urn);
     //const setViewer = useGlobalStore(store => store.setViewer);
 
-    const [loadViewerLibrary, setLoadViewerLibrary] = useState(false);
-    const [loadViewerLibrary1, setLoadViewerLibrary1] = useState(false);
+   // const [loadViewerLibrary, setLoadViewerLibrary] = useState(false);
+    //const [loadViewerLibrary1, setLoadViewerLibrary1] = useState(false);
 
     /*
     const handleStyleLoad = async () => {
@@ -723,8 +725,8 @@ export const ViewerSc = () => {
     }*/
     
     
-    var cargado1 = false;
-    var cargado2 = false;
+    //var cargado1 = false;
+    //var cargado2 = false;
 
 /*
     const handleScriptLoad1 = async () => {
@@ -1189,9 +1191,12 @@ export const ViewerSc = () => {
                 'type' : 'geometry',
                 'role' : '2d'
             }, false);*/
-            /*var viewables1 = doc.getRoot().search({'type':'geometry'});
-            viewer.loadDocumentNode(doc, viewables1[6]);*/
+            var viewables1 = doc.getRoot().search({'type':'geometry'});
+            console.log('vistas del modelo', viewables1);
+            //viewer.loadDocumentNode(doc, viewables1[6]);
             var viewables = (viewableId ? doc.getRoot().findByGuid(viewableId) : doc.getRoot().getDefaultGeometry());
+            //setViewables([viewables1]);
+            actualViewables.current=[viewables1];
             //var items = doc.getRoot().find({ role: '3d', type: 'geometry' });
             /*var arrg = [];
             var selectedItems = [];
@@ -1207,21 +1212,101 @@ export const ViewerSc = () => {
             if (!viewerC.current) return;
             console.log('antes binded',viewerC.current);
             viewerC.current.addEventListener(Autodesk.Viewing.SELECTION_CHANGED_EVENT, onSelectionBinded);
+            viewerC.current.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, (e:any)=>{
+                console.log('*****Cambindo vista',e)
+                
+                
+                /*
+                
+                var instanceTree = e.model.getData().instanceTree;
+                var rootId = instanceTree.getRootId();
+                //var rootId = instanceTree.getNodeName(2839);
+                var indexinNames = instanceTree.nodeAccess.dbIdToIndex[2839];
+                var indexinStrings = instanceTree.nodeAccess.names[indexinNames];
+                
+                console.log('id of topology', indexinNames);
+                console.log('ids of topology', indexinStrings);
+                var alldbId:any = [];
+                if (!rootId) {
+                    return alldbId;
+                }
+                var queue:any = [];
+                queue.push(rootId);
+                while (queue.length > 0) {
+                    var node = queue.shift();
+                    alldbId.push(node);
+                    instanceTree.enumNodeChildren(node, function(childrenIds:any) {
+                        queue.push(childrenIds);
+                        viewerC.current.getProperties(childrenIds, (props:any) => {
+                            //console.log(props);
+                        });
+                    });
+                }
+                console.log('Alll',alldbId);
+
+
+
+                */
+
+
+            });
 
             viewerC.current.loadDocumentNode(doc, viewables).then( (i:any) => {
                 console.log('estas son las vistas', i);
                 //elementos = [];
-                viewerC.current.getObjectTree(function (objTree:any) {
+                
+                
+                
+                /*
+                    viewerC.current.getObjectTree(function (objTree:any) {
+                    console.log(objTree);
                     objTree.enumNodeChildren(
                         objTree.getRootId(),
                         function (dbId:any) {
+                            console.log(dbId);
+                            //var DBids = viewer.getSelection();                            
                             var objSelected = dbId;
-                            viewerC.current.getProperties(objSelected, (props:any) => {}
-                            )}   
-                        )}
-                        )
-                        }, true as any);
-                };
+                            viewerC.current.getProperties(objSelected, (props:any) => {console.log(props);})
+                        })
+                    })
+                
+                */
+
+
+                
+                
+                }, true);
+            };
+
+
+
+
+
+                
+
+                /*var instanceTree = viewerC.current.model.getData().instanceTree;
+                function getAlldbIds (rootId:any) {
+                    var alldbId:any = [];
+                    if (!rootId) {
+                        return alldbId;
+                    }
+                    var queue = [];
+                    queue.push(rootId);
+                    while (queue.length > 0) {
+                        var node = queue.shift();
+                        alldbId.push(node);
+                        instanceTree.enumNodeChildren(node, function(childrenIds:any) {
+                            queue.push(childrenIds);
+                        });
+                    }
+                    return alldbId;
+                }
+                
+                var rootId = instanceTree.getRootId();
+                const ll = getAlldbIds(rootId);
+                console.log('all dbids', ll)*/
+                
+                
             
                 //viewerC.current.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, PonerProps);
 

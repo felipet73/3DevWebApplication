@@ -79,9 +79,9 @@ interface DateFormat extends Window {
     format?: Function;
 }
 const TreeViewProject = () => {
-    const format = (value: Date) => {
+    /*const format = (value: Date) => {
         return instance.formatDate(value, { skeleton: "yMd", type: "date" });
-    };
+    };*/
 
     const actualProyect = useBimProjectsStore(store=> store.actualProject);
     const [tit, setTit]= React.useState('');

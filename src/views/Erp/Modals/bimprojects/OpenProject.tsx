@@ -5,7 +5,7 @@ import './draggable.css';
 import { GlobalContext } from '../../../../context/GlobalContext';
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
-import Loading from '../../../layouts/common/Loading';
+//import Loading from '../../../layouts/common/Loading';
 import TreeFileProjects from '../../../layouts/Applications/trees/TreeFileProjects';
 import { ProjectInterface, useBimProjectsStore } from '../../../../stores';
 interface Props {
@@ -33,9 +33,9 @@ const OpenProject = ({ status, setStatus }: Props) => {
 
     animationSettings = { effect: 'None' };
 
-    const buttonClick = (): void => {
+    /*const buttonClick = (): void => {
         setStatus(true);
-    }
+    }*/
 
     
     const selectProject = (): void => {

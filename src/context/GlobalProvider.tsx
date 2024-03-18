@@ -9,6 +9,9 @@ import { GlobalContext } from './GlobalContext';
 const INITIAL_STATE = {
     viewerC:{ current:null }
 }
+const INITIAL_STATE1 = {
+    actualViewables:{ current:[] }
+}
 
 
 interface Props {
@@ -18,10 +21,11 @@ interface Props {
 export const GlobalProvider = ({children}:Props) => {
 
     const viewerC = INITIAL_STATE;
+    const actualViewables = INITIAL_STATE1;
 
     return(
         <GlobalContext.Provider value={{
-            viewerC
+            viewerC, actualViewables
         }}>
             {children}
         </GlobalContext.Provider>

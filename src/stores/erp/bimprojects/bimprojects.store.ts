@@ -10,6 +10,9 @@ export interface ModelInterface{
     descripcion:string;
     image:string;
     urn:string;
+    main?:boolean;
+    open?:boolean;
+    defaultView?:string;
 }
 
 export interface ProjectInterface {
@@ -26,6 +29,8 @@ interface BimProjectsState {
     setProjects: (projects:ProjectInterface[]) => void;
     actualProject:ProjectInterface | null;
     setActualProject: (projects:ProjectInterface) => void;
+    viewables:any[];
+    setViewables: (viewables:any[]) => void;
 }
 
 export const useBimProjectsStore = create<BimProjectsState>()((set) => ({
@@ -33,4 +38,7 @@ export const useBimProjectsStore = create<BimProjectsState>()((set) => ({
     setProjects: (projects:ProjectInterface[]) => set({ projects:projects }),
     actualProject:null,
     setActualProject: (project:ProjectInterface) => set({ actualProject:project }),
+    viewables:[],
+    setViewables: (viewables:any[])  => set({ viewables:viewables }),
 }))
+

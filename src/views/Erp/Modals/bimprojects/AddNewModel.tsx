@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useContext } from 'react';
 import { DialogComponent, AnimationSettingsModel } from '@syncfusion/ej2-react-popups';
 import './draggable.css';
 import { GlobalContext } from '../../../../context/GlobalContext';
 import { TextBoxComponent } from '@syncfusion/ej2-react-inputs';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import Loading from '../../../layouts/common/Loading';
-import { useForm } from '../../../../customhooks/useForm';
 import Axios from '../../../../config/axios';
-import { ModelInterface, ProjectInterface, useBimProjectsStore } from '../../../../stores';
+import { ProjectInterface, useBimProjectsStore } from '../../../../stores';
+
 interface Props {
     selectedModel:React.MutableRefObject<any>;
     status: boolean;
@@ -19,7 +19,8 @@ interface Props {
 
 const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: Props) => {
 
-    const { viewerC } = React.useContext(GlobalContext);
+    
+    const { viewerC, actualViewables } = useContext( GlobalContext );
     const textareaObj = useRef<TextBoxComponent>(null);
     //const { formData, onChange } = useForm({});
     //const { name, description } = formData;
@@ -30,7 +31,11 @@ const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: 
 
     const actualProyect = useBimProjectsStore(store=> store.actualProject);
     const setActualProyect = useBimProjectsStore(store=> store.setActualProject);
-    
+    const setProjects = useBimProjectsStore(store => store.setProjects);
+    const projects = useBimProjectsStore(store => store.projects);
+    const viewables = useBimProjectsStore(store => store.viewables);
+    const setViewables = useBimProjectsStore(store => store.setViewables);
+
     const onChange = (e:any)=>{
         setName(e.target.value);
         name1.current=e.target.value;
@@ -51,18 +56,12 @@ const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: 
     const img1 = useRef<any>(null);
     animationSettings = { effect: 'None' };
 
-    const buttonClick = (): void => {
+    /*const buttonClick = (): void => {
         setStatus(true);
-    }
-    const dialogClose = (): void => {
-        setStatus(false);
-        //setDisplay('inline-block');
-    }
-    const dialogOpen = (): void => {
-        setStatus(true);
-        //setDisplay('none');
-    }
-
+    }*/
+    const dialogClose = (): void => {setStatus(false);}
+    const dialogOpen = (): void => {setStatus(true);}
+    
     useLayoutEffect(() => {
         if (loading){
             setTimeout(() => {
@@ -98,17 +97,108 @@ const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: 
         });
     }
     
+    /*const ObteinParent = (views:any) =>{        
+        if (views.parent.type==='folder')
+            ObteinParent(views.parent);
+        return views.parent.data.name;
+
+    }*/
+    function unflatten(items:any) {
+        var tree = [];
+        var mappedArr:any = {};
+            
+        // Build a hash table and map items to objects
+        items.forEach(function(item:any) {
+          var id = item.id;
+          if (!mappedArr.hasOwnProperty(id)) { // in case of duplicates
+            mappedArr[id] = item; // the extracted id as key, and the item as value
+            mappedArr[id].children = [];  // under each item, add a key "children" with an empty array as value
+          }
+        })
+        
+        // Loop over hash table
+        for (var id in mappedArr) { 
+          if (mappedArr.hasOwnProperty(id)) {
+            let mappedElem = mappedArr[id];
+            
+            // If the element is not at the root level, add it to its parent array of children. Note this will continue till we have only root level elements left
+            if (mappedElem.Parent) { 
+              var parentId = mappedElem.Parent;
+              mappedArr[parentId].children.push(mappedElem); 
+            }
+            
+            // If the element is at the root level, directly push to the tree
+            else { 
+              tree.push(mappedElem);
+            } 
+          }
+        }
+        
+        return tree;
+        
+      }
+      
+
+
+    const ObteinTreeViewable = (views:any):any =>{
+        let names:Object[]=[];
+        let tree:Object[]=[];
+        for (let i=0;i<views.length;i++){
+            names=[...names, {name:views[i]?.data.name, data:views[i]?.data, id:views[i]?.id, Parent:views[i].parent.id}];
+            let padre:any=views[i].parent;
+            while(padre){                
+                if (!tree.find( (x:any) => x.id===padre.id ))
+                    tree=[...tree, {name:padre?.data.name || padre?.data.type, data:padre?.data, id:padre?.id, Parent: padre?.parent?.id || ''}];
+                padre=padre?.parent;
+            }
+        }
+        console.log('Names',names);
+        console.log('parents',tree);
+        tree=[...tree,...names];
+        return tree;
+        //let treeDef:any=[];
+        
+        //var result:any = unflatten(tree);   
+        
+        
+        //console.log('result',result)
+        //return result;
+        //let root:any = tree.find( (x:any) => x.parentId==='' );
+        //treeDef[0]={name:root?.data?.type, data:root?.data, id:root?.id, parentId: ''};
+        //let childs:any=tree.filter( (x:any) => x.parentId===root?.id );
+
+        //while(child){
+            //if (!tree.find( (x:any) => x.id===padre.id ))
+                //tree=[...tree, {name:padre?.data.name, data:padre?.data, id:padre?.id, parentId: padre?.parent?.id || ''}];
+            //padre=padre?.parent;
+        //}
+    
+
+
+    }
+
 
     const saveModel= async ()=> {
         console.log(selectedModel)
+        
+        console.log(actualViewables.current);
+        let tree = ObteinTreeViewable(actualViewables.current[0]);
+        
+        //return;
         //console.log(img);
         //console.log(img1.current);
         console.log('name', name1.current)
         console.log('description', description1.current)
-        //return;
+        
         /*let formdata = new FormData();
         formdata.append('file',img1.current);
         console.log(formdata);*/
+        if (!actualProyect){
+            return;
+        }
+        if (name1.current===''){
+            return;
+        }
         
         const formdata = new FormData();
         formdata.append("file", dataURItoBlob(img1.current), "postman-cloud:///1eee0fa4-977f-4c30-b33d-e8784f5171fa");
@@ -126,20 +216,23 @@ const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: 
                 description:description1.current,
                 image:data?.fileName,
                 urn:selectedModel.current.id,
+                main:actualProyect?.models?.length===0 ? true:false,
+                open:true,
+                defaultView:'',
             }
 
             data = await Axios.post("models/", NewModel, {headers:{Authorization:`Bearer ${localStorage.getItem("Token3Dev")?.replaceAll('"','')}`}})
             console.log('Model', data.data);
             let NProy:any;
             let NProy1:any;
-            if (actualProyect && actualProyect?.models?.length>0){
+            if (actualProyect && actualProyect?.models?.length!>0){
                 NProy = {
                     ...actualProyect,
-                    models:[actualProyect?.models!.map((dt:any)=>dt.id)!,data.data.id]
+                    models:[...actualProyect?.models!.map((dt:any)=>dt.id)!,data.data.id]
                 }
                 NProy1 = {
                     ...actualProyect,
-                    models:[...actualProyect?.models,data.data]
+                    models:[...actualProyect?.models!,data.data]
                 }
     
             }else{
@@ -150,26 +243,18 @@ const AddNewModel = ({ selectedModel, status, setStatus, loading, setLoading }: 
                 NProy1 = {
                     ...actualProyect,
                     models:[data.data]
-                }
-
-
+                }                
             }
-
+            setViewables([...viewables,{ ModelId:data.data.id, Viewables: tree}]);
             data = await Axios.post("projects/update", NProy, {headers:{Authorization:`Bearer ${localStorage.getItem("Token3Dev")?.replaceAll('"','')}`}})
             console.log('Project update', data.data);
-
-
             setActualProyect(NProy1 as ProjectInterface);
-
+            setProjects([...projects.filter((st:any)=>st.id!==actualProyect?.id),NProy1] as ProjectInterface[]);
+            
         } catch (error) {
             console.log('Response error catch ', error);
         }
-        
-        
-
-
-
-
+        setStatus(false);
         /*const NewModel:ModelInterface={
             //id:string;
             name:name;
