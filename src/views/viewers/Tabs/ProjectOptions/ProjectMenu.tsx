@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { HeaderPosition, OverflowMode, TabComponent, TabItemDirective, TabItemsDirective } from '@syncfusion/ej2-react-navigations';
-import ViewerHome from './ViewerHome';
-import UsersHome from './Tabs/UsersHome';
-import ProjectMenu from './Tabs/ProjectOptions/ProjectMenu';
-import TableBadget2 from '../Erp/Tables/TableBadget2';
-import NewDocument from './Tabs/DocumentOptions/NewDocument';
+import ProjectTimeLine from './ProjectTimeLine';
+import ProjectDocResume from './ProjectDocResume';
+import ProjectInformation from './ProjectInformation';
 
-const ViewerMenu = () => {
+
+const ProjectMenu = () => {
 
     const [overflow, setOverflow] = useState<OverflowMode>("Scrollable");
     const [headerPlacement, setHeaderPlacement] = useState<HeaderPosition>("Top");
@@ -14,7 +13,7 @@ const ViewerMenu = () => {
     
     let headertext: any;
     // Mapping Tab items Header property
-    headertext = [{ text: "ModelWorkSpace" }, { text: "ProjectInformation" }, { text: "BudgetAndSchedulling" }, { text: "Documents" }, { text: "Users" }, { text: "Products&Specifications" }, { text: "Others" },
+    headertext = [{ text: "GeneralInformation" }, { text: "ExtendedInformation" }, { text: "TimeLine" }, { text: "DocResume" }, { text: "" }, { text: "" }, { text: "" },
     { text: "" }];
     return (
         <div className='control-pane'>
@@ -22,22 +21,22 @@ const ViewerMenu = () => {
                 <div className='col-lg-12 control-section'>
                     <div className='e-sample-resize-container'>
                         {/* Render the Tab Component */}
-                        <TabComponent cssClass='responsive-mode' heightAdjustMode='None' height='78vh' width='auto' overflowMode={overflow} headerPlacement={headerPlacement} > 
+                        <TabComponent cssClass='responsive-mode' heightAdjustMode='None' height='100%' width='auto' overflowMode={overflow} headerPlacement={headerPlacement} > 
                             <TabItemsDirective >
                                 <TabItemDirective header={headertext[0]}
-                                    content={ViewerHome} />
+                                    content={ProjectInformation} />
 
                                 <TabItemDirective header={headertext[1]}
-                                    content={ProjectMenu} />
+                                    content={'Project'} />
 
                                 <TabItemDirective header={headertext[2]}
-                                    content={TableBadget2} />
+                                    content={ProjectTimeLine} />
 
                                 <TabItemDirective header={headertext[3]}
-                                    content={NewDocument} />
+                                    content={ProjectDocResume} />
 
                                 <TabItemDirective header={headertext[4]}
-                                    content={UsersHome} />
+                                    content={''} />
 
                                 <TabItemDirective header={headertext[5]}
                                     content={'ASP.NET is an open-source server-side web application framework designed for web ' +
@@ -70,4 +69,4 @@ const ViewerMenu = () => {
         </div>
     );
 }
-export default ViewerMenu;
+export default ProjectMenu;

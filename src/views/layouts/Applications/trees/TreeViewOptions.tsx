@@ -21,6 +21,8 @@ import { encode as base64_encode} from 'base-64';
 import AddNewModel from '../../../Erp/Modals/bimprojects/AddNewModel';
 import NewProject from '../../../Erp/Modals/bimprojects/NewProject';
 import OpenProject from '../../../Erp/Modals/bimprojects/OpenProject';
+import { ChangeEventArgs } from '@syncfusion/ej2-react-dropdowns';
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 const TreeViewOptions = () => {
   
@@ -585,6 +587,32 @@ const TreeViewOptions = () => {
 
 
 
+  const modes: { [key: string]: Object }[] = [
+    { text: "Parent", value: "Parent" },
+    { text: "Child", value: "Child" },
+    { text: "Both", value: "Both" },
+    { text: "None", value: "None" },
+  ];
+
+  const onChange = (sel: ChangeEventArgs): void => {
+    let mode: any = sel.value.toString();
+    treegridObj.current?.search("");
+    treegridObj.current!.searchSettings.hierarchyMode = mode;
+  };
+
+  const toolbarOptions: any = [
+    "Search",
+    { text: "Option", tooltipText: "my option", id: "option" },
+  ];
+
+  const toolbarClick = (args: ClickEventArgs): void => {
+    if (args.item.id === "option") {
+      console.log('clieck enoption')
+      treegridObj.current?.filterByColumn("taskName", "startswith", "Testing");
+    }
+  };
+
+
 
   return (
     <div className="control-pane">
@@ -597,7 +625,7 @@ const TreeViewOptions = () => {
           ref={treegridObj}
           dataSource={tremodels}
           childMapping="children"
-          height="400"
+          height="370"
           allowReordering={true}
           allowFiltering={true}
           allowSorting={true}
@@ -608,7 +636,9 @@ const TreeViewOptions = () => {
           contextMenuItems={contextMenuItems}
           contextMenuOpen={contextMenuOpen.bind(this)}
           contextMenuClick={contextMenuClick.bind(this)}
-          
+          toolbar={toolbarOptions}
+          toolbarClick={toolbarClick.bind(this)}
+
           //treeColumnIndex={1}
         >
           <ColumnsDirective>

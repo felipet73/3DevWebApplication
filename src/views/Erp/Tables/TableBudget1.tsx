@@ -24,7 +24,7 @@ function TableBudget1() {
                     //ref={(ssObj:any) => { spreadsheet = ssObj }} created={onCreated.bind(this)} >
                     ref={(ssObj:any) => { spreadsheet = ssObj }} created={onCreated} >
                     <SheetsDirective>
-                        <SheetDirective name="Car Sales Report">
+                        <SheetDirective name="Budget">
                             <RangesDirective>
                                 <RangeDirective dataSource={defaultData}></RangeDirective>
                             </RangesDirective>

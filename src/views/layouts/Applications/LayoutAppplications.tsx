@@ -72,10 +72,7 @@ const LayoutAppplications = () => {
     const hPaneContent1 = () => {
         return (
             <div className="splitter-content">
-                
                 <SideOptions />
-                
-                
             </div>
         );
     };
@@ -84,9 +81,6 @@ const LayoutAppplications = () => {
         return (
             <div className="splitter-content">
                 <SideRightOptions />
-                
-                
-                
             </div>
         );
     };

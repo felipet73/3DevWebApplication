@@ -15,6 +15,7 @@ import './viewer.css'
 import { useViewerStore } from '../../stores/viewer/viewer.store';
 import $ from 'jquery';
 import { useBimProjectsStore, useGlobalStore } from '../../stores';
+import { useProjectsTreeStore } from '../../stores/erp/bimprojects/projecttree.store';
 //import * as TransformControls from 'three/examples/js/controls/TransformControls.js';
 
 
@@ -703,6 +704,11 @@ export const ViewerSc = () => {
 
     const token = useGlobalStore(store => store.token);
     const urn = useGlobalStore(store => store.urn);
+    const setActualProperties = useBimProjectsStore(store => store.setActualProperties);
+    const auxTree:any = React.useRef([]);
+    //const setProjectTree = useProjectsTreeStore(store => store.setProjectTree)
+    const charged = useProjectsTreeStore(store => store.charged)
+    const setCharged = useProjectsTreeStore(store => store.setCharged)    
     //const setViewer = useGlobalStore(store => store.setViewer);
 
    // const [loadViewerLibrary, setLoadViewerLibrary] = useState(false);
@@ -1139,6 +1145,7 @@ export const ViewerSc = () => {
             viewerC.current?.loadExtension('Autodesk.Viewing.SceneBuilder');
             viewerC.current?.loadExtension('MenuContextual');
             viewerC.current?.loadExtension('Autodesk.DataVisualization');
+            viewerC.current?.loadExtension("Autodesk.AEC.LevelsExtension");
             
             if (selectedTheme==='material3-dark'){
                 viewerC.current?.setTheme('dark-theme');
@@ -1180,7 +1187,6 @@ export const ViewerSc = () => {
 
 
 
-
         function onDocumentLoadSuccess(doc:any) {
             // if a viewableId was specified, load that view, otherwise the default view
 
@@ -1215,6 +1221,90 @@ export const ViewerSc = () => {
             viewerC.current.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, (e:any)=>{
                 console.log('*****Cambindo vista',e)
                 
+                setCharged(!charged);
+                /*const ObteinData = (async ()=>{
+                    auxTree.current=[];
+                    viewerC.current?.getObjectTree(function (objTree:any) {
+                      //console.log(objTree);
+                      objTree.enumNodeChildren(
+                          objTree.getRootId(),
+                          function (dbId:any) {
+                              var objSelected = dbId;
+                              
+                              viewerC.current.getProperties(objSelected, (props:any) => {
+                                //console.log(props);
+                                var it = viewerC.current.model.getData().instanceTree;
+                                let hijos = props.properties.filter((data:any)=>data.displayName==='child').map((data:any)=>{
+                                  var nodeFinalName = it.getNodeName(data.displayValue)
+                                  //if (nodeFinalName==='') return;
+                                  //if (nodeFinalName?.includes('ANALY')) return;
+                                  return ({
+                                    id:data.displayValue,
+                                    name:nodeFinalName,
+                                    type:'family',
+                                    expanded:false,
+                                    children:[]
+                                  })
+                                });
+                                //console.log('hijos', hijos);
+                                auxTree.current=[...auxTree.current,{id:props.dbId,name:props.name, type:'category' , expanded:false, children:[]}]
+                              })
+                          })
+                      })      
+                      setTimeout(() => {
+                        var it = viewerC.current.model.getData().instanceTree;
+                        for (let i=0;i<auxTree.current.length;i++)
+                          for (let j=0;j<auxTree.current[i].children.length;j++){
+                            let prophijos:any=[];
+                            const ObteinProps1=(props1:any) => {
+                              //console.log(props1)  
+                              prophijos = props1.properties.filter((data1:any)=>data1.displayName==='child').map((data1:any)=>{
+                                var nodeFinalName1 = it.getNodeName(data1.displayValue)                  
+                                //if (nodeFinalName1==='') return;
+                                //if (nodeFinalName1?.includes('ANALY')) return;
+                                return ({
+                                  id:data1.displayValue,
+                                  name:nodeFinalName1,
+                                  type:'type',
+                                  expanded:false,
+                                  children:[]
+                                })
+                              });
+                              auxTree.current[i].children[j].children=prophijos;
+                            }
+                            viewerC.current.getProperties(auxTree.current[i].children[j].id, ObteinProps1);
+                          }
+              
+                        setTimeout(() => {
+                          var it = viewerC.current.model.getData().instanceTree;
+                          for (let i=0;i<auxTree.current.length;i++)
+                            for (let j=0;j<auxTree.current[i].children.length;j++)
+                              for (let k=0;k<auxTree.current[i].children[j].children.length;k++){  
+                              let prophijos:any=[];
+                              const ObteinProps1=(props1:any) => {
+                                prophijos = props1.properties.filter((data1:any)=>data1.displayName==='child').map((data1:any)=>{
+                                  var nodeFinalName1 = it.getNodeName(data1.displayValue)
+                                  //if (nodeFinalName1==='') return;
+                                  //if (nodeFinalName1?.includes('ANALY')) return;  
+                                  return ({
+                                    id:data1.displayValue,
+                                    name:nodeFinalName1,
+                                    type:'element',
+                                    expanded:false,
+                                    children:[]
+                                  })
+                                });
+                                //console.log(prophijos)
+                                auxTree.current[i].children[j].children[k].children=prophijos;
+                              }
+                              viewerC.current.getProperties(auxTree.current[i].children[j].children[k].id, ObteinProps1);
+                            }
+                            setTimeout(() => {
+                              setProjectTree(auxTree.current);
+                            }, 1300);
+                        }, 1300);
+                      }, 1300);
+                  })();*/
                 
                 /*
                 
@@ -1430,7 +1520,23 @@ export const ViewerSc = () => {
 
             //console.log('Estas son las props');
             var uniqueIds = [];
-            var DBids = viewerC.current!.getSelection();
+            var DBids = viewerC.current!.getSelection();            
+            // Use the model's getPropertySet to get the PropertySet instance for the specified dbIds
+            //const propSet = viewerC.current!.model.getPropertySet(DBids);
+               // iterate, aggregate, etc
+               //console.log('selection', DBids);
+               //console.log('properties', propSet);
+            
+
+            /*const obtener = ((props:any)=>{
+                console.log('estas son las propiedades', props);
+                //return (props);
+                //data.push(props)
+                data.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
+            })
+            
+            viewerC.current!.getProperties(objSelected, obtener);*/
+
             //setSeleccionaE1(DBids);
             /*const obj={
     DataA:[{Name:'Nombre2', dbId:'0101'},{Name:'Nombre3', dbId:'0105'}],
@@ -1450,45 +1556,73 @@ export const ViewerSc = () => {
 
             var n = 0;
             const data:any = [];
-            for (var uniqueId of DBids) {
-                var objSelected = viewerC.current!.getSelection()[n];
-                n = n + 1;
-                //const el = proyects.DataElementos?.find(x=>x.Id===objSelected);
-                //console.log('elementoss', proyects?.DataElementos);
-                //console.log('elemento', el);
-                //const elems=[];
-                
-                /*viewerC.current!.getProperties(objSelected, (props:any) => {
-                    uniqueIds.push(props.externalId);
-                    if (n == DBids.length) {
-                        //callbackObj.showMessage(uniqueIds);
-                        //callbackObj.returnex(uniqueIds);
-                        //alert(uniqueIds);
-                        console.log(props);
-                        //9c9538fd-af40-4b3d-bd89-f8e4acac1fd8-000525ae
-                    }
-                })*/
-                /*viewerC.current!.getProperties(objSelected, (props:any)=>{
-                    //array = [...array, {Name:`${props.dbId}-${props.name}`, dbId:props.dbId}];
-                    array.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
-                    obtener([{Name:`${props.dbId}-${props.name}`, dbId:props.dbId}],array );
-                });*/
-                
+
+            if (DBids.length===1){
                 const obtener = ((props:any)=>{
-                    //console.log('estas son las propiedades', props);
-                    //return (props);
-                    //data.push(props)
+                    console.log('estas son las propiedades', props);
+                    setActualProperties(props.properties);
                     data.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
                 })
+                viewerC.current!.getProperties(DBids[0], obtener);
+            }
+            else{
+
+                const obtener2 = ((props:any)=>{
+                    console.log('estas son las propiedades', props);
+                    //setActualProperties(props.properties);
+                    //return (props);
+                    //data.push(props)
+                    
+                })
                 
-                viewerC.current!.getProperties(objSelected, obtener);
-                
-                
+                viewerC.current.model.getPropertySet(DBids, obtener2);
+
+                //viewerC.current!.getBulkProperties(dbIds, onSuccessCallback, onErrorCallback)
+
+
+                for (var uniqueId of DBids) {
+                    var objSelected = viewerC.current!.getSelection()[n];
+                    n = n + 1;
+                    //const el = proyects.DataElementos?.find(x=>x.Id===objSelected);
+                    //console.log('elementoss', proyects?.DataElementos);
+                    //console.log('elemento', el);
+                    //const elems=[];
+                    
+                    /*viewerC.current!.getProperties(objSelected, (props:any) => {
+                        uniqueIds.push(props.externalId);
+                        if (n == DBids.length) {
+                            //callbackObj.showMessage(uniqueIds);
+                            //callbackObj.returnex(uniqueIds);
+                            //alert(uniqueIds);
+                            console.log(props);
+                            //9c9538fd-af40-4b3d-bd89-f8e4acac1fd8-000525ae
+                        }
+                    })*/
+                    /*viewerC.current!.getProperties(objSelected, (props:any)=>{
+                        //array = [...array, {Name:`${props.dbId}-${props.name}`, dbId:props.dbId}];
+                        array.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
+                        obtener([{Name:`${props.dbId}-${props.name}`, dbId:props.dbId}],array );
+                    });*/
+                    
+                    const obtener = ((props:any)=>{
+                        //console.log('estas son las propiedades', props);
+
+
+                        //setActualProperties(props.properties);
+                        //return (props);
+                        //data.push(props)
+                        data.push({Name:`${props.dbId}-${props.name}`, dbId:props.dbId})
+                    })
+                    
+                    viewerC.current!.getProperties(objSelected, obtener);
+                }
 
             }
+            
             setTimeout(async() => {
-                console.log('estas son las propiedades', await data);
+                //console.log('estas son las propiedades', await data);
                 setSelectedItems({ DataModel:await data, DataList:[] });
+                
             }, 600);
 
 

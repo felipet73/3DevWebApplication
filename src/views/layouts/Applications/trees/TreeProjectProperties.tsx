@@ -5,7 +5,6 @@ import { TreeGridComponent, ColumnsDirective, ColumnDirective, Selection, Filter
 import { IFilter } from '@syncfusion/ej2-react-grids';
 import { ContextMenuItemModel, EditSettingsModel } from '@syncfusion/ej2-react-grids';
 import './icons.css';
-import { getValue } from '@syncfusion/ej2-base';
 import { MenuEventArgs } from '@syncfusion/ej2-react-navigations'
 import { BeforeOpenCloseEventArgs } from '@syncfusion/ej2-react-inputs';
 import { useGlobalStore } from '../../../../stores';
@@ -15,12 +14,8 @@ import AddNewModel from '../../../Erp/Modals/bimprojects/AddNewModel';
 import NewProject from '../../../Erp/Modals/bimprojects/NewProject';
 import OpenProject from '../../../Erp/Modals/bimprojects/OpenProject';
 import { GlobalContext } from '../../../../context/GlobalContext';
-import { useProjectsTreeStore, ElementInterface } from '../../../../stores/erp/bimprojects/projecttree.store';
 
-
-
-
-const TreeProjectModel = () => {
+const TreeProjectProperties = () => {
   
   const { viewerC } = React.useContext( GlobalContext );
 
@@ -31,8 +26,8 @@ const TreeProjectModel = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
     const selectedModel = useRef<any>(null);
-    //const selectedMenu = useGlobalStore(state => state.selectedMenu);
-    //const setSelectedMenu = useGlobalStore(state => state.setSelectedMenu);
+    const selectedMenu = useGlobalStore(state => state.selectedMenu);
+    const setSelectedMenu = useGlobalStore(state => state.setSelectedMenu);
     const [status1, setStatus1] = React.useState<boolean>(false);
     const [loading1, setLoading1] = React.useState<boolean>(true);
 
@@ -97,14 +92,8 @@ const TreeProjectModel = () => {
 
           }}></DropDownButtonComponent>
           }
-
-          
-          
-          
-
+        </div>
         
-        
-    </div>        
 
       </div>
       </>
@@ -136,8 +125,8 @@ const TreeProjectModel = () => {
   const contextMenuOpen = (args: BeforeOpenCloseEventArgs): void => {
     //alert()
     let elem: Element = args.event.target as Element;
-    //let row: Element = elem.closest(".e-row")!;
-    //let uid: string = row && row.getAttribute("data-uid")!;
+    let row: Element = elem.closest(".e-row")!;
+    let uid: string = row && row.getAttribute("data-uid")!;
     let items: NodeListOf<Element> = document.querySelectorAll(".e-menu-item");
     for (let i: number = 0; i < items.length; i++) {
       items.item(i).setAttribute("style", "display: block;");
@@ -207,130 +196,124 @@ const TreeProjectModel = () => {
   //const {access_token:token}:tokenInterface = useGlobalStore(state => state.token);
   //const setToken = useGlobalStore(state => state.setToken);
  
-  const [ treProject, setTreProject] = React.useState<ElementInterface[] | []>([]);
-  
+
+	
+
+
+ 
+
+  const [ treProject, setTreProject] = React.useState([]);
   const auxTree:any = React.useRef([]);
-  const charged = useProjectsTreeStore(store => store.charged)
-  //const projectTree = useProjectsTreeStore(store => store.projectTree)
-
+ 
 	useEffect(	() => {
-    //repTree.current = [...projectTree];
-    //let auxTree:any=[];
-    //console.log('ProjectTree desde TREE1',projectTree);
-    /*let respTree = [...projectTree];
-    auxTree=[ ...respTree.filter((x:any) => (x.nane!=='' && !(x.nane?.toUpperCase()?.includes('ANALY'))) )];
-    for (let i=0;i<auxTree.length;i++){
-      auxTree[i].children=[{id:'1',name:'----', type:'element'}];
-    }*/
-
-    /*setTimeout(() => {
-      //console.log('aplicando', auxTree);
-      //setTreProject(auxTree);  
-      setTreProject(projectTree);  
-      setTimeout(() => {
-        treegridObj.current?.collapseAll(); 
-      }, 600);
-    }, 600);    */
+    
+    
+  
+    
+    
     const ObteinData = (async ()=>{
-      auxTree.current=[];
+
       viewerC.current?.getObjectTree(function (objTree:any) {
-        //console.log(objTree);
+        console.log(objTree);
         objTree.enumNodeChildren(
             objTree.getRootId(),
             function (dbId:any) {
+                //console.log(dbId);
+                //var DBids = viewer.getSelection();                            
                 var objSelected = dbId;
-                viewerC.current.getProperties(objSelected, (props:any) => {
-                  //console.log(props);
-                  if (!props.name.includes('Analyti')){
-                    var it = viewerC.current.model.getData().instanceTree;
-                    let hijos = props.properties.filter((data:any)=>data.displayName==='child').map((data:any)=>{
-                      var nodeFinalName = it.getNodeName(data.displayValue)
-                      //if (nodeFinalName==='') return;
-                      //if (nodeFinalName?.includes('ANALY')) return;
-                      return ({
-                        id:data.displayValue,
-                        name:nodeFinalName,
-                        type:'family',
-                        expanded:false,
-                        children:[]
-                      })
-                    }) ;
-                    console.log('hijos', hijos);
-                    auxTree.current=[...auxTree.current,{id:props.dbId,name:props.name, type:'category' , expanded:false, children:hijos.filter((x:any)=>x.name)}]
-  
-                  }
-                })
+
+                const ObteinProps=(props:any) => {
+                  console.log(props);
+                  var it = viewerC.current.model.getData().instanceTree;
+                  let hijos = props.properties.filter((data:any)=>data.displayName==='child').map((data:any)=>{
+
+                    var nodeFinalName = it.getNodeName(data.displayValue)
+                    
+                    /*let hijos1:any=[];
+                    viewerC.current.getProperties(data.displayValue, (props1:any) => {
+                      hijos1 = props1.properties.filter((data1:any)=>data1.displayName==='child').map((data1:any)=>{
+                        var nodeFinalName1 = it.getNodeName(data1.displayValue)
+                        //console.log('name', nodeFinalName);
+                        return ({
+                          id:data1.displayValue,
+                          name:nodeFinalName1,
+                          type:'folders',
+                          children:[]
+                        })
+                      });
+                    });*/
+                    /*viewerC.current.model.getPropertySet([6360,2842])?.then((propSet:any) => {
+                      console.log(propSet);
+                      // iterate, aggregate, etc
+                    });*/
+                    
+                    //console.log('name', viewerC.current.model.getPropertySet([6360,2842]));
+                    //console.log('name', nodeFinalName);
+                    //console.log(prophijos)
+                    return ({
+                      id:data.displayValue,
+                      name:nodeFinalName,
+                      type:'family',
+                      children:[]
+                    })
+                  }) ;
+                  console.log('hijos', hijos);
+                  auxTree.current=[...auxTree.current,{id:props.dbId,name:props.name, type:'category' ,children:hijos}]
+                }
+
+                viewerC.current.getProperties(objSelected, ObteinProps);
             })
         })      
         setTimeout(() => {
+          
+          //auxTree.current=[...auxTree.current,{id:props.dbId,name:props.name, type:'folders' ,children:hijos}]
+          console.log(auxTree.current);
           var it = viewerC.current.model.getData().instanceTree;
           for (let i=0;i<auxTree.current.length;i++)
             for (let j=0;j<auxTree.current[i].children.length;j++){
+
               let prophijos:any=[];
               const ObteinProps1=(props1:any) => {
                 console.log(props1)  
                 prophijos = props1.properties.filter((data1:any)=>data1.displayName==='child').map((data1:any)=>{
                   var nodeFinalName1 = it.getNodeName(data1.displayValue)                  
-                  //if (nodeFinalName1==='') return;
-                  //if (nodeFinalName1?.includes('ANALY')) return;
                   return ({
                     id:data1.displayValue,
                     name:nodeFinalName1,
                     type:'type',
-                    expanded:false,
                     children:[]
                   })
                 });
-                auxTree.current[i].children[j].children=prophijos.filter((x:any)=>x.name);
+                console.log(prophijos)
+                auxTree.current[i].children[j].children=prophijos;
+                  
               }
+   
               viewerC.current.getProperties(auxTree.current[i].children[j].id, ObteinProps1);
             }
 
           setTimeout(() => {
-            
-            
-            var it = viewerC.current.model.getData().instanceTree;
-            for (let i=0;i<auxTree.current.length;i++)
-              for (let j=0;j<auxTree.current[i].children.length;j++)
-                for (let k=0;k<auxTree.current[i].children[j].children.length;k++){  
-                let prophijos:any=[];
-                const ObteinProps1=(props1:any) => {
-                  prophijos = props1.properties.filter((data1:any)=>data1.displayName==='child').map((data1:any)=>{
-                    var nodeFinalName1 = it.getNodeName(data1.displayValue)
-                    //if (nodeFinalName1==='') return;
-                    //if (nodeFinalName1?.includes('ANALY')) return;  
-                    return ({
-                      id:data1.displayValue,
-                      name:nodeFinalName1,
-                      type:'element',
-                      expanded:false,
-                      children:[]
-                    })
-                  });
-                  console.log(prophijos)
-                  auxTree.current[i].children[j].children[k].children=prophijos.filter((x:any)=>x.name);
-                }
-                viewerC.current.getProperties(auxTree.current[i].children[j].children[k].id, ObteinProps1);
-              }
+            setTreProject(auxTree.current);    
+            setTimeout(() => {
+              treegridObj.current?.collapseAll();  
+            }, 600);
+
+          }, 300);
+          
 
 
 
-              setTimeout(() => {
-                setTreProject(auxTree.current);
-              }, 1300);
-          }, 1300);
-        }, 1300);
+        }, 800);
+        
     })();
-
-	}, [charged])
-
-
+		//setIndicaRecarga(false);
+	}, [])
 
 
 
 
 
-  //useEffect(() => {
+  useEffect(() => {
     /*if (selectedMenu==='NewProject') {
       setStatus1(true)
       setSelectedMenu('');
@@ -340,7 +323,7 @@ const TreeProjectModel = () => {
       setSelectedMenu('');
     }*/
     
-  //}, [selectedMenu])
+  }, [selectedMenu])
 
 
 
@@ -351,7 +334,8 @@ const TreeProjectModel = () => {
       {status1 && <NewProject status={status1} setStatus={setStatus1} loading={loading1} setLoading={setLoading1}/>}
       {status2 && <OpenProject status={status2} setStatus={setStatus2} />}
       <div className="control-section">
-          <TreeGridComponent
+        
+        <TreeGridComponent
           ref={treegridObj}
           dataSource={treProject}
           childMapping="children"
@@ -366,50 +350,19 @@ const TreeProjectModel = () => {
           contextMenuItems={contextMenuItems}
           contextMenuOpen={contextMenuOpen.bind(this)}
           contextMenuClick={contextMenuClick.bind(this)}
-          //selectedRowIndex={8}
-          //onClick={(e:any)=>{console.log(e)}}
           rowSelected={(e:any)=>{
             console.log(e)
-            viewerC.current?.isolate(e.data.id);
-            viewerC.current?.fitToView(e.data.id);
             viewerC.current?.select(e.data.id);
-            
-            /*setTimeout(() => {
-              const selection= viewerC.current.getSelection();
-              console.log('Seleccion en Tree',selection);
-                
-            }, 800);*/
-
-          }}
-          expanded={(e:any)=>{
-            console.log(e)
-            
-            
-            //console.log(repTree.current)
-            if (e.data.type==='category'){
-              /*if (e.data?.children[0].name==='----'){
-                const ele = projectTree.find((x:any) => (x.id===e.data.id));
-                console.log(ele)
-                let elems:any = [...ele?.children?.filter((x:any) => (x.name!==''))!];
-                console.log(elems)
-                for (let i=0;i<elems.length;i++){
-                  elems[i].children=[{id:'1',name:'----', type:'element'}];
-                }
-                e.data.chidren=elems;
-               
-              }*/
-            }
-            if (e.data.type==='family' || e.data.type==='type'){
-
-            }
+            viewerC.current?.fitToView(e.data.id);  
             
           }}
+
           //treeColumnIndex={1}
         >
           <ColumnsDirective>
             <ColumnDirective
               field="name"
-              headerText="Tree model"
+              headerText="Properties"
               width="195"
               template={flagtemplate}
               filter={provinceFilter}
@@ -422,4 +375,4 @@ const TreeProjectModel = () => {
     </div>
   );
 }
-export default TreeProjectModel;
+export default TreeProjectProperties;

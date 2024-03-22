@@ -31,6 +31,8 @@ interface BimProjectsState {
     setActualProject: (projects:ProjectInterface) => void;
     viewables:any[];
     setViewables: (viewables:any[]) => void;
+    actualProperties:any;
+    setActualProperties: (actualProperties:any) => void;
 }
 
 export const useBimProjectsStore = create<BimProjectsState>()((set) => ({
@@ -40,5 +42,8 @@ export const useBimProjectsStore = create<BimProjectsState>()((set) => ({
     setActualProject: (project:ProjectInterface) => set({ actualProject:project }),
     viewables:[],
     setViewables: (viewables:any[])  => set({ viewables:viewables }),
+    actualProperties:[],
+    setActualProperties: (actualProperties:any[])  => set({ actualProperties:actualProperties }),
+
 }))
 

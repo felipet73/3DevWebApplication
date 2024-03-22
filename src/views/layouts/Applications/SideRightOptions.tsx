@@ -8,30 +8,41 @@ import ListItems1 from './Lists/ListItems1';
 import DropDown from './Lists/DropDown';
 import Bstadistics1 from '../../Erp/Graphics/stadistics/Bstadistics1';
 import DragAndDrop from './Lists/ListsDragDrop';
+import GenericSideMenu, { OptionsMenuInterface } from '../SideMenus/GenericSideMenu';
+import TreeProperties from './trees/TreeProperties';
 
 const SideRightOptions = () => {
 
-    const acrdnHeader1 = () => {
-      return (
-        <div>Resources</div>
-      )
+
+  const [menuOpcOptionsProperties, setMenuOpcOptionsProperties] = React.useState<OptionsMenuInterface[]>([
+    { headertext:'ProjectTree',content:TreeProperties},
+    {headertext:'ListProperties',content:'Listproperties'},      
+  ]);
+
+
+
+    const acrdnHeader1 = () => (<div>Properties</div>)
+    const acrdnHeader2 = () => (<div>Resources</div>)
+    const acrdnHeader3 = () => (<div>Stadistics</div>)
+    const acrdnHeader4 = () => (<div>Elements</div>)
+    const acrdnHeader5 = () => (<div>Other</div>)
+    
+    const properties = () => {
+      return(              
+        <div id="properties" >
+        <GenericSideMenu options={menuOpcOptionsProperties}/>
+        {/* <TreePropertiesMenu/> */}
+          {/* <li><span className='e-acrdn-icons e-content-icon marathon'></span>Marathon</li>
+          <li><span className='e-acrdn-icons e-content-icon javelin'></span>Javelin Throw</li>
+          <li><span className='e-acrdn-icons e-content-icon discus'></span>Discus Throw</li>
+          <li><span className='e-acrdn-icons e-content-icon highjump'></span>High Jump</li>
+          <li><span className='e-acrdn-icons e-content-icon longjump'></span>Long Jump</li>   */}
+        </div>        
+      );
     }
-    const acrdnHeader2 = () => {
-      return (
-        <div>Stadistics</div>
-      )
-    }
-    const acrdnHeader3 = () => {
-      return (
-        <div>Elements</div>
-      )
-    }
-    const acrdnHeader4 = () => {
-      return (
-        <div>Other</div>
-      )
-    }
-    const athletics = () => {
+
+
+    const resources = () => {
       return(              
         <div id="resources" >
         
@@ -82,10 +93,11 @@ const SideRightOptions = () => {
             {/* Render the Accoridon Component */}
             <AccordionComponent>
               <AccordionItemsDirective>
-                <AccordionItemDirective header= {acrdnHeader1} iconCss='e-athletics e-acrdn-icons' content={ athletics } expanded={true} />
-                <AccordionItemDirective header= {acrdnHeader2} iconCss='e-water-game e-acrdn-icons' content={ water_games } />
-                <AccordionItemDirective header= {acrdnHeader3} iconCss='e-racing-games e-acrdn-icons'content={ racing_games } />
-                <AccordionItemDirective header= {acrdnHeader4} iconCss='e-indoor-games e-acrdn-icons' content={ indoor_games } />
+                <AccordionItemDirective header= {acrdnHeader1} iconCss='e-athletics e-acrdn-icons' content={ properties } expanded={true} />
+                <AccordionItemDirective header= {acrdnHeader2} iconCss='e-athletics e-acrdn-icons' content={ resources } expanded={true} />
+                <AccordionItemDirective header= {acrdnHeader3} iconCss='e-water-game e-acrdn-icons' content={ water_games } />
+                <AccordionItemDirective header= {acrdnHeader4} iconCss='e-racing-games e-acrdn-icons'content={ racing_games } />
+                <AccordionItemDirective header= {acrdnHeader5} iconCss='e-indoor-games e-acrdn-icons' content={ indoor_games } />
               </AccordionItemsDirective>
             </AccordionComponent>
           </div>
